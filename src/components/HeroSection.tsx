@@ -24,7 +24,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
     : '/wix-assets/images/tal-photos/VV9A8369%20copy_edited.jpg'
 
   return (
-    <section className="relative overflow-hidden min-h-[92vh] flex items-center">
+    <section className="relative overflow-hidden min-h-[92vh] flex items-center bg-[#fff2d4]">
       {/* Bokeh particle layer */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[8%]  left-[15%]  w-72  h-72  bg-[#e6c060]/18 rounded-full blur-3xl" />
@@ -62,7 +62,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
         {/* Text — RIGHT */}
         <div className="text-right">
           <m.h1
-            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight mb-5 tracking-tight"
+            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-[#1a0f08] leading-tight mb-5 tracking-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
@@ -72,7 +72,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
 
           {subheadline && (
             <m.p
-              className="text-xl md:text-2xl text-[#e6c060] font-medium mb-4"
+              className="text-xl md:text-2xl text-[#b07830] font-medium mb-4"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -83,7 +83,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
 
           {bodyText && (
             <m.p
-              className="text-[#d4b896] text-lg leading-relaxed mb-10 max-w-lg mr-0 ml-auto md:ml-0"
+              className="text-[#4f3a2a] text-lg leading-relaxed mb-10 max-w-lg mr-0 ml-auto md:ml-0"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.45 }}

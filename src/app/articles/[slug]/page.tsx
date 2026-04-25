@@ -9,7 +9,8 @@ interface Props { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
   const posts = await fetchBlogPosts().catch(() => [])
-  return posts.map((p: any) => ({ slug: p.slug }))
+  const params = posts.map((p: any) => ({ slug: p.slug }))
+  return params.length > 0 ? params : [{ slug: '__placeholder__' }]
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

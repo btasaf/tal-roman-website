@@ -207,10 +207,10 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
             <div style={gridStyle}>
 
               {/* Layer 1 — cols 1 + 5 */}
-              <m.div style={{ ...layerBase, opacity: l1Opacity, scale: l1Scale }}>
+              <m.div style={{ ...layerBase, opacity: l1Opacity, scale: l1Scale, pointerEvents: 'none' }}>
                 {L1_CELLS.map(({ col, row, idx }) =>
                   l1Cards[idx] ? (
-                    <div key={`l1-${idx}`} style={{ gridColumn: col, gridRow: row }}>
+                    <div key={`l1-${idx}`} style={{ gridColumn: col, gridRow: row, pointerEvents: 'auto' }}>
                       <GridCard item={l1Cards[idx]!} />
                     </div>
                   ) : null
@@ -218,10 +218,10 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
               </m.div>
 
               {/* Layer 2 — cols 2 + 4 */}
-              <m.div style={{ ...layerBase, opacity: l2Opacity, scale: l2Scale }}>
+              <m.div style={{ ...layerBase, opacity: l2Opacity, scale: l2Scale, pointerEvents: 'none' }}>
                 {L2_CELLS.map(({ col, row, idx }) =>
                   l2Cards[idx] ? (
-                    <div key={`l2-${idx}`} style={{ gridColumn: col, gridRow: row }}>
+                    <div key={`l2-${idx}`} style={{ gridColumn: col, gridRow: row, pointerEvents: 'auto' }}>
                       <GridCard item={l2Cards[idx]!} />
                     </div>
                   ) : null
@@ -229,14 +229,14 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
               </m.div>
 
               {/* Layer 3 — col 3, rows 1 + 3 */}
-              <m.div style={{ ...layerBase, opacity: l3Opacity, scale: l3Scale }}>
+              <m.div style={{ ...layerBase, opacity: l3Opacity, scale: l3Scale, pointerEvents: 'none' }}>
                 {l3Cards[0] && (
-                  <div style={{ gridColumn: 3, gridRow: 1 }}>
+                  <div style={{ gridColumn: 3, gridRow: 1, pointerEvents: 'auto' }}>
                     <GridCard item={l3Cards[0]} />
                   </div>
                 )}
                 {l3Cards[1] && (
-                  <div style={{ gridColumn: 3, gridRow: 3 }}>
+                  <div style={{ gridColumn: 3, gridRow: 3, pointerEvents: 'auto' }}>
                     <GridCard item={l3Cards[1]} />
                   </div>
                 )}
