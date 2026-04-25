@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "studio": "cmd.exe /c start https://tal-roman.sanity.studio/",
-    "prod-website": "cmd.exe /c start http://tal-roman-website.s3-website-eu-west-1.amazonaws.com/",
+    "prod-website": "cmd.exe /c start https://tal-roman-website.vercel.app/",
+    "prod-website__old": "cmd.exe /c start http://tal-roman-website.s3-website-eu-west-1.amazonaws.com/",
     "download-images": "npx ts-node --esm scripts/download-wix-images.ts"
   },
   "dependencies": {
