@@ -1,5 +1,7 @@
 import { client } from '@/sanity/client'
 
+const revalidate = { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } }
+
 export const coursesQuery = `*[_type == "course"] | order(order asc) {
   title, "slug": slug.current, shortDescription, description,
   thumbnail, price, purchaseUrl, type, featured, order
@@ -50,37 +52,37 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
 }`
 
 export async function fetchHomepageSection() {
-  return client.fetch(homepageSectionQuery, {}, { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } })
+  return client.fetch(homepageSectionQuery, {}, revalidate)
 }
 
 export async function fetchCourses() {
-  return client.fetch(coursesQuery, {}, { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } })
+  return client.fetch(coursesQuery, {}, revalidate)
 }
 
 export async function fetchCourseBySlug(slug: string) {
-  return client.fetch(courseBySlugQuery, { slug }, { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } })
+  return client.fetch(courseBySlugQuery, { slug }, revalidate)
 }
 
 export async function fetchTestimonials() {
-  return client.fetch(testimonialsQuery, {}, { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } })
+  return client.fetch(testimonialsQuery, {}, revalidate)
 }
 
 export async function fetchBlogPosts() {
-  return client.fetch(blogPostsQuery, {}, { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } })
+  return client.fetch(blogPostsQuery, {}, revalidate)
 }
 
 export async function fetchBlogPostBySlug(slug: string) {
-  return client.fetch(blogPostBySlugQuery, { slug }, { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } })
+  return client.fetch(blogPostBySlugQuery, { slug }, revalidate)
 }
 
 export async function fetchMediaMentions() {
-  return client.fetch(mediaMentionsQuery, {}, { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } })
+  return client.fetch(mediaMentionsQuery, {}, revalidate)
 }
 
 export async function fetchFreeGifts() {
-  return client.fetch(freeGiftsQuery, {}, { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } })
+  return client.fetch(freeGiftsQuery, {}, revalidate)
 }
 
 export async function fetchSiteSettings() {
-  return client.fetch(siteSettingsQuery, {}, { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } })
+  return client.fetch(siteSettingsQuery, {}, revalidate)
 }

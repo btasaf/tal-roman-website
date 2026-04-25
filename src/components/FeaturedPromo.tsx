@@ -2,7 +2,9 @@
 
 import { m } from 'framer-motion'
 import Image from 'next/image'
-import { urlFor } from '@/sanity/client'
+import { getImageUrl } from '@/lib/image-utils'
+import { fadeInLeft, fadeInRight } from '@/lib/animations'
+import CTAButton from '@/components/ui/CTAButton'
 
 interface FeaturedPromoProps {
   title: string
@@ -13,19 +15,12 @@ interface FeaturedPromoProps {
 }
 
 export default function FeaturedPromo({ title, body, ctaText, url, promoImage }: FeaturedPromoProps) {
-  const imageUrl = promoImage ? urlFor(promoImage).width(600).height(450).url() : null
+  const imageUrl = getImageUrl(promoImage, 'promo')
 
   return (
-    <section className="py-20 bg-[#fff2d4]">
+    <section className="py-20 bg-cream">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* Image / mockup side */}
-        <m.div
-          className="flex justify-center"
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
+        <m.div className="flex justify-center" {...fadeInLeft}>
           {imageUrl ? (
             <div className="relative w-full max-w-md aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
               <Image
@@ -37,32 +32,22 @@ export default function FeaturedPromo({ title, body, ctaText, url, promoImage }:
               />
             </div>
           ) : (
-            <div className="w-full max-w-md aspect-[4/3] rounded-2xl bg-[#e6c060]/20 border-2 border-[#e6c060]/30 flex items-center justify-center">
-              <span className="text-[#cd2c2c] text-4xl font-bold text-center px-8">TALK ME INTO IT</span>
+            <div className="w-full max-w-md aspect-[4/3] rounded-2xl bg-gold/20 border-2 border-gold/30 flex items-center justify-center">
+              <span className="text-brand text-4xl font-bold text-center px-8">TALK ME INTO IT</span>
             </div>
           )}
         </m.div>
 
-        {/* Text side */}
-        <m.div
-          className="text-right"
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-[#303030] mb-6 leading-snug">
+        <m.div className="text-right" {...fadeInRight}>
+          <h2 className="text-3xl md:text-4xl font-bold text-ink mb-6 leading-snug">
             {title}
           </h2>
-          <p className="text-[#4f4f4f] text-lg leading-relaxed mb-8 whitespace-pre-line">
+          <p className="text-charcoal text-lg leading-relaxed mb-8 whitespace-pre-line">
             {body}
           </p>
-          <a
-            href={url || '#'}
-            className="inline-block bg-[#cd2c2c] text-white font-semibold px-8 py-4 rounded-full text-lg hover:bg-[#a82424] transition-colors shadow-md"
-          >
+          <CTAButton href={url || '#'} className="text-lg shadow-md inline-block">
             {ctaText || 'לפרטים נוספים'}
-          </a>
+          </CTAButton>
         </m.div>
       </div>
     </section>

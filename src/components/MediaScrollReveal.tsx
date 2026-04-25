@@ -4,25 +4,10 @@ import { useRef, type CSSProperties } from 'react'
 import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/client'
+import { SOURCE_LABELS } from '@/lib/constants'
+import type { MediaMention } from '@/lib/types'
 
-interface MediaItem {
-  title: string
-  source: string
-  mediaType?: string
-  externalUrl?: string
-  thumbnail?: object | null
-  logo?: object | null
-}
-
-const sourceLabel: Record<string, string> = {
-  ynet: 'ynet',
-  mako: 'מאקו',
-  walla: 'וואלה',
-  channel12: 'ערוץ 12',
-  sexapil: 'סקסאפיל',
-  et: 'מגזין את',
-  other: 'אחר',
-}
+type MediaItem = Pick<MediaMention, 'title' | 'source' | 'mediaType' | 'externalUrl' | 'thumbnail' | 'logo'>
 
 function GridCard({ item }: { item: MediaItem }) {
   const thumbUrl = item.thumbnail
@@ -53,7 +38,7 @@ function GridCard({ item }: { item: MediaItem }) {
 
       {/* Source badge */}
       <span className="absolute top-2 right-2 bg-white/90 text-[#cd2c2c] text-xs font-bold px-2 py-0.5 rounded-full shadow-sm z-10">
-        {sourceLabel[item.source] ?? item.source}
+        {SOURCE_LABELS[item.source] ?? item.source}
       </span>
 
       {/* Title slides up on hover */}

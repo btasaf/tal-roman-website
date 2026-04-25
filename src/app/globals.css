@@ -11,6 +11,23 @@
   --font-heebo: var(--font-heebo);
   --font-garamond: var(--font-garamond);
   --font-sans: var(--font-heebo);
+
+  /* Brand palette */
+  --color-gold: #e6c060;
+  --color-brand: #cd2c2c;
+  --color-brand-dark: #a82424;
+
+  /* Backgrounds */
+  --color-night: #0d0804;
+  --color-dusk: #1a0f08;
+  --color-cream: #fff2d4;
+
+  /* Text */
+  --color-ink: #303030;
+  --color-charcoal: #4f4f4f;
+  --color-sand: #d4b896;
+  --color-sienna: #b07830;
+  --color-mist: #6b6b6b;
 }
 
 body {
@@ -31,7 +48,7 @@ html {
 
 /* Prose RTL tweaks */
 .prose blockquote {
-  border-right: 4px solid #e6c060;
+  border-right: 4px solid var(--color-gold);
   border-left: none;
   padding-right: 1rem;
   padding-left: 0;

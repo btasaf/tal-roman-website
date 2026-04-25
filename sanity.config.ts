@@ -2,27 +2,17 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './src/sanity/schemas'
-import { sanityConfig } from './src/sanity/config'
+import { SECTION_KEYS } from './src/sanity/schemas/homepageSection'
 
 const singletonTypes = new Set(['homepageSection', 'siteSettings'])
 
-const homepageSections = [
-  { id: 'hero',            title: 'Hero — פורטרט וכותרת' },
-  { id: 'personalMessage', title: 'הודעה אישית' },
-  { id: 'gifts',           title: 'מתנות חינמיות' },
-  { id: 'about',           title: 'אודות טל' },
-  { id: 'featuredPromo',   title: 'פרומו מוצג' },
-  { id: 'courses',         title: 'קורסים' },
-  { id: 'media',           title: 'בתקשורת' },
-  { id: 'contact',         title: 'צור קשר' },
-  { id: 'order',           title: 'סדר סקשנים' },
-]
+const homepageSections = SECTION_KEYS.map(({ value, title }) => ({ id: value, title }))
 
 export default defineConfig({
   name: 'tal-roman-studio',
   title: 'טל רומן — Studio',
-  projectId: sanityConfig.projectId,
-  dataset: sanityConfig.dataset,
+  projectId: 'f2dms55f',
+  dataset: 'production',
   plugins: [
     structureTool({
       structure: (S) =>

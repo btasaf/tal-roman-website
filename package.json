@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "studio": "cmd.exe /c start http://localhost:3000/studio",
+    "studio": "cmd.exe /c start https://tal-roman.sanity.studio/",
+    "prod-website": "cmd.exe /c start http://tal-roman-website.s3-website-eu-west-1.amazonaws.com/",
     "download-images": "npx ts-node --esm scripts/download-wix-images.ts"
   },
   "dependencies": {
@@ -24,6 +25,7 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "sanity": "^5.21.0",
+    "styled-components": "^6.4.1",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {

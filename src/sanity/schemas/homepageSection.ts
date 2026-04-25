@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity'
 
-const SECTION_KEYS = [
+export const SECTION_KEYS = [
   { value: 'hero', title: 'Hero — פורטרט וכותרת' },
   { value: 'personalMessage', title: 'הודעה אישית' },
   { value: 'gifts', title: 'מתנות חינמיות' },
@@ -36,7 +36,13 @@ export const homepageSection = defineType({
     defineField({ name: 'heroImage',       title: 'תמונת פורטרט', type: 'image', options: { hotspot: true }, group: 'hero' }),
 
     // ── Personal message ──────────────────────────────────────────────────
-    defineField({ name: 'personalMessage', title: 'מסר אישי', type: 'text', rows: 8, group: 'personalMessage' }),
+    defineField({
+      name: 'personalMessage',
+      title: 'מסר אישי',
+      type: 'array',
+      of: [{ type: 'block' }],
+      group: 'personalMessage',
+    }),
 
     // ── Free gifts ────────────────────────────────────────────────────────
     defineField({ name: 'giftsHeadline',    title: 'כותרת סקשן מתנות',    type: 'string', group: 'gifts' }),

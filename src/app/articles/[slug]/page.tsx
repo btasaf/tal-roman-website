@@ -3,41 +3,42 @@ import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import { PortableText } from '@portabletext/react'
 import { fetchBlogPostBySlug, fetchBlogPosts } from '@/lib/queries'
-import { urlFor } from '@/sanity/client'
+import { getImageUrl } from '@/lib/image-utils'
+import type { BlogPost } from '@/lib/types'
 
 interface Props { params: Promise<{ slug: string }> }
 
 export async function generateStaticParams() {
-  const posts = await fetchBlogPosts().catch(() => [])
-  const params = posts.map((p: any) => ({ slug: p.slug }))
+  const posts: BlogPost[] = await fetchBlogPosts().catch(() => [])
+  const params = posts.map((p) => ({ slug: p.slug }))
   return params.length > 0 ? params : [{ slug: '__placeholder__' }]
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
-  const post = await fetchBlogPostBySlug(slug).catch(() => null)
+  const post: BlogPost | null = await fetchBlogPostBySlug(slug).catch(() => null)
   if (!post) return { title: 'מאמר לא נמצא' }
   return { title: post.title, description: post.excerpt }
 }
 
 export default async function ArticleDetailPage({ params }: Props) {
   const { slug } = await params
-  const post = await fetchBlogPostBySlug(slug).catch(() => null)
+  const post: BlogPost | null = await fetchBlogPostBySlug(slug).catch(() => null)
   if (!post) notFound()
 
-  const imageUrl = post.thumbnail ? urlFor(post.thumbnail).width(1200).height(600).url() : null
+  const imageUrl = getImageUrl(post.thumbnail, 'detail')
 
   return (
-    <div className="min-h-screen bg-[#fff2d4]">
+    <div className="min-h-screen bg-cream">
       <div className="max-w-3xl mx-auto px-4 py-16">
         {post.publishedAt && (
-          <p className="text-[#6b6b6b] text-sm mb-4">
+          <p className="text-mist text-sm mb-4">
             {new Date(post.publishedAt).toLocaleDateString('he-IL')}
           </p>
         )}
-        <h1 className="text-4xl md:text-5xl font-bold text-[#303030] mb-6">{post.title}</h1>
+        <h1 className="text-4xl md:text-5xl font-bold text-ink mb-6">{post.title}</h1>
         {post.excerpt && (
-          <p className="text-xl text-[#4f4f4f] mb-8 leading-relaxed border-r-4 border-[#e6c060] pr-4">
+          <p className="text-xl text-charcoal mb-8 leading-relaxed border-r-4 border-gold pr-4">
             {post.excerpt}
           </p>
         )}
@@ -47,7 +48,7 @@ export default async function ArticleDetailPage({ params }: Props) {
           </div>
         )}
         {post.body && (
-          <div className="prose prose-lg max-w-none text-[#4f4f4f] [&_h2]:text-[#303030] [&_h3]:text-[#303030] [&_strong]:text-[#303030]">
+          <div className="prose prose-lg max-w-none text-charcoal [&_h2]:text-ink [&_h3]:text-ink [&_strong]:text-ink">
             <PortableText value={post.body} />
           </div>
         )}

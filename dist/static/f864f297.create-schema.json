@@ -1,0 +1,1369 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "שם הקורס"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "כתובת URL"
+      },
+      {
+        "rows": 2,
+        "name": "shortDescription",
+        "type": "text",
+        "title": "תיאור קצר"
+      },
+      {
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "description",
+        "type": "array",
+        "title": "תיאור מלא (hover)"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "thumbnail",
+        "type": "image",
+        "title": "תמונה (כרטיסייה)"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "primaryImage",
+        "type": "image",
+        "title": "תמונה ראשית (עמוד)"
+      },
+      {
+        "name": "price",
+        "type": "string",
+        "title": "מחיר (טקסט חופשי)"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "purchaseUrl",
+        "type": "url",
+        "title": "קישור לרכישה"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "landingPageUrl",
+        "type": "url",
+        "title": "קישור לדף נחיתה"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "דיגיטלי",
+              "value": "digital"
+            },
+            {
+              "title": "סדנה",
+              "value": "workshop"
+            },
+            {
+              "title": "אישי",
+              "value": "personal"
+            }
+          ]
+        },
+        "name": "type",
+        "type": "string",
+        "title": "סוג"
+      },
+      {
+        "initialValue": true,
+        "name": "active",
+        "type": "boolean",
+        "title": "פעיל"
+      },
+      {
+        "initialValue": false,
+        "name": "featured",
+        "type": "boolean",
+        "title": "מוצג בדף הבית"
+      },
+      {
+        "name": "order",
+        "type": "number",
+        "title": "סדר הצגה"
+      },
+      {
+        "name": "location",
+        "type": "string",
+        "title": "מיקום"
+      },
+      {
+        "rows": 2,
+        "name": "cancellationPolicy",
+        "type": "text",
+        "title": "דמי ביטולים"
+      },
+      {
+        "rows": 2,
+        "name": "ctaText",
+        "type": "text",
+        "title": "הנעה לפעולה"
+      },
+      {
+        "name": "ctaButtonLabel",
+        "type": "string",
+        "title": "כיתוב כפתור"
+      },
+      {
+        "rows": 6,
+        "name": "fullDetails",
+        "type": "text",
+        "title": "פרטים מלאים על הסדנה"
+      },
+      {
+        "rows": 4,
+        "name": "paragraphBelowSubtitle",
+        "type": "text",
+        "title": "פסקה מתחת לכותרת משנה"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "rows": 2,
+                "name": "text",
+                "type": "text",
+                "title": "טקסט"
+              },
+              {
+                "name": "listType",
+                "type": "string",
+                "title": "סוג"
+              }
+            ],
+            "type": "object",
+            "name": "listItem",
+            "title": "פריט"
+          }
+        ],
+        "name": "suitableFor",
+        "type": "array",
+        "title": "למי זה מתאים / מה נלמד"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "question",
+                "type": "string",
+                "title": "שאלה"
+              },
+              {
+                "rows": 3,
+                "name": "answer",
+                "type": "text",
+                "title": "תשובה"
+              }
+            ],
+            "type": "object",
+            "name": "faqItem",
+            "title": "שאלה ותשובה"
+          }
+        ],
+        "name": "faq",
+        "type": "array",
+        "title": "שאלות ותשובות"
+      },
+      {
+        "readOnly": true,
+        "name": "wixId",
+        "type": "string",
+        "title": "Wix ID"
+      }
+    ],
+    "name": "course",
+    "type": "document",
+    "title": "קורסים ומוצרים"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "שם"
+      },
+      {
+        "name": "courseTitle",
+        "type": "string",
+        "title": "שם הקורס/תוכנית"
+      },
+      {
+        "rows": 4,
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "body",
+        "type": "text",
+        "title": "תוכן ההמלצה"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image",
+        "title": "תמונה (WhatsApp screenshot)"
+      },
+      {
+        "options": {
+          "list": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ]
+        },
+        "initialValue": 5,
+        "name": "rating",
+        "type": "number",
+        "title": "דירוג"
+      },
+      {
+        "initialValue": false,
+        "name": "featured",
+        "type": "boolean",
+        "title": "מוצג בדף הבית"
+      },
+      {
+        "name": "sort",
+        "type": "number",
+        "title": "סדר הצגה"
+      },
+      {
+        "readOnly": true,
+        "name": "wixProductId",
+        "type": "string",
+        "title": "Wix Product ID"
+      },
+      {
+        "readOnly": true,
+        "name": "wixId",
+        "type": "string",
+        "title": "Wix ID"
+      }
+    ],
+    "name": "testimonial",
+    "type": "document",
+    "title": "המלצות"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "כותרת"
+      },
+      {
+        "options": {
+          "source": "title"
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "slug",
+        "type": "slug",
+        "title": "כתובת URL"
+      },
+      {
+        "name": "publishedAt",
+        "type": "datetime",
+        "title": "תאריך פרסום"
+      },
+      {
+        "rows": 2,
+        "name": "excerpt",
+        "type": "text",
+        "title": "תקציר"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "thumbnail",
+        "type": "image",
+        "title": "תמונה ראשית"
+      },
+      {
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          },
+          {
+            "type": "image"
+          }
+        ],
+        "name": "body",
+        "type": "array",
+        "title": "תוכן המאמר"
+      }
+    ],
+    "name": "blogPost",
+    "type": "document",
+    "title": "מאמרים (תוכן של טל)"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "כותרת הכתבה"
+      },
+      {
+        "rows": 2,
+        "name": "excerpt",
+        "type": "text",
+        "title": "תיאור קצר"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "ynet",
+              "value": "ynet"
+            },
+            {
+              "title": "מאקו",
+              "value": "mako"
+            },
+            {
+              "title": "וואלה",
+              "value": "walla"
+            },
+            {
+              "title": "ערוץ 12",
+              "value": "channel12"
+            },
+            {
+              "title": "סקסאפיל (פודקאסט)",
+              "value": "sexapil"
+            },
+            {
+              "title": "מגזין את",
+              "value": "et"
+            },
+            {
+              "title": "אחר",
+              "value": "other"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "ynet",
+                  "mako",
+                  "walla",
+                  "channel12",
+                  "sexapil",
+                  "et",
+                  "other"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "source",
+        "type": "string",
+        "title": "מקור"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "כתבה",
+              "value": "article"
+            },
+            {
+              "title": "וידאו",
+              "value": "video"
+            },
+            {
+              "title": "פודקאסט",
+              "value": "podcast"
+            },
+            {
+              "title": "ראיון",
+              "value": "interview"
+            }
+          ]
+        },
+        "name": "mediaType",
+        "type": "string",
+        "title": "סוג מדיה"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "thumbnail",
+        "type": "image",
+        "title": "תמונה מייצגת"
+      },
+      {
+        "name": "thumbnailAlt",
+        "type": "string",
+        "title": "תיאור תמונה"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "logo",
+        "type": "image",
+        "title": "לוגו מקור"
+      },
+      {
+        "name": "logoAlt",
+        "type": "string",
+        "title": "תיאור לוגו"
+      },
+      {
+        "name": "linkText",
+        "type": "string",
+        "title": "מלל כפתור"
+      },
+      {
+        "name": "upperTitle",
+        "type": "string",
+        "title": "כותרת עליונה"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "externalUrl",
+        "type": "url",
+        "title": "קישור לכתבה"
+      },
+      {
+        "name": "publicationDate",
+        "type": "date",
+        "title": "תאריך פרסום"
+      },
+      {
+        "initialValue": true,
+        "name": "featured",
+        "type": "boolean",
+        "title": "מוצג בדף הבית"
+      },
+      {
+        "name": "order",
+        "type": "number",
+        "title": "סדר הצגה"
+      },
+      {
+        "readOnly": true,
+        "name": "wixId",
+        "type": "string",
+        "title": "Wix ID"
+      }
+    ],
+    "name": "mediaMention",
+    "type": "document",
+    "title": "כיסוי תקשורתי"
+  },
+  {
+    "fields": [
+      {
+        "name": "heroHeadline",
+        "type": "string",
+        "title": "כותרת ראשית"
+      },
+      {
+        "name": "heroSubheadline",
+        "type": "string",
+        "title": "כותרת משנה"
+      },
+      {
+        "rows": 3,
+        "name": "heroBodyText",
+        "type": "text",
+        "title": "טקסט גוף"
+      },
+      {
+        "name": "heroCtaText",
+        "type": "string",
+        "title": "כפתור CTA"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "heroImage",
+        "type": "image",
+        "title": "תמונת פורטרט"
+      },
+      {
+        "of": [
+          {
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bulleted list"
+              },
+              {
+                "value": "number",
+                "title": "Numbered list"
+              }
+            ],
+            "marks": {
+              "annotations": [
+                {
+                  "i18nTitleKey": "inputs.portable-text.annotation.link",
+                  "options": {
+                    "modal": {
+                      "type": "popover"
+                    }
+                  },
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "level": "error",
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/",
+                                    "/^tel$/",
+                                    "/^mailto$/"
+                                  ],
+                                  "allowRelative": true,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "description": "A valid web, email, phone, or relative link.",
+                      "name": "href",
+                      "type": "url",
+                      "title": "Link"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Italic"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                },
+                {
+                  "value": "underline",
+                  "title": "Underline"
+                },
+                {
+                  "value": "strike-through",
+                  "title": "Strike"
+                }
+              ]
+            },
+            "of": [],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "title": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "title": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "title": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "title": "Heading 5"
+              },
+              {
+                "value": "h6",
+                "title": "Heading 6"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "type": "block"
+          }
+        ],
+        "name": "personalMessage",
+        "type": "array",
+        "title": "מסר אישי"
+      },
+      {
+        "name": "giftsHeadline",
+        "type": "string",
+        "title": "כותרת סקשן מתנות"
+      },
+      {
+        "name": "giftsSubheadline",
+        "type": "string",
+        "title": "תת-כותרת סקשן מתנות"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "aboutImage",
+        "type": "image",
+        "title": "תמונה"
+      },
+      {
+        "rows": 5,
+        "name": "aboutBio",
+        "type": "text",
+        "title": "ביוגרפיה"
+      },
+      {
+        "rows": 4,
+        "name": "aboutQuote",
+        "type": "text",
+        "title": "ציטוט אישי"
+      },
+      {
+        "name": "featuredPromoTitle",
+        "type": "string",
+        "title": "כותרת פרומו"
+      },
+      {
+        "rows": 5,
+        "name": "featuredPromoBody",
+        "type": "text",
+        "title": "טקסט פרומו"
+      },
+      {
+        "name": "featuredPromoCtaText",
+        "type": "string",
+        "title": "כפתור"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "featuredPromoUrl",
+        "type": "url",
+        "title": "קישור"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "featuredPromoImage",
+        "type": "image",
+        "title": "תמונה"
+      },
+      {
+        "name": "coursesHeadline",
+        "type": "string",
+        "title": "כותרת סקשן קורסים"
+      },
+      {
+        "of": [
+          {
+            "to": [
+              {
+                "type": "course"
+              }
+            ],
+            "type": "reference",
+            "title": "Reference to קורסים ומוצרים"
+          }
+        ],
+        "name": "featuredCourses",
+        "type": "array",
+        "title": "קורסים מוצגים בדף הבית"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "name": "image",
+                "type": "image",
+                "title": "תמונה"
+              },
+              {
+                "name": "headline",
+                "type": "string",
+                "title": "כותרת"
+              },
+              {
+                "rows": 2,
+                "name": "body",
+                "type": "text",
+                "title": "תיאור"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "scrollGalleryItems",
+        "type": "array",
+        "title": "פסקאות גלריית גלילה"
+      },
+      {
+        "description": "גרור את השורות לשינוי הסדר שבו הסקשנים מוצגים",
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "list": [
+                    {
+                      "value": "hero",
+                      "title": "Hero — פורטרט וכותרת"
+                    },
+                    {
+                      "value": "personalMessage",
+                      "title": "הודעה אישית"
+                    },
+                    {
+                      "value": "gifts",
+                      "title": "מתנות חינמיות"
+                    },
+                    {
+                      "value": "about",
+                      "title": "אודות טל"
+                    },
+                    {
+                      "value": "featuredPromo",
+                      "title": "פרומו מוצג"
+                    },
+                    {
+                      "value": "courses",
+                      "title": "קורסים"
+                    },
+                    {
+                      "value": "media",
+                      "title": "בתקשורת"
+                    },
+                    {
+                      "value": "testimonials",
+                      "title": "המלצות"
+                    },
+                    {
+                      "value": "contact",
+                      "title": "צור קשר"
+                    }
+                  ]
+                },
+                "validation": [
+                  {
+                    "level": "error",
+                    "rules": [
+                      {
+                        "flag": "valid",
+                        "constraint": [
+                          "hero",
+                          "personalMessage",
+                          "gifts",
+                          "about",
+                          "featuredPromo",
+                          "courses",
+                          "media",
+                          "testimonials",
+                          "contact"
+                        ]
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ]
+                  }
+                ],
+                "name": "sectionKey",
+                "type": "string",
+                "title": "סקשן"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "sectionOrder",
+        "type": "array",
+        "title": "סדר הסקשנים בדף הבית"
+      }
+    ],
+    "name": "homepageSection",
+    "type": "document",
+    "title": "דף הבית"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "שם המתנה"
+      },
+      {
+        "name": "subtitle",
+        "type": "string",
+        "title": "תת-כותרת"
+      },
+      {
+        "rows": 2,
+        "name": "description",
+        "type": "text",
+        "title": "תיאור"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image",
+        "title": "תמונה עגולה"
+      },
+      {
+        "placeholder": "🎁",
+        "name": "emoji",
+        "type": "string",
+        "title": "אמוג'י (גיבוי)"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ]
+          }
+        ],
+        "name": "downloadUrl",
+        "type": "url",
+        "title": "קישור להורדה/לדף חיצוני"
+      },
+      {
+        "name": "order",
+        "type": "number",
+        "title": "סדר הצגה"
+      }
+    ],
+    "name": "freeGift",
+    "type": "document",
+    "title": "מתנות חינמיות"
+  },
+  {
+    "fields": [
+      {
+        "name": "phone",
+        "type": "string",
+        "title": "טלפון"
+      },
+      {
+        "placeholder": "+972501234567",
+        "name": "whatsapp",
+        "type": "string",
+        "title": "WhatsApp (מספר עם קידומת +972)"
+      },
+      {
+        "validation": [
+          {
+            "level": "error",
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "name": "instagram",
+        "type": "url",
+        "title": "Instagram URL"
+      },
+      {
+        "name": "seoTitle",
+        "type": "string",
+        "title": "כותרת SEO ברירת מחדל"
+      },
+      {
+        "rows": 2,
+        "name": "seoDescription",
+        "type": "text",
+        "title": "תיאור SEO ברירת מחדל"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document",
+    "title": "הגדרות אתר"
+  }
+]

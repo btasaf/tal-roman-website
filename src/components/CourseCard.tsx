@@ -3,31 +3,20 @@
 import { m } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import { urlFor } from '@/sanity/client'
+import { getImageUrl } from '@/lib/image-utils'
+import { COURSE_TYPE_LABELS } from '@/lib/constants'
+import type { Course } from '@/lib/types'
 
-interface CourseCardProps {
-  title: string
-  slug: string
-  shortDescription?: string
-  thumbnail?: object | null
-  price?: string
-  purchaseUrl?: string
-  type?: string
+interface CourseCardProps extends Course {
   index?: number
 }
 
-const typeLabels: Record<string, string> = {
-  digital: 'דיגיטלי',
-  workshop: 'סדנה',
-  personal: 'אישי',
-}
-
 export default function CourseCard({ title, slug, shortDescription, thumbnail, price, purchaseUrl, type, index = 0 }: CourseCardProps) {
-  const imageUrl = thumbnail ? urlFor(thumbnail).width(400).height(300).url() : null
+  const imageUrl = getImageUrl(thumbnail, 'card')
 
   return (
     <m.div
-      className="bg-white rounded-[24px] overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-[#e6c060]/10"
+      className="bg-white rounded-[24px] overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gold/10"
       initial={{ opacity: 0, scale: 0.95 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true, margin: '-50px' }}
@@ -37,28 +26,25 @@ export default function CourseCard({ title, slug, shortDescription, thumbnail, p
         {imageUrl ? (
           <Image src={imageUrl} alt={title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-[#e6c060]/20 to-[#cd2c2c]/10 flex items-center justify-center">
+          <div className="w-full h-full bg-gradient-to-br from-gold/20 to-brand/10 flex items-center justify-center">
             <span className="text-4xl">📖</span>
           </div>
         )}
         {type && (
-          <span className="absolute top-3 right-3 bg-[#cd2c2c]/90 text-white text-xs font-medium px-3 py-1 rounded-full">
-            {typeLabels[type] ?? type}
+          <span className="absolute top-3 right-3 bg-brand/90 text-white text-xs font-medium px-3 py-1 rounded-full">
+            {COURSE_TYPE_LABELS[type] ?? type}
           </span>
         )}
       </div>
       <div className="p-6">
-        <h3 className="text-xl font-bold text-[#303030] mb-2">{title}</h3>
+        <h3 className="text-xl font-bold text-ink mb-2">{title}</h3>
         {shortDescription && (
-          <p className="text-[#4f4f4f] text-sm leading-relaxed mb-4 line-clamp-2">{shortDescription}</p>
+          <p className="text-charcoal text-sm leading-relaxed mb-4 line-clamp-2">{shortDescription}</p>
         )}
         <div className="flex items-center justify-between mt-auto">
-          {price && <span className="text-[#cd2c2c] font-semibold text-lg">{price}</span>}
+          {price && <span className="text-brand font-semibold text-lg">{price}</span>}
           <div className="flex gap-2">
-            <Link
-              href={`/courses/${slug}`}
-              className="text-[#cd2c2c] text-sm font-medium hover:underline"
-            >
+            <Link href={`/courses/${slug}`} className="text-brand text-sm font-medium hover:underline">
               פרטים נוספים
             </Link>
             {purchaseUrl && (
@@ -66,7 +52,7 @@ export default function CourseCard({ title, slug, shortDescription, thumbnail, p
                 href={purchaseUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#cd2c2c] text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-[#a82424] transition-colors"
+                className="bg-brand text-white text-sm font-medium px-4 py-2 rounded-full hover:bg-brand-dark transition-colors"
               >
                 לרכישה
               </a>

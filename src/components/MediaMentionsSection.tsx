@@ -5,33 +5,8 @@ import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 import { urlFor } from '@/sanity/client'
-
-interface MediaMention {
-  title: string
-  source: string
-  mediaType?: string
-  externalUrl: string
-  excerpt?: string
-  thumbnail?: object
-  logo?: object
-}
-
-const sourceLabel: Record<string, string> = {
-  ynet: 'ynet',
-  mako: 'מאקו',
-  walla: 'וואלה',
-  channel12: 'ערוץ 12',
-  sexapil: 'סקסאפיל',
-  et: 'מגזין את',
-  other: '',
-}
-
-const mediaTypeLabel: Record<string, string> = {
-  article: 'לקריאה',
-  video: 'לצפייה',
-  podcast: 'להאזנה',
-  interview: 'לצפייה',
-}
+import { SOURCE_LABELS, MEDIA_TYPE_LABELS } from '@/lib/constants'
+import type { MediaMention } from '@/lib/types'
 
 const MAX_GRID = 15
 const SEE_ALL_THRESHOLD = MAX_GRID
@@ -43,7 +18,7 @@ function GridCard({ item }: { item: MediaMention }) {
   const logoUrl = item.logo
     ? urlFor(item.logo).width(120).height(60).url()
     : null
-  const ctaText = mediaTypeLabel[item.mediaType ?? ''] ?? 'לחצו כאן'
+  const ctaText = MEDIA_TYPE_LABELS[item.mediaType ?? ''] ?? 'לחצו כאן'
 
   return (
     <a
@@ -74,7 +49,7 @@ function GridCard({ item }: { item: MediaMention }) {
           <div className="absolute top-1.5 left-1.5 bg-white/90 rounded px-1.5 py-1 shadow-sm">
             <Image
               src={logoUrl}
-              alt={sourceLabel[item.source] ?? item.source}
+              alt={SOURCE_LABELS[item.source] ?? item.source}
               width={50}
               height={24}
               className="object-contain h-4 w-auto"
@@ -168,7 +143,7 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
     .filter(item => item.logo)
     .map(item => ({
       url: urlFor(item.logo!).width(160).height(80).url(),
-      label: sourceLabel[item.source] ?? item.source,
+      label: SOURCE_LABELS[item.source] ?? item.source,
     }))
 
   // Grid sized to fit all 3 rows within the viewport
@@ -189,16 +164,16 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
   return (
     <>
       {/* Section heading */}
-      <div className="bg-[#fff2d4] text-center pt-20 pb-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-[#303030] mb-4">מהתקשורת</h2>
-        <div className="w-16 h-1 bg-[#e6c060] mx-auto rounded-full" />
+      <div className="bg-cream text-center pt-20 pb-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-ink mb-4">מהתקשורת</h2>
+        <div className="w-16 h-1 bg-gold mx-auto rounded-full" />
       </div>
 
       {/* Scroll-reveal section */}
       <section
         ref={sectionRef}
         style={{ minHeight: '220vh' }}
-        className="relative bg-[#fff2d4]"
+        className="relative bg-cream"
       >
         <div className="sticky top-0 h-screen overflow-hidden">
           <div className="relative w-full h-full">
@@ -284,10 +259,10 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
 
       {/* "See all" button — outside the section, never overlaps cards */}
       {hasMore && (
-        <div className="bg-[#fff2d4] text-center py-10">
+        <div className="bg-cream text-center py-10">
           <Link
             href="/media"
-            className="inline-block border-2 border-[#cd2c2c] text-[#cd2c2c] font-semibold px-8 py-4 rounded-full hover:bg-[#cd2c2c] hover:text-white transition-colors"
+            className="inline-block border-2 border-brand text-brand font-semibold px-8 py-4 rounded-full hover:bg-brand hover:text-white transition-colors"
           >
             לכל הכתבות
           </Link>

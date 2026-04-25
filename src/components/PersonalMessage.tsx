@@ -1,27 +1,40 @@
 'use client'
 
 import { m } from 'framer-motion'
+import { PortableText, type PortableTextComponents } from '@portabletext/react'
+import { fadeInUp } from '@/lib/animations'
+import BokehBackground from '@/components/ui/BokehBackground'
 
-export default function PersonalMessage({ message }: { message: string }) {
+const components: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => (
+      <p className="text-sand text-xl md:text-2xl leading-loose mb-6 last:mb-0">
+        {children}
+      </p>
+    ),
+  },
+  marks: {
+    strong: ({ children }) => <strong className="font-bold text-gold">{children}</strong>,
+    em: ({ children }) => <em className="italic">{children}</em>,
+  },
+}
+
+type Block = { _type: string; _key: string; [key: string]: unknown }
+
+export default function PersonalMessage({ message }: { message: Block[] | string }) {
   return (
-    <section className="py-24 bg-[#1a0f08] relative overflow-hidden">
-      {/* bokeh blobs */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-[5%] left-[30%] w-96 h-96 bg-[#e6c060]/8 rounded-full blur-3xl" />
-        <div className="absolute bottom-[5%] right-[20%] w-80 h-80 bg-[#cd2c2c]/12 rounded-full blur-3xl" />
-        <div className="absolute top-[40%] left-[10%] w-64 h-64 bg-[#e6c060]/6 rounded-full blur-3xl" />
-      </div>
+    <section className="py-24 bg-dusk relative overflow-hidden">
+      <BokehBackground />
 
       <div className="relative max-w-3xl mx-auto px-4 text-center">
-        <m.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          <p className="text-[#d4b896] text-xl md:text-2xl leading-loose whitespace-pre-line">
-            {message}
-          </p>
+        <m.div {...fadeInUp} transition={{ duration: 0.7 }}>
+          {Array.isArray(message) ? (
+            <PortableText value={message} components={components} />
+          ) : (
+            <p className="text-sand text-xl md:text-2xl leading-loose whitespace-pre-line">
+              {message}
+            </p>
+          )}
         </m.div>
       </div>
     </section>
