@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0d0804;
+  --foreground: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-heebo: var(--font-heebo);
+  --font-garamond: var(--font-garamond);
+  --font-sans: var(--font-heebo);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-heebo), 'Heebo', sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar on mobile carousel */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Prose RTL tweaks */
+.prose blockquote {
+  border-right: 4px solid #e6c060;
+  border-left: none;
+  padding-right: 1rem;
+  padding-left: 0;
+}

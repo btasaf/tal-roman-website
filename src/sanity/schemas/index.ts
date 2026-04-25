@@ -1,0 +1,17 @@
+import { course } from './course'
+import { testimonial } from './testimonial'
+import { blogPost } from './blogPost'
+import { mediaMention } from './mediaMention'
+import { homepageSection } from './homepageSection'
+import { freeGift } from './freeGift'
+import { siteSettings } from './siteSettings'
+
+export const schemaTypes = [
+  course,
+  testimonial,
+  blogPost,
+  mediaMention,
+  homepageSection,
+  freeGift,
+  siteSettings,
+]
