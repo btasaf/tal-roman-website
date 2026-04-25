@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { getImageUrl } from '@/lib/image-utils'
 import { fadeInLeft, fadeInRight } from '@/lib/animations'
 import CTAButton from '@/components/ui/CTAButton'
+import SectionBackground from '@/components/ui/SectionBackground'
 
 interface FeaturedPromoProps {
   title: string
@@ -12,14 +13,16 @@ interface FeaturedPromoProps {
   ctaText: string
   url: string
   promoImage: object | null
+  bgImage?: object | null
 }
 
-export default function FeaturedPromo({ title, body, ctaText, url, promoImage }: FeaturedPromoProps) {
+export default function FeaturedPromo({ title, body, ctaText, url, promoImage, bgImage }: FeaturedPromoProps) {
   const imageUrl = getImageUrl(promoImage, 'promo')
 
   return (
-    <section className="py-20 bg-cream">
-      <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section className="relative overflow-hidden py-20 bg-cream">
+      <SectionBackground image={bgImage} />
+      <div className="relative max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <m.div className="flex justify-center" {...fadeInLeft}>
           {imageUrl ? (
             <div className="relative w-full max-w-md aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">

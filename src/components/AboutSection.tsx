@@ -5,20 +5,23 @@ import Image from 'next/image'
 import { getImageUrl } from '@/lib/image-utils'
 import { fadeInLeft, fadeInRight } from '@/lib/animations'
 import BokehBackground from '@/components/ui/BokehBackground'
+import SectionBackground from '@/components/ui/SectionBackground'
 
 interface AboutSectionProps {
   aboutImage: object | null
   aboutBio: string
   aboutQuote: string
+  bgImage?: object | null
 }
 
 const OVAL_RADIUS = '50%'
 
-export default function AboutSection({ aboutImage, aboutBio, aboutQuote }: AboutSectionProps) {
+export default function AboutSection({ aboutImage, aboutBio, aboutQuote, bgImage }: AboutSectionProps) {
   const imageUrl = getImageUrl(aboutImage, 'about') ?? '/wix-assets/images/tal-photos/IMG_4913_2048px_.JPG'
 
   return (
     <section className="py-20 bg-dusk text-white relative overflow-hidden">
+      <SectionBackground image={bgImage} />
       <BokehBackground />
 
       <div className="relative max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">

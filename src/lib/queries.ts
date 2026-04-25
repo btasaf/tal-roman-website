@@ -37,13 +37,15 @@ export const freeGiftsQuery = `*[_type == "freeGift"] | order(order asc) {
 }`
 
 export const homepageSectionQuery = `*[_type == "homepageSection"][0] {
-  heroHeadline, heroSubheadline, heroBodyText, heroCtaText, heroImage,
-  personalMessage,
-  giftsHeadline, giftsSubheadline,
-  aboutImage, aboutBio, aboutQuote,
-  featuredPromoTitle, featuredPromoBody, featuredPromoCtaText, featuredPromoUrl, featuredPromoImage,
-  coursesHeadline,
+  heroHeadline, heroSubheadline, heroBodyText, heroCtaText, heroImage, heroBgImage,
+  personalMessage, personalMessageBgImage,
+  giftsHeadline, giftsSubheadline, giftsBgImage,
+  aboutImage, aboutBio, aboutQuote, aboutBgImage,
+  featuredPromoTitle, featuredPromoBody, featuredPromoCtaText, featuredPromoUrl, featuredPromoImage, featuredPromoBgImage,
+  coursesHeadline, coursesBgImage,
   featuredCourses[]-> { title, "slug": slug.current, shortDescription, thumbnail, price, purchaseUrl, type },
+  testimonialsBgImage,
+  contactBgImage,
   scrollGalleryItems[] { image, headline, body }
 }`
 

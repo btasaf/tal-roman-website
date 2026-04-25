@@ -9,6 +9,7 @@ const IMAGE_SIZES = {
   media:  { width: 560, height: 340 },
   banner: { width: 800, height: 500 },
   detail: { width: 1200, height: 600 },
+  section: { width: 1920, height: 1080 },
 } as const
 
 type ImagePreset = keyof typeof IMAGE_SIZES

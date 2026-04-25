@@ -5,20 +5,23 @@ import Image from 'next/image'
 import { getImageUrl } from '@/lib/image-utils'
 import { fadeInUp } from '@/lib/animations'
 import SectionDivider from '@/components/ui/SectionDivider'
+import SectionBackground from '@/components/ui/SectionBackground'
 import type { FreeGift } from '@/lib/types'
 
 interface Props {
   gifts: FreeGift[]
   headline?: string
   subheadline?: string
+  bgImage?: object | null
 }
 
-export default function FreeGiftsSection({ gifts, headline, subheadline }: Props) {
+export default function FreeGiftsSection({ gifts, headline, subheadline, bgImage }: Props) {
   if (!gifts?.length) return null
 
   return (
-    <section id="gifts" className="py-20 bg-cream">
-      <div className="max-w-6xl mx-auto px-4">
+    <section id="gifts" className="relative overflow-hidden py-20 bg-cream">
+      <SectionBackground image={bgImage} />
+      <div className="relative max-w-6xl mx-auto px-4">
         <m.div className="text-center mb-14" {...fadeInUp}>
           <h2 className="text-3xl md:text-4xl font-bold text-ink mb-3">
             {headline ?? 'קבלו ממני הדרכות'}

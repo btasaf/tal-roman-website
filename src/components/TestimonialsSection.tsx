@@ -4,13 +4,15 @@ import { m } from 'framer-motion'
 import { fadeInUp } from '@/lib/animations'
 import BokehBackground from '@/components/ui/BokehBackground'
 import SectionDivider from '@/components/ui/SectionDivider'
+import SectionBackground from '@/components/ui/SectionBackground'
 import type { Testimonial } from '@/lib/types'
 
-export default function TestimonialsSection({ testimonials }: { testimonials: Testimonial[] }) {
+export default function TestimonialsSection({ testimonials, bgImage }: { testimonials: Testimonial[]; bgImage?: object | null }) {
   if (!testimonials?.length) return null
 
   return (
     <section className="py-24 bg-night relative overflow-hidden">
+      <SectionBackground image={bgImage} />
       <BokehBackground />
 
       <div className="relative max-w-6xl mx-auto px-6">

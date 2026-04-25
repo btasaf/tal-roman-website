@@ -4,12 +4,14 @@ import { m } from 'framer-motion'
 import Image from 'next/image'
 import { getImageUrl } from '@/lib/image-utils'
 import CTAButton from '@/components/ui/CTAButton'
+import SectionBackground from '@/components/ui/SectionBackground'
 
 interface HeroSectionProps {
   headline: string
   subheadline: string
   bodyText: string
   heroImage: object | null
+  bgImage?: object | null
   whatsapp?: string
   ctaText?: string
 }
@@ -19,11 +21,12 @@ function scrollToGifts() {
   if (el) el.scrollIntoView({ behavior: 'smooth' })
 }
 
-export default function HeroSection({ headline, subheadline, bodyText, heroImage, ctaText }: HeroSectionProps) {
+export default function HeroSection({ headline, subheadline, bodyText, heroImage, bgImage, ctaText }: HeroSectionProps) {
   const imageUrl = getImageUrl(heroImage, 'hero') ?? '/wix-assets/images/tal-photos/VV9A8369%20copy_edited.jpg'
 
   return (
     <section className="relative overflow-hidden min-h-[92vh] flex items-center bg-cream">
+      <SectionBackground image={bgImage} />
       {/* Bokeh particle layer */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[8%]  left-[15%]  w-72  h-72  bg-gold/18 rounded-full blur-3xl" />

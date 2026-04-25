@@ -19,6 +19,7 @@ import TestimonialsSection from '@/components/TestimonialsSection'
 import ContactForm from '@/components/ContactForm'
 import SectionDivider from '@/components/ui/SectionDivider'
 import BokehBackground from '@/components/ui/BokehBackground'
+import SectionBackground from '@/components/ui/SectionBackground'
 
 export const metadata: Metadata = {
   title: 'טל רומן — חינוך מיני ואינטימיות',
@@ -42,17 +43,19 @@ export default async function HomePage() {
         subheadline={homepage?.heroSubheadline ?? 'מגשרת על פערים באינטימיות וביחסים'}
         bodyText={homepage?.heroBodyText ?? 'סדנאות וליווי רגשי לאנשים שמרגישים שמשהו באינטימיות חסר, ורוצים להבין, לשפר, ולהעמיק את החיבור.'}
         heroImage={homepage?.heroImage ?? null}
+        bgImage={homepage?.heroBgImage ?? null}
         ctaText={homepage?.heroCtaText}
       />
 
       {homepage?.personalMessage && (
-        <PersonalMessage message={homepage.personalMessage} />
+        <PersonalMessage message={homepage.personalMessage} bgImage={homepage?.personalMessageBgImage ?? null} />
       )}
 
       <FreeGiftsSection
         gifts={freeGifts}
         headline={homepage?.giftsHeadline}
         subheadline={homepage?.giftsSubheadline}
+        bgImage={homepage?.giftsBgImage ?? null}
       />
 
       {(homepage?.aboutBio || homepage?.aboutQuote || homepage?.aboutImage) && (
@@ -60,6 +63,7 @@ export default async function HomePage() {
           aboutImage={homepage?.aboutImage ?? null}
           aboutBio={homepage?.aboutBio ?? ''}
           aboutQuote={homepage?.aboutQuote ?? ''}
+          bgImage={homepage?.aboutBgImage ?? null}
         />
       )}
 
@@ -70,12 +74,14 @@ export default async function HomePage() {
           ctaText={homepage.featuredPromoCtaText ?? 'לפרטים נוספים'}
           url={homepage.featuredPromoUrl ?? '#'}
           promoImage={homepage.featuredPromoImage ?? null}
+          bgImage={homepage?.featuredPromoBgImage ?? null}
         />
       )}
 
       {homepage?.featuredCourses?.length > 0 && (
-        <section className="py-20 bg-gold/25">
-          <div className="max-w-6xl mx-auto px-4">
+        <section className="relative overflow-hidden py-20 bg-gold/25">
+          <SectionBackground image={homepage?.coursesBgImage ?? null} />
+          <div className="relative max-w-6xl mx-auto px-4">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 {homepage.coursesHeadline ?? 'בואו להעשיר את עצמכם ביחד איתי'}
@@ -101,9 +107,10 @@ export default async function HomePage() {
 
       <MediaMentionsSection mentions={mediaMentions} />
 
-      <TestimonialsSection testimonials={testimonials} />
+      <TestimonialsSection testimonials={testimonials} bgImage={homepage?.testimonialsBgImage ?? null} />
 
       <section id="contact" className="py-20 bg-dusk relative overflow-hidden">
+        <SectionBackground image={homepage?.contactBgImage ?? null} />
         <BokehBackground />
         <div className="relative max-w-2xl mx-auto px-4">
           <div className="text-center mb-10">

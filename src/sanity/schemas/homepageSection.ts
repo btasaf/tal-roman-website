@@ -24,6 +24,7 @@ export const homepageSection = defineType({
     { name: 'featuredPromo',   title: 'פרומו מוצג' },
     { name: 'courses',         title: 'קורסים' },
     { name: 'media',           title: 'בתקשורת' },
+    { name: 'testimonials',    title: 'המלצות' },
     { name: 'contact',         title: 'צור קשר' },
     { name: 'order',           title: 'סדר סקשנים' },
   ],
@@ -34,6 +35,7 @@ export const homepageSection = defineType({
     defineField({ name: 'heroBodyText',    title: 'טקסט גוף',      type: 'text', rows: 3, group: 'hero' }),
     defineField({ name: 'heroCtaText',     title: 'כפתור CTA',     type: 'string', group: 'hero' }),
     defineField({ name: 'heroImage',       title: 'תמונת פורטרט', type: 'image', options: { hotspot: true }, group: 'hero' }),
+    defineField({ name: 'heroBgImage',     title: 'תמונת רקע (אופציונלי)', type: 'image', options: { hotspot: true }, group: 'hero' }),
 
     // ── Personal message ──────────────────────────────────────────────────
     defineField({
@@ -43,15 +45,18 @@ export const homepageSection = defineType({
       of: [{ type: 'block' }],
       group: 'personalMessage',
     }),
+    defineField({ name: 'personalMessageBgImage', title: 'תמונת רקע (אופציונלי)', type: 'image', options: { hotspot: true }, group: 'personalMessage' }),
 
     // ── Free gifts ────────────────────────────────────────────────────────
     defineField({ name: 'giftsHeadline',    title: 'כותרת סקשן מתנות',    type: 'string', group: 'gifts' }),
     defineField({ name: 'giftsSubheadline', title: 'תת-כותרת סקשן מתנות', type: 'string', group: 'gifts' }),
+    defineField({ name: 'giftsBgImage',     title: 'תמונת רקע (אופציונלי)', type: 'image', options: { hotspot: true }, group: 'gifts' }),
 
     // ── About ─────────────────────────────────────────────────────────────
-    defineField({ name: 'aboutImage', title: 'תמונה',      type: 'image', options: { hotspot: true }, group: 'about' }),
-    defineField({ name: 'aboutBio',   title: 'ביוגרפיה',   type: 'text', rows: 5, group: 'about' }),
-    defineField({ name: 'aboutQuote', title: 'ציטוט אישי', type: 'text', rows: 4, group: 'about' }),
+    defineField({ name: 'aboutImage',   title: 'תמונה',      type: 'image', options: { hotspot: true }, group: 'about' }),
+    defineField({ name: 'aboutBio',     title: 'ביוגרפיה',   type: 'text', rows: 5, group: 'about' }),
+    defineField({ name: 'aboutQuote',   title: 'ציטוט אישי', type: 'text', rows: 4, group: 'about' }),
+    defineField({ name: 'aboutBgImage', title: 'תמונת רקע (אופציונלי)', type: 'image', options: { hotspot: true }, group: 'about' }),
 
     // ── Featured promo ────────────────────────────────────────────────────
     defineField({ name: 'featuredPromoTitle',   title: 'כותרת פרומו', type: 'string', group: 'featuredPromo' }),
@@ -59,9 +64,11 @@ export const homepageSection = defineType({
     defineField({ name: 'featuredPromoCtaText', title: 'כפתור',       type: 'string', group: 'featuredPromo' }),
     defineField({ name: 'featuredPromoUrl',     title: 'קישור',       type: 'url', group: 'featuredPromo' }),
     defineField({ name: 'featuredPromoImage',   title: 'תמונה',       type: 'image', options: { hotspot: true }, group: 'featuredPromo' }),
+    defineField({ name: 'featuredPromoBgImage', title: 'תמונת רקע (אופציונלי)', type: 'image', options: { hotspot: true }, group: 'featuredPromo' }),
 
     // ── Courses ───────────────────────────────────────────────────────────
     defineField({ name: 'coursesHeadline', title: 'כותרת סקשן קורסים', type: 'string', group: 'courses' }),
+    defineField({ name: 'coursesBgImage',  title: 'תמונת רקע (אופציונלי)', type: 'image', options: { hotspot: true }, group: 'courses' }),
     defineField({
       name: 'featuredCourses',
       title: 'קורסים מוצגים בדף הבית',
@@ -86,6 +93,12 @@ export const homepageSection = defineType({
         preview: { select: { title: 'headline', media: 'image' } },
       }],
     }),
+
+    // ── Testimonials ──────────────────────────────────────────────────────
+    defineField({ name: 'testimonialsBgImage', title: 'תמונת רקע המלצות (אופציונלי)', type: 'image', options: { hotspot: true }, group: 'testimonials' }),
+
+    // ── Contact ───────────────────────────────────────────────────────────
+    defineField({ name: 'contactBgImage', title: 'תמונת רקע צור קשר (אופציונלי)', type: 'image', options: { hotspot: true }, group: 'contact' }),
 
     // ── Section ordering ──────────────────────────────────────────────────
     defineField({
