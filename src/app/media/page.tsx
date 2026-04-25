@@ -20,7 +20,7 @@ const mediaTypeLabel: Record<string, string> = {
   video: 'וידאו',
   podcast: 'פודקאסט',
   interview: 'ראיון',
-}
+} 
 
 const mediaTypeBadgeColor: Record<string, string> = {
   article: 'bg-blue-100 text-blue-700',
