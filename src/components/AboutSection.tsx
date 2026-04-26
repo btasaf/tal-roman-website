@@ -26,7 +26,7 @@ export default function AboutSection({ aboutImage, aboutBio, aboutQuote, bgImage
 
       <div className="relative max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <m.div className="flex justify-center" {...fadeInLeft}>
-          <div className="relative" style={{ width: 288, height: 360 }}>
+          <div className="relative" style={{ width: 360, height: 460 }}>
             <div
               className="absolute border-2 border-gold/30"
               style={{ inset: '-6px', borderRadius: OVAL_RADIUS }}
@@ -40,7 +40,7 @@ export default function AboutSection({ aboutImage, aboutBio, aboutQuote, bgImage
                 alt="טל רומן"
                 fill
                 className="object-cover object-top"
-                sizes="(max-width: 768px) 288px, 360px"
+                sizes="(max-width: 768px) 360px, 460px"
               />
             </div>
           </div>

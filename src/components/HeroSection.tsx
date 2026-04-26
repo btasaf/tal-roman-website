@@ -37,7 +37,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
         <div className="absolute bottom-[25%] right-[25%] w-64 h-64  bg-gold/6  rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-6 py-16 w-full grid grid-cols-1 md:grid-cols-[420px_1fr] gap-12 items-center">
+      <div className="relative max-w-7xl mx-auto px-3 md:px-4 py-16 w-full grid grid-cols-1 md:grid-cols-[480px_1fr] gap-16 items-center">
 
         {/* Portrait */}
         <m.div
@@ -46,14 +46,14 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
         >
-          <div className="relative w-72 h-[360px] md:w-[380px] md:h-[480px]">
+          <div className="relative w-[320px] h-[400px] md:w-[460px] md:h-[580px]">
             <Image
               src={imageUrl}
               alt="טל רומן"
               fill
               className="object-cover object-top rounded-3xl shadow-2xl"
               priority
-              sizes="(max-width: 768px) 288px, 380px"
+              sizes="(max-width: 768px) 320px, 460px"
             />
             <div className="absolute inset-0 rounded-3xl border-2 border-gold/35 scale-[1.03]" />
             <div className="absolute inset-0 rounded-3xl border border-gold/12 scale-[1.07]" />
@@ -63,7 +63,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
         {/* Text */}
         <div className="text-right">
           <m.h1
-            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dusk leading-tight mb-5 tracking-tight"
+            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dusk leading-tight mb-4 tracking-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
@@ -73,7 +73,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
 
           {subheadline && (
             <m.p
-              className="text-xl md:text-2xl text-sienna font-medium mb-4"
+              className="text-xl md:text-2xl text-sienna font-medium mb-3"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -84,7 +84,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
 
           {bodyText && (
             <m.p
-              className="text-[#4f3a2a] text-lg leading-relaxed mb-10 max-w-lg mr-0 ml-auto md:ml-0"
+              className="text-[#4f3a2a] text-lg leading-relaxed mb-8 max-w-lg mr-0 ml-auto md:ml-0"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.45 }}

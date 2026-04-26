@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import { NAV_LINKS } from '@/lib/constants'
+import { NAV_LINKS, SOCIAL_LINKS } from '@/lib/constants'
 import { cleanWhatsApp } from '@/lib/utils'
+import SocialIconLink from '@/components/ui/SocialIconLink'
 import type { SiteSettings } from '@/lib/types'
 
 interface FooterProps {
@@ -16,9 +17,15 @@ export default function Footer({ settings }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           <div>
             <h3 className="text-gold font-extrabold text-xl mb-3">טל רומן</h3>
-            <p className="text-white/50 text-sm leading-relaxed">
+            <p className="text-white/50 text-sm leading-relaxed mb-5">
               חינוך מיני ואינטימיות לזוגות ויחידים. כי בריאות מינית היא בריאות.
             </p>
+            {/* Social icons */}
+            <div className="flex items-center gap-4">
+              {SOCIAL_LINKS.map((s) => (
+                <SocialIconLink key={s.icon} href={s.href} label={s.label} icon={s.icon} size={20} />
+              ))}
+            </div>
           </div>
           <div>
             <h4 className="text-white/80 font-semibold mb-4 text-sm uppercase tracking-widest">ניווט</h4>

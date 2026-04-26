@@ -47,7 +47,6 @@ export const mediaMention = defineType({
     defineField({ name: 'publicationDate', title: 'תאריך פרסום', type: 'date' }),
     defineField({ name: 'featured', title: 'מוצג בדף הבית', type: 'boolean', initialValue: true }),
     defineField({ name: 'order', title: 'סדר הצגה', type: 'number' }),
-    defineField({ name: 'wixId', title: 'Wix ID', type: 'string', readOnly: true }),
   ],
   orderings: [{ title: 'סדר הצגה', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] }],
 })

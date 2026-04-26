@@ -1,12 +1,19 @@
 'use client'
 
 import { useState } from 'react'
+import { useCrmTracking } from '@/hooks/useCrmTracking'
+
+interface ContactFormProps {
+  tag?: string
+  status?: string
+}
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
-export default function ContactForm() {
+export default function ContactForm({ tag, status }: ContactFormProps) {
   const [state, setState] = useState<FormState>('idle')
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const { saveCustomer, trackFormSubmit } = useCrmTracking()
 
   function validate(data: FormData) {
     const errs: Record<string, string> = {}
@@ -34,25 +41,38 @@ export default function ContactForm() {
     setState('submitting')
     setErrors({})
 
-    // Placeholder — no server yet. Simulate a short delay.
-    await new Promise((r) => setTimeout(r, 800))
-    setState('success')
-    form.reset()
+    try {
+      await saveCustomer({
+        name: data.get('name')?.toString().trim(),
+        mail: data.get('email')?.toString().trim(),
+        phone: data.get('phone')?.toString().trim() || undefined,
+        tag: tag || undefined,
+        status: status || undefined,
+        freeText: data.get('freeText')?.toString().trim() || undefined,
+        emailConsent: data.get('emailConsent') === 'on',
+        notifyTal: true,
+      })
+      trackFormSubmit('contact')
+      setState('success')
+      form.reset()
+    } catch {
+      setState('error')
+    }
   }
 
   const inputBase =
-    'w-full bg-white border border-[#e6c060]/30 rounded-xl px-4 py-3 text-right text-[#303030] placeholder-[#9a9a9a] focus:outline-none focus:border-[#e6c060] focus:ring-2 focus:ring-[#e6c060]/20 transition-colors dir-rtl'
-  const labelBase = 'block text-sm font-semibold text-[#e8d5bf] mb-1 text-right'
+    'w-full bg-white border border-gold/30 rounded-xl px-4 py-3 text-right text-ink placeholder-mist focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-colors dir-rtl'
+  const labelBase = 'block text-sm font-semibold text-sand mb-1 text-right'
 
   if (state === 'success') {
     return (
       <div className="text-center py-10">
         <div className="text-5xl mb-4">✉️</div>
-        <h3 className="text-2xl font-bold text-[#e6c060] mb-2">תודה!</h3>
-        <p className="text-[#d4b896] text-lg">קיבלתי את הפנייה שלך ואחזור אליך בהקדם.</p>
+        <h3 className="text-2xl font-bold text-gold mb-2">תודה!</h3>
+        <p className="text-sand text-lg">קיבלתי את הפנייה שלך ואחזור אליך בהקדם.</p>
         <button
           onClick={() => setState('idle')}
-          className="mt-6 text-[#e6c060]/70 underline text-sm hover:text-[#e6c060] transition-colors"
+          className="mt-6 text-gold/70 underline text-sm hover:text-gold transition-colors"
         >
           שלח פנייה נוספת
         </button>
@@ -62,10 +82,9 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5 max-w-lg mx-auto" dir="rtl">
-      {/* Name */}
       <div>
         <label htmlFor="name" className={labelBase}>
-          שם מלא <span className="text-[#cd2c2c]">*</span>
+          שם מלא <span className="text-brand">*</span>
         </label>
         <input
           id="name"
@@ -75,13 +94,12 @@ export default function ContactForm() {
           className={inputBase}
           aria-invalid={!!errors.name}
         />
-        {errors.name && <p className="text-[#cd2c2c] text-xs mt-1 text-right">{errors.name}</p>}
+        {errors.name && <p className="text-brand text-xs mt-1 text-right">{errors.name}</p>}
       </div>
 
-      {/* Email */}
       <div>
         <label htmlFor="email" className={labelBase}>
-          כתובת מייל <span className="text-[#cd2c2c]">*</span>
+          כתובת מייל <span className="text-brand">*</span>
         </label>
         <input
           id="email"
@@ -92,13 +110,12 @@ export default function ContactForm() {
           dir="ltr"
           aria-invalid={!!errors.email}
         />
-        {errors.email && <p className="text-[#cd2c2c] text-xs mt-1 text-right">{errors.email}</p>}
+        {errors.email && <p className="text-brand text-xs mt-1 text-right">{errors.email}</p>}
       </div>
 
-      {/* Phone (optional) */}
       <div>
         <label htmlFor="phone" className={labelBase}>
-          טלפון <span className="text-[#d4b896]/50 font-normal">(אופציונלי)</span>
+          טלפון <span className="text-sand/50 font-normal">(אופציונלי)</span>
         </label>
         <input
           id="phone"
@@ -110,24 +127,38 @@ export default function ContactForm() {
         />
       </div>
 
-      {/* Message (optional) */}
       <div>
-        <label htmlFor="message" className={labelBase}>
-          הודעה <span className="text-[#d4b896]/50 font-normal">(אופציונלי)</span>
+        <label htmlFor="freeText" className={labelBase}>
+          הודעה <span className="text-sand/50 font-normal">(אופציונלי)</span>
         </label>
         <textarea
-          id="message"
-          name="message"
+          id="freeText"
+          name="freeText"
           rows={4}
           placeholder="כתבי לי..."
           className={`${inputBase} resize-none`}
         />
       </div>
 
+      <label className="flex items-start gap-3 cursor-pointer group">
+        <input
+          type="checkbox"
+          name="emailConsent"
+          className="mt-1 w-4 h-4 accent-gold cursor-pointer flex-shrink-0"
+        />
+        <span className="text-sand/70 text-sm leading-relaxed group-hover:text-sand transition-colors">
+          אשמח לקבל עדכונים, תכנים וטיפים ממך במייל
+        </span>
+      </label>
+
+      {state === 'error' && (
+        <p className="text-brand text-sm text-center">משהו השתבש. נסי שוב או כתבי ישירות בוואטסאפ.</p>
+      )}
+
       <button
         type="submit"
         disabled={state === 'submitting'}
-        className="w-full bg-[#cd2c2c] text-white font-bold py-4 rounded-full text-lg hover:bg-[#a82424] disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-lg shadow-[#cd2c2c]/30"
+        className="w-full bg-brand text-white font-bold py-4 rounded-full text-lg hover:bg-brand-dark disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-lg shadow-brand/30"
       >
         {state === 'submitting' ? 'שולח...' : 'שלח פנייה'}
       </button>

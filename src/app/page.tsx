@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import {
   fetchHomepageSection,
-  fetchTestimonials,
-  fetchFreeGifts,
+  fetchAllTestimonials,
+  fetchGifts,
   fetchSiteSettings,
   fetchMediaMentions,
 } from '@/lib/queries'
@@ -10,12 +10,11 @@ import type { Course } from '@/lib/types'
 import { PersonJsonLd } from '@/components/JsonLd'
 import HeroSection from '@/components/HeroSection'
 import PersonalMessage from '@/components/PersonalMessage'
-import FreeGiftsSection from '@/components/FreeGiftsSection'
+import FunnelSection from '@/components/FunnelSection'
 import AboutSection from '@/components/AboutSection'
-import FeaturedPromo from '@/components/FeaturedPromo'
 import CourseCard from '@/components/CourseCard'
 import MediaMentionsSection from '@/components/MediaMentionsSection'
-import TestimonialsSection from '@/components/TestimonialsSection'
+import RecommendersSection from '@/components/RecommendersSection'
 import ContactForm from '@/components/ContactForm'
 import SectionDivider from '@/components/ui/SectionDivider'
 import BokehBackground from '@/components/ui/BokehBackground'
@@ -26,10 +25,10 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  const [homepage, testimonials, freeGifts, settings, mediaMentions] = await Promise.all([
+  const [homepage, allTestimonials, gifts, settings, mediaMentions] = await Promise.all([
     fetchHomepageSection().catch(() => null),
-    fetchTestimonials().catch(() => []),
-    fetchFreeGifts().catch(() => []),
+    fetchAllTestimonials().catch(() => []),
+    fetchGifts().catch(() => []),
     fetchSiteSettings().catch(() => null),
     fetchMediaMentions().catch(() => []),
   ])
@@ -51,12 +50,7 @@ export default async function HomePage() {
         <PersonalMessage message={homepage.personalMessage} bgImage={homepage?.personalMessageBgImage ?? null} />
       )}
 
-      <FreeGiftsSection
-        gifts={freeGifts}
-        headline={homepage?.giftsHeadline}
-        subheadline={homepage?.giftsSubheadline}
-        bgImage={homepage?.giftsBgImage ?? null}
-      />
+      <FunnelSection gifts={gifts} />
 
       {(homepage?.aboutBio || homepage?.aboutQuote || homepage?.aboutImage) && (
         <AboutSection
@@ -67,16 +61,7 @@ export default async function HomePage() {
         />
       )}
 
-      {homepage?.featuredPromoTitle && (
-        <FeaturedPromo
-          title={homepage.featuredPromoTitle}
-          body={homepage.featuredPromoBody ?? ''}
-          ctaText={homepage.featuredPromoCtaText ?? 'לפרטים נוספים'}
-          url={homepage.featuredPromoUrl ?? '#'}
-          promoImage={homepage.featuredPromoImage ?? null}
-          bgImage={homepage?.featuredPromoBgImage ?? null}
-        />
-      )}
+      <RecommendersSection testimonials={allTestimonials.slice(0, 6)} bgImage={homepage?.testimonialsBgImage ?? null} />
 
       {homepage?.featuredCourses?.length > 0 && (
         <section className="relative overflow-hidden py-20 bg-gold/25">
@@ -107,8 +92,6 @@ export default async function HomePage() {
 
       <MediaMentionsSection mentions={mediaMentions} />
 
-      <TestimonialsSection testimonials={testimonials} bgImage={homepage?.testimonialsBgImage ?? null} />
-
       <section id="contact" className="py-20 bg-dusk relative overflow-hidden">
         <SectionBackground image={homepage?.contactBgImage ?? null} />
         <BokehBackground />
@@ -118,7 +101,10 @@ export default async function HomePage() {
             <p className="text-sand text-lg">אשמח לשמוע ממך ואחזור אליך בהקדם</p>
             <div className="w-16 h-1 bg-gold/50 mx-auto mt-4 rounded-full" />
           </div>
-          <ContactForm />
+          <ContactForm
+            tag={settings?.contactFormTag}
+            status={settings?.contactFormStatus}
+          />
         </div>
       </section>
     </>

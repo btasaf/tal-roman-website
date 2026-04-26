@@ -37,7 +37,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="he" dir="rtl" className={`${heebo.variable} ${ebGaramond.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[#0d0804] font-heebo">
         <MotionProvider>
-          <Nav settings={settings} />
+          <Nav />
           <main className="flex-1">{children}</main>
           <Footer settings={settings} />
         </MotionProvider>

@@ -5,6 +5,7 @@ import { mediaMention } from './mediaMention'
 import { homepageSection } from './homepageSection'
 import { freeGift } from './freeGift'
 import { siteSettings } from './siteSettings'
+import { gift } from './gift'
 
 export const schemaTypes = [
   course,
@@ -14,4 +15,5 @@ export const schemaTypes = [
   homepageSection,
   freeGift,
   siteSettings,
+  gift,
 ]

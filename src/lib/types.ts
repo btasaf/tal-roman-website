@@ -38,7 +38,7 @@ export interface Testimonial {
   name: string
   courseTitle?: string
   body: string
-  rating?: number
+  image?: object | null
 }
 
 export interface GalleryItem {
@@ -56,10 +56,28 @@ export interface FreeGift {
   downloadUrl: string
 }
 
+export interface Gift {
+  title: string
+  slug: string
+  subtitle?: string
+  image?: object | null
+  active?: boolean
+  heroSubheadline?: string
+  heroHeadline?: string
+  mainBody?: { _type: string; _key: string; [key: string]: unknown }[]
+  secondaryText?: string
+  listItems?: string[]
+  crmStatus?: string
+  crmTags?: string
+  enrollToSchool?: string
+}
+
 export interface SiteSettings {
   phone?: string
   whatsapp?: string
   instagram?: string
   seoTitle?: string
   seoDescription?: string
+  contactFormTag?: string
+  contactFormStatus?: string
 }

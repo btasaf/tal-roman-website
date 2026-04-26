@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "sanity:studio": "cmd.exe /c start https://tal-roman.sanity.studio/",
+    "sanity": "cmd.exe /c start https://tal-roman.sanity.studio/",
     "sanity:deploy": "npx sanity deploy",
     "open:prod": "cmd.exe /c start https://tal-roman-website.vercel.app/",
     "download-images": "npx ts-node --esm scripts/download-wix-images.ts",

@@ -30,9 +30,16 @@ export const COURSE_TYPE_LABELS: Record<string, string> = {
 
 export const NAV_LINKS = [
   { href: '/', label: 'בית' },
-  { href: '/about', label: 'אודות' },
   { href: '/courses', label: 'קורסים' },
+  { href: '/recommendations', label: 'המלצות' },
   { href: '/articles', label: 'מאמרים' },
   { href: '/media', label: 'תקשורת' },
   { href: '/contact', label: 'צור קשר' },
 ]
+
+export const SOCIAL_LINKS = [
+  { href: 'https://wa.me/+972586540744', label: 'WhatsApp', icon: 'whatsapp' },
+  { href: 'https://www.tiktok.com/discover/Tal-roman?lang=en', label: 'TikTok', icon: 'tiktok' },
+  { href: 'https://www.instagram.com/talroman/', label: 'Instagram', icon: 'instagram' },
+  { href: 'https://www.facebook.com/tal.roman', label: 'Facebook', icon: 'facebook' },
+] as const

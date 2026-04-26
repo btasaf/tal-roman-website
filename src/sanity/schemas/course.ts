@@ -61,7 +61,6 @@ export const course = defineType({
         }),
       ],
     }),
-    defineField({ name: 'wixId', title: 'Wix ID', type: 'string', readOnly: true }),
   ],
   orderings: [{ title: 'סדר הצגה', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] }],
 })

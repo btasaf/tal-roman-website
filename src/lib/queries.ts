@@ -1,4 +1,5 @@
 import { client } from '@/sanity/client'
+import type { Testimonial, Course, MediaMention, BlogPost, FreeGift, SiteSettings, Gift } from './types'
 
 const revalidate = { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } }
 
@@ -16,8 +17,12 @@ export const courseBySlugQuery = `*[_type == "course" && slug.current == $slug][
   thumbnail, price, purchaseUrl, type
 }`
 
-export const testimonialsQuery = `*[_type == "testimonial" && featured == true] | order(_createdAt desc) {
-  name, courseTitle, body, rating
+export const testimonialsQuery = `*[_type == "testimonial" && featured == true] | order(sort asc, _createdAt desc) {
+  name, courseTitle, body, image
+}`
+
+export const allTestimonialsQuery = `*[_type == "testimonial"] | order(sort asc, _createdAt desc) {
+  name, courseTitle, body, image
 }`
 
 export const blogPostsQuery = `*[_type == "blogPost"] | order(publishedAt desc) {
@@ -49,42 +54,67 @@ export const homepageSectionQuery = `*[_type == "homepageSection"][0] {
   scrollGalleryItems[] { image, headline, body }
 }`
 
-export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
-  phone, whatsapp, instagram, seoTitle, seoDescription
+export const giftsQuery = `*[_type == "gift" && active != false] | order(title asc) {
+  title, "slug": slug.current, subtitle, image
 }`
 
-export async function fetchHomepageSection() {
+export const giftBySlugQuery = `*[_type == "gift" && slug.current == $slug][0] {
+  title, "slug": slug.current, subtitle, image, active,
+  heroSubheadline, heroHeadline, mainBody, secondaryText, listItems,
+  crmStatus, crmTags,
+  "enrollToSchool": coalesce(enrollToSchool, courseSlug)
+}`
+
+export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
+  phone, whatsapp, instagram, seoTitle, seoDescription,
+  contactFormTag, contactFormStatus
+}`
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function fetchHomepageSection(): Promise<any> {
   return client.fetch(homepageSectionQuery, {}, revalidate)
 }
 
-export async function fetchCourses() {
+export async function fetchCourses(): Promise<Course[]> {
   return client.fetch(coursesQuery, {}, revalidate)
 }
 
-export async function fetchCourseBySlug(slug: string) {
+export async function fetchCourseBySlug(slug: string): Promise<Course | null> {
   return client.fetch(courseBySlugQuery, { slug }, revalidate)
 }
 
-export async function fetchTestimonials() {
+export async function fetchTestimonials(): Promise<Testimonial[]> {
   return client.fetch(testimonialsQuery, {}, revalidate)
 }
 
-export async function fetchBlogPosts() {
+export async function fetchAllTestimonials(): Promise<Testimonial[]> {
+  return client.fetch(allTestimonialsQuery, {}, revalidate)
+}
+
+export async function fetchBlogPosts(): Promise<BlogPost[]> {
   return client.fetch(blogPostsQuery, {}, revalidate)
 }
 
-export async function fetchBlogPostBySlug(slug: string) {
+export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   return client.fetch(blogPostBySlugQuery, { slug }, revalidate)
 }
 
-export async function fetchMediaMentions() {
+export async function fetchMediaMentions(): Promise<MediaMention[]> {
   return client.fetch(mediaMentionsQuery, {}, revalidate)
 }
 
-export async function fetchFreeGifts() {
+export async function fetchFreeGifts(): Promise<FreeGift[]> {
   return client.fetch(freeGiftsQuery, {}, revalidate)
 }
 
-export async function fetchSiteSettings() {
+export async function fetchSiteSettings(): Promise<SiteSettings | null> {
   return client.fetch(siteSettingsQuery, {}, revalidate)
+}
+
+export async function fetchGifts(): Promise<Gift[]> {
+  return client.fetch(giftsQuery, {}, revalidate)
+}
+
+export async function fetchGiftBySlug(slug: string): Promise<Gift | null> {
+  return client.fetch(giftBySlugQuery, { slug }, revalidate)
 }

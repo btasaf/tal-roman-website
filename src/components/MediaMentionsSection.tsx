@@ -138,9 +138,10 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
   const l2Cards = grid.slice(7,  13)
   const l3Cards = grid.slice(13, 15)
 
-  // Collect logos for the wall
+  // Collect unique logos for the wall (one per source)
+  const seenSources = new Set<string>()
   const allLogos = mentions
-    .filter(item => item.logo)
+    .filter(item => item.logo && !seenSources.has(item.source) && !!seenSources.add(item.source))
     .map(item => ({
       url: urlFor(item.logo!).width(160).height(80).url(),
       label: SOURCE_LABELS[item.source] ?? item.source,
@@ -225,14 +226,11 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
                   {/* Logos face — visible while large, shrinks with the card */}
                   <m.div
                     style={{ opacity: logosOpacity }}
-                    className="absolute inset-0 rounded-xl overflow-hidden bg-[#0d0804] flex flex-col items-center justify-center p-4 pointer-events-none"
+                    className="absolute inset-0 rounded-xl overflow-hidden bg-cream flex flex-col items-center justify-center p-4 pointer-events-none"
                   >
-                    <p className="text-[#e6c060] font-bold mb-3" style={{ fontSize: 14 }}>
-                      בתקשורת
-                    </p>
                     <div className="flex flex-wrap items-center justify-center gap-2">
                       {allLogos.map((logo, i) => (
-                        <div key={i} className="bg-white/10 rounded-lg px-2 py-1.5">
+                        <div key={i} className="bg-white rounded-lg px-2 py-1.5 shadow-sm">
                           <Image
                             src={logo.url}
                             alt={logo.label}

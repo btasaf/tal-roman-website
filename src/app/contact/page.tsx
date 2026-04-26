@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { fetchSiteSettings } from '@/lib/queries'
 import { cleanWhatsApp } from '@/lib/utils'
 import SectionDivider from '@/components/ui/SectionDivider'
+import ContactForm from '@/components/ContactForm'
 
 export const metadata: Metadata = { title: 'צור קשר' }
 
@@ -11,7 +12,7 @@ export default async function ContactPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <div className="max-w-2xl mx-auto px-4 py-16">
+      <div className="max-w-3xl mx-auto px-4 py-16">
         <h1 className="text-4xl md:text-5xl font-bold text-ink mb-4">צרו קשר</h1>
         <p className="text-charcoal text-xl mb-4">יש לכם שאלה? רוצים להתחיל? כתבו לי.</p>
         <div className="mb-12">
@@ -19,6 +20,19 @@ export default async function ContactPage() {
         </div>
 
         <div className="space-y-6">
+          {/* Contact form — first */}
+          <div className="bg-white rounded-[20px] px-8 py-10 shadow-sm border border-gold/20">
+            <div className="text-right mb-8">
+              <h2 className="text-2xl md:text-3xl font-bold text-ink mb-1">שלחי לי הודעה</h2>
+              <p className="text-charcoal">אחזור אליך בהקדם</p>
+            </div>
+            <ContactForm
+              tag={settings?.contactFormTag}
+              status={settings?.contactFormStatus}
+            />
+          </div>
+
+          {/* Contact links */}
           {wa && (
             <a
               href={`https://wa.me/${wa}`}

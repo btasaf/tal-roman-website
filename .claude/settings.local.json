@@ -43,7 +43,10 @@
       "Bash(rsync -a --exclude='node_modules' --exclude='.next' /mnt/c/projects/tal-roman-website/ ~/projects/tal-roman-website/)",
       "Bash(NEXT_DEBUG=1 npm run build)",
       "Bash(npx sanity *)",
-      "Bash(git *)"
+      "Bash(git *)",
+      "Read(//mnt/c/projects/talCRM/routes/**)",
+      "Read(//mnt/c/Projects/talCRM/routes/**)",
+      "Read(//mnt/c/**)"
     ]
   }
 }
