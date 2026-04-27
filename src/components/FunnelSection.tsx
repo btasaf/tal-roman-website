@@ -123,7 +123,7 @@ export default function FunnelSection({ gifts }: { gifts: Gift[] }) {
   const href1 = gift1 ? `/gifts/${gift1.slug}` : '#'
 
   return (
-    <section className="bg-cream relative overflow-hidden">
+    <section id="gifts" className="bg-cream relative overflow-hidden">
       <BokehBackground />
 
       {/* ── Header — full-width single line, no side padding ── */}

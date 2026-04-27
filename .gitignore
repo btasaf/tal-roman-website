@@ -46,3 +46,4 @@ next-env.d.ts
 /wix csv cms
 /public/wix-assets
 /memory
+.claude/

@@ -46,6 +46,15 @@ html {
   display: none;
 }
 
+/* Bouncing arrow on recommendation cards */
+@keyframes dance-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(7px); }
+}
+.animate-dance {
+  animation: dance-down 0.75s ease-in-out infinite;
+}
+
 /* Prose RTL tweaks */
 .prose blockquote {
   border-right: 4px solid var(--color-gold);

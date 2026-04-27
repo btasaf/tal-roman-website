@@ -46,7 +46,10 @@
       "Bash(git *)",
       "Read(//mnt/c/projects/talCRM/routes/**)",
       "Read(//mnt/c/Projects/talCRM/routes/**)",
-      "Read(//mnt/c/**)"
+      "Read(//mnt/c/**)",
+      "Bash(wsl.exe --list --quiet)",
+      "Read(//usr/lib/**)",
+      "Bash(cmd.exe *)"
     ]
   }
 }

@@ -51,19 +51,19 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
               src={imageUrl}
               alt="טל רומן"
               fill
-              className="object-cover object-top rounded-3xl shadow-2xl"
+              className="object-cover object-top rounded-[50%] shadow-2xl"
               priority
               sizes="(max-width: 768px) 320px, 460px"
             />
-            <div className="absolute inset-0 rounded-3xl border-2 border-gold/35 scale-[1.03]" />
-            <div className="absolute inset-0 rounded-3xl border border-gold/12 scale-[1.07]" />
+            <div className="absolute inset-0 rounded-[50%] border-2 border-gold/35 scale-[1.03]" />
+            <div className="absolute inset-0 rounded-[50%] border border-gold/12 scale-[1.07]" />
           </div>
         </m.div>
 
         {/* Text */}
         <div className="text-right">
           <m.h1
-            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dusk leading-tight mb-4 tracking-tight"
+            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dusk leading-tight mb-8 tracking-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}
@@ -73,7 +73,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
 
           {subheadline && (
             <m.p
-              className="text-xl md:text-2xl text-sienna font-medium mb-3"
+              className="text-xl md:text-2xl text-sienna font-medium mb-8"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -84,7 +84,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
 
           {bodyText && (
             <m.p
-              className="text-[#4f3a2a] text-lg leading-relaxed mb-8 max-w-lg mr-0 ml-auto md:ml-0"
+              className="text-[#4f3a2a] text-lg leading-relaxed mb-16 max-w-lg mr-0 ml-auto md:ml-0"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.45 }}
