@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 
-const CRM_URL = process.env.NEXT_PUBLIC_CRM_URL ?? 'http://crm.talroman.com/api'
+const CRM_URL = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://crm.talroman.com/api'
 
 interface GiftFormProps {
   tag?: string

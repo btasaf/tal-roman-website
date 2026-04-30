@@ -22,6 +22,7 @@
     "@sanity/vision": "^5.21.0",
     "@tailwindcss/typography": "^0.5.19",
     "framer-motion": "^12.38.0",
+    "mammoth": "^1.12.0",
     "next": "16.2.4",
     "next-sanity": "^12.3.0",
     "react": "19.2.4",

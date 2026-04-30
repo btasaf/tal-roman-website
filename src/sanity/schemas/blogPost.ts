@@ -5,11 +5,11 @@ export const blogPost = defineType({
   title: 'מאמרים (תוכן של טל)',
   type: 'document',
   fields: [
-    defineField({ name: 'title', title: 'כותרת', type: 'string', validation: r => r.required() }),
+    defineField({ name: 'docxFile', title: 'קובץ Word/Docs (.docx)', type: 'file', options: { accept: '.docx' }, description: 'הורידי את הקובץ מגוגל דוקס: File → Download → Microsoft Word (.docx)' }),
+    defineField({ name: 'title', title: 'כותרת המאמר', type: 'string', validation: r => r.required() }),
     defineField({ name: 'slug', title: 'כתובת URL', type: 'slug', options: { source: 'title' }, validation: r => r.required() }),
-    defineField({ name: 'publishedAt', title: 'תאריך פרסום', type: 'datetime' }),
-    defineField({ name: 'excerpt', title: 'תקציר', type: 'text', rows: 2 }),
+    defineField({ name: 'excerpt', title: 'תקציר קצר (לכרטיס ו-SEO)', type: 'text', rows: 2 }),
     defineField({ name: 'thumbnail', title: 'תמונה ראשית', type: 'image', options: { hotspot: true } }),
-    defineField({ name: 'body', title: 'תוכן המאמר', type: 'array', of: [{ type: 'block' }, { type: 'image' }] }),
+    defineField({ name: 'publishedAt', title: 'תאריך פרסום', type: 'datetime' }),
   ],
 })

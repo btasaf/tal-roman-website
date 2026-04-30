@@ -30,7 +30,8 @@ export const blogPostsQuery = `*[_type == "blogPost"] | order(publishedAt desc) 
 }`
 
 export const blogPostBySlugQuery = `*[_type == "blogPost" && slug.current == $slug][0] {
-  title, "slug": slug.current, publishedAt, excerpt, thumbnail, body
+  title, "slug": slug.current, publishedAt, excerpt, thumbnail, body,
+  "docxFileUrl": docxFile.asset->url
 }`
 
 export const mediaMentionsQuery = `*[_type == "mediaMention"] | order(order asc, publicationDate desc) {

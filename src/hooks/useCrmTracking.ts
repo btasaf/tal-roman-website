@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useCallback } from 'react'
 
-const CRM_BASE = process.env.NEXT_PUBLIC_CRM_URL ?? 'http://crm.talroman.com/api'
+const CRM_BASE = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://crm.talroman.com/api'
 
 function getOrCreateVisitorId(): string {
   const KEY = 'crm_visitor_id'

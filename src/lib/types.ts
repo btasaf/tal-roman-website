@@ -32,6 +32,7 @@ export interface BlogPost {
   excerpt?: string
   thumbnail?: object | null
   body?: { _type: string; _key: string; [key: string]: unknown }[]
+  docxFileUrl?: string
 }
 
 export interface Testimonial {
