@@ -36,6 +36,18 @@ body {
   font-family: var(--font-heebo), 'Heebo', sans-serif;
 }
 
+h1, h2, h3, h4 {
+  text-wrap: balance;
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #e6c060 0%, #b07830 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #e6c060;
+}
+
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;

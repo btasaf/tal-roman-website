@@ -4,8 +4,7 @@ import Link from 'next/link'
 import { fetchAllTestimonials, fetchCourses } from '@/lib/queries'
 import { urlFor } from '@/sanity/client'
 import type { Testimonial, Course } from '@/lib/types'
-import BokehBackground from '@/components/ui/BokehBackground'
-import SectionDivider from '@/components/ui/SectionDivider'
+import PageHero from '@/components/ui/PageHero'
 import RecommenderCard from '@/components/RecommenderCard'
 
 export const metadata: Metadata = { title: 'המלצות' }
@@ -40,24 +39,11 @@ export default async function RecommendationsPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      {/* Hero header */}
-      <section className="relative py-32 bg-dusk text-white overflow-hidden text-center">
-        <BokehBackground />
-        <div className="relative max-w-3xl mx-auto px-6">
-          <p className="text-gold/70 text-sm font-semibold uppercase tracking-widest mb-4">
-            מה אומרים עלי
-          </p>
-          <h1 className="text-6xl md:text-8xl font-extrabold text-gold leading-tight mb-6">
-            המלצות
-          </h1>
-          <p className="text-sand text-xl md:text-2xl leading-relaxed">
-            חוויות אמיתיות של נשים שהשתתפו בסדנאות ובקורסים
-          </p>
-          <div className="mt-8">
-            <SectionDivider />
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="מה אומרים עלי"
+        title="המלצות"
+        subtitle="חוויות אמיתיות של נשים שהשתתפו בסדנאות ובקורסים"
+      />
 
       {/* Image carousel */}
       {imageTestimonials.length > 0 && (
@@ -111,7 +97,7 @@ export default async function RecommendationsPage() {
                   <h2 className="text-3xl md:text-4xl font-extrabold text-ink mb-3">
                     {group.label}
                   </h2>
-                  <div className="w-16 h-1 bg-gold rounded-full mr-0" />
+                  <div className="w-16 h-[2px] bg-gold rounded-full mr-0 shadow-[0_0_6px_rgba(230,192,96,0.3)]" />
                 </div>
 
                 {groupItems.length > 0 ? (

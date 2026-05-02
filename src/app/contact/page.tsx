@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { fetchSiteSettings } from '@/lib/queries'
 import { cleanWhatsApp } from '@/lib/utils'
-import SectionDivider from '@/components/ui/SectionDivider'
+import PageHero from '@/components/ui/PageHero'
 import ContactForm from '@/components/ContactForm'
 
 export const metadata: Metadata = { title: 'צור קשר' }
@@ -12,16 +12,15 @@ export default async function ContactPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <div className="max-w-3xl mx-auto px-4 py-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-ink mb-4">צרו קשר</h1>
-        <p className="text-charcoal text-xl mb-4">יש לכם שאלה? רוצים להתחיל? כתבו לי.</p>
-        <div className="mb-12">
-          <SectionDivider />
-        </div>
+      <PageHero
+        title="צרו קשר"
+        subtitle="יש לכם שאלה? רוצים להתחיל? כתבו לי."
+      />
 
+      <div className="max-w-3xl mx-auto px-4 py-16">
         <div className="space-y-6">
           {/* Contact form — first */}
-          <div className="bg-white rounded-[20px] px-8 py-10 shadow-sm border border-gold/20">
+          <div className="bg-white rounded-2xl px-8 py-10 shadow-sm border border-gold/20">
             <div className="text-right mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-ink mb-1">שלחי לי הודעה</h2>
               <p className="text-charcoal">אחזור אליך בהקדם</p>
@@ -38,7 +37,7 @@ export default async function ContactPage() {
               href={`https://wa.me/${wa}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 bg-white rounded-[20px] p-6 shadow-sm border border-gold/20 hover:shadow-md hover:border-gold/50 transition-all group"
+              className="flex items-center gap-4 bg-white rounded-2xl p-6 shadow-sm border border-gold/20 hover:shadow-md hover:border-gold/50 transition-all group"
             >
               <span className="text-4xl">💬</span>
               <div>
@@ -52,7 +51,7 @@ export default async function ContactPage() {
           {settings?.phone && (
             <a
               href={`tel:${settings.phone}`}
-              className="flex items-center gap-4 bg-white rounded-[20px] p-6 shadow-sm border border-gold/20 hover:shadow-md transition-all group"
+              className="flex items-center gap-4 bg-white rounded-2xl p-6 shadow-sm border border-gold/20 hover:shadow-md transition-all group"
             >
               <span className="text-4xl">📞</span>
               <div>
@@ -67,7 +66,7 @@ export default async function ContactPage() {
               href={settings.instagram}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 bg-white rounded-[20px] p-6 shadow-sm border border-gold/20 hover:shadow-md transition-all group"
+              className="flex items-center gap-4 bg-white rounded-2xl p-6 shadow-sm border border-gold/20 hover:shadow-md transition-all group"
             >
               <span className="text-4xl">📸</span>
               <div>

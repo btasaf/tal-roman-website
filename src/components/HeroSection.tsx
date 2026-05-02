@@ -99,7 +99,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
         {/* Text */}
         <div className={alignClass[CONFIG.textAlign]}>
           <m.h1
-            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dusk leading-tight mb-8 tracking-tight"
+            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dusk leading-tight mb-8 tracking-tight font-garamond"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.15 }}

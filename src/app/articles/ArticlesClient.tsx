@@ -6,7 +6,7 @@ import Image from 'next/image'
 import type { BlogPost } from '@/lib/types'
 import { getImageUrl } from '@/lib/image-utils'
 
-export default function ArticlesClient({ posts }: { posts: BlogPost[] }) {
+export default function ArticlesClient({ posts, showSearch = true }: { posts: BlogPost[], showSearch?: boolean }) {
   const [search, setSearch] = useState('')
 
   const filtered = posts.filter((p) => {
@@ -20,19 +20,21 @@ export default function ArticlesClient({ posts }: { posts: BlogPost[] }) {
 
   return (
     <div dir="rtl">
-      {/* Search */}
-      <div className="relative mb-10">
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          placeholder="חיפוש מאמרים..."
-          className="w-full bg-white border border-gold/25 rounded-full px-6 py-3.5 text-ink placeholder:text-mist text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-gold/30 focus:border-gold/50 transition-all"
-        />
-        <svg className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-mist" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </div>
+      {/* Search — only shown when enough posts to make it useful */}
+      {showSearch && (
+        <div className="relative mb-10">
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="חיפוש מאמרים..."
+            className="w-full bg-white border border-gold/25 rounded-full px-6 py-3.5 text-ink placeholder:text-mist text-base shadow-sm focus:outline-none focus:ring-2 focus:ring-gold/30 focus:border-gold/50 transition-all"
+          />
+          <svg className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-mist" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+      )}
 
       {/* Results count */}
       {search.trim() && (
@@ -59,7 +61,7 @@ export default function ArticlesClient({ posts }: { posts: BlogPost[] }) {
             <Link
               key={post.slug}
               href={`/articles/${post.slug}`}
-              className="group flex flex-col md:flex-row gap-0 bg-white rounded-[24px] overflow-hidden shadow-sm hover:shadow-lg border border-gold/10 transition-all duration-300 hover:-translate-y-0.5"
+              className="group flex flex-col md:flex-row gap-0 bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg border border-gold/10 transition-all duration-300 hover:-translate-y-0.5"
             >
               {imgUrl && (
                 <div className="relative w-full md:w-52 h-48 md:h-auto flex-shrink-0">
@@ -92,6 +94,11 @@ export default function ArticlesClient({ posts }: { posts: BlogPost[] }) {
           )
         })}
       </div>
+
+      {/* Coming soon note when few articles */}
+      {!showSearch && posts.length > 0 && (
+        <p className="text-mist text-center text-sm mt-12">מאמרים נוספים בקרוב...</p>
+      )}
     </div>
   )
 }

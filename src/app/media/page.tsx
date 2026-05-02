@@ -4,7 +4,7 @@ import { fetchMediaMentions } from '@/lib/queries'
 import { getImageUrl } from '@/lib/image-utils'
 import { SOURCE_LABELS, MEDIA_TYPE_LABELS, MEDIA_TYPE_BADGE_COLORS } from '@/lib/constants'
 import type { MediaMention } from '@/lib/types'
-import SectionDivider from '@/components/ui/SectionDivider'
+import PageHero from '@/components/ui/PageHero'
 import { urlFor } from '@/sanity/client'
 
 export const metadata: Metadata = { title: 'טל רומן בתקשורת' }
@@ -14,15 +14,14 @@ export default async function MediaPage() {
 
   return (
     <div className="min-h-screen bg-cream">
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <div className="mb-14 text-right">
-          <h1 className="text-4xl md:text-5xl font-bold text-ink mb-3">בתקשורת</h1>
-          <p className="text-charcoal text-xl mb-4">מה אמרו עליי ב-ynet, מאקו, וואלה ועוד</p>
-          <SectionDivider />
-        </div>
+      <PageHero
+        title="בתקשורת"
+        subtitle="מה אמרו עליי ב-ynet, מאקו, וואלה ועוד"
+      />
 
+      <div className="max-w-6xl mx-auto px-4 py-16">
         {mentions.length === 0 && (
-          <p className="text-mist text-lg text-right">כתבות בקרוב...</p>
+          <p className="text-mist text-lg text-center py-20">כתבות בקרוב...</p>
         )}
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -64,7 +63,7 @@ export default async function MediaPage() {
                   )}
 
                   {logoUrl && (
-                    <div className="absolute bottom-3 left-3 bg-white/90 rounded-lg px-2 py-1.5 shadow-sm">
+                    <div className="absolute bottom-3 left-3 bg-white/90 rounded-xl px-2 py-1.5 shadow-sm">
                       <Image
                         src={logoUrl}
                         alt={SOURCE_LABELS[item.source] ?? item.source}

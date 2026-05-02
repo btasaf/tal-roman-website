@@ -5,6 +5,7 @@ import { MotionProvider } from '@/components/MotionProvider'
 import { fetchSiteSettings } from '@/lib/queries'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import WhatsAppFAB from '@/components/ui/WhatsAppFAB'
 import './globals.css'
 
 const heebo = Heebo({
@@ -40,6 +41,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Nav />
           <main className="flex-1 pt-20">{children}</main>
           <Footer settings={settings} />
+          <WhatsAppFAB />
         </MotionProvider>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import BokehBackground from '@/components/ui/BokehBackground'
+import PageHero from '@/components/ui/PageHero'
 import SectionDivider from '@/components/ui/SectionDivider'
 import ContactForm from '@/components/ContactForm'
 import RecommendersSection from '@/components/RecommendersSection'
@@ -73,29 +73,17 @@ export default async function PersonalCoachingPage() {
     <div className="min-h-screen bg-cream" dir="rtl">
 
       {/* 1 ── Hero ── DARK */}
-      <section className="relative py-36 bg-dusk text-white overflow-hidden text-center">
-        <BokehBackground />
-        <div className="relative max-w-3xl mx-auto px-6">
-          <p className="text-gold/70 text-sm font-semibold uppercase tracking-widest mb-4">
-            מרחב בטוח ולא שיפוטי
-          </p>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-gold leading-tight mb-8">
-            תהליך ליווי אישי
-          </h1>
-          <p className="text-sand text-xl md:text-2xl leading-relaxed mb-4">
-            ליווי רגשי אישי ומקצועי להתפתחות ולשינוי דרך עבודה עם הקשיים,
-            הכאבים והתקיעויות במיניות וביחסים שלך.
-          </p>
-          <p className="text-sand/70 text-lg leading-loose mb-10 max-w-2xl mx-auto">
-            אני מזמינה אותך לעבור איתי תהליך שמאפשר לעצור בתוך הקושי,
-            להבין לעומק מה מתרחש בגוף וברגש — וליצור את החיים האינטימיים שאת\ה חולמ\ת עליהם.
-          </p>
-          <CtaButton />
-          <div className="mt-10">
-            <SectionDivider />
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="מרחב בטוח ולא שיפוטי"
+        title="תהליך ליווי אישי"
+        subtitle="ליווי רגשי אישי ומקצועי להתפתחות ולשינוי דרך עבודה עם הקשיים, הכאבים והתקיעויות במיניות וביחסים שלך."
+      >
+        <p className="text-sand/70 text-lg leading-loose mt-4 mb-10 max-w-2xl mx-auto">
+          אני מזמינה אותך לעבור איתי תהליך שמאפשר לעצור בתוך הקושי,
+          להבין לעומק מה מתרחש בגוף וברגש — וליצור את החיים האינטימיים שאת\ה חולמ\ת עליהם.
+        </p>
+        <CtaButton />
+      </PageHero>
 
       {/* 2 ── Personal Story ── BRIGHT */}
       <section className="py-24 bg-cream">

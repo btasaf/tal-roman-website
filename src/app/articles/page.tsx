@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { fetchBlogPosts } from '@/lib/queries'
-import SectionDivider from '@/components/ui/SectionDivider'
+import PageHero from '@/components/ui/PageHero'
 import ArticlesClient from './ArticlesClient'
 
 export const metadata: Metadata = {
@@ -13,17 +13,16 @@ export default async function ArticlesPage() {
 
   return (
     <div className="min-h-screen bg-cream" dir="rtl">
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        <h1 className="text-4xl md:text-5xl font-bold text-ink mb-3">מאמרים</h1>
-        <p className="text-charcoal text-xl mb-6 leading-relaxed">מחשבות, תובנות, ותשובות לשאלות שאנשים שואלים בשקט.</p>
-        <div className="mb-10">
-          <SectionDivider />
-        </div>
+      <PageHero
+        title="מאמרים"
+        subtitle="מחשבות, תובנות, ותשובות לשאלות שאנשים שואלים בשקט."
+      />
 
+      <div className="max-w-4xl mx-auto px-4 py-16">
         {posts.length === 0 ? (
           <p className="text-mist text-lg text-center py-20">מאמרים בקרוב...</p>
         ) : (
-          <ArticlesClient posts={posts} />
+          <ArticlesClient posts={posts} showSearch={posts.length >= 5} />
         )}
       </div>
     </div>

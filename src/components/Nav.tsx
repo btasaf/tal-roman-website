@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import { NAV_LINKS, SOCIAL_LINKS } from '@/lib/constants'
 import SocialIconLink from '@/components/ui/SocialIconLink'
 
@@ -10,6 +11,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false)
   const [hidden, setHidden] = useState(false)
   const lastScrollY = useRef(0)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,6 +26,11 @@ export default function Nav() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  function isActive(href: string) {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
+  }
 
   return (
     <header
@@ -48,7 +55,11 @@ export default function Nav() {
             <Link
               key={l.href}
               href={l.href}
-              className="text-ink hover:text-brand transition-colors text-xl font-semibold whitespace-nowrap"
+              className={`py-2 text-xl font-semibold whitespace-nowrap transition-colors relative
+                ${isActive(l.href)
+                  ? 'text-brand font-bold after:absolute after:bottom-0 after:right-0 after:left-0 after:h-[2px] after:bg-brand after:rounded-full'
+                  : 'text-ink hover:text-brand'
+                }`}
             >
               {l.label}
             </Link>
@@ -56,9 +67,11 @@ export default function Nav() {
         </nav>
 
         {/* col-3 → LEFT in RTL — social media icons */}
-        <div className="flex items-center justify-end gap-5">
+        <div className="flex items-center justify-end gap-3">
           {SOCIAL_LINKS.map((s) => (
-            <SocialIconLink key={s.icon} href={s.href} label={s.label} icon={s.icon} size={28} className="text-black hover:text-brand" />
+            <div key={s.icon} className="p-2">
+              <SocialIconLink href={s.href} label={s.label} icon={s.icon} size={24} className="text-black hover:text-brand" />
+            </div>
           ))}
         </div>
       </div>
@@ -66,7 +79,7 @@ export default function Nav() {
       {/* Mobile — logo + hamburger */}
       <div className="md:hidden max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
         <button
-          className="text-white/80 p-2"
+          className="text-ink p-2"
           onClick={() => setOpen(!open)}
           aria-label="תפריט"
         >
@@ -83,20 +96,23 @@ export default function Nav() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-cream border-t border-gold/30 px-6 py-5 flex flex-col gap-5">
+        <div className="md:hidden bg-cream border-t border-gold/30 px-6 py-5 flex flex-col gap-1">
           {NAV_LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="text-ink hover:text-brand font-semibold text-lg transition-colors"
+              className={`py-3 font-semibold text-lg transition-colors border-b border-gold/10 last:border-0
+                ${isActive(l.href) ? 'text-brand font-bold' : 'text-ink hover:text-brand'}`}
               onClick={() => setOpen(false)}
             >
               {l.label}
             </Link>
           ))}
-          <div className="flex items-center gap-4 pt-1 border-t border-gold/30">
+          <div className="flex items-center gap-3 pt-3">
             {SOCIAL_LINKS.map((s) => (
-              <SocialIconLink key={s.icon} href={s.href} label={s.label} icon={s.icon} size={26} className="text-black hover:text-brand" />
+              <div key={s.icon} className="p-2">
+                <SocialIconLink href={s.href} label={s.label} icon={s.icon} size={24} className="text-black hover:text-brand" />
+              </div>
             ))}
           </div>
         </div>
