@@ -6,6 +6,7 @@ import { homepageSection } from './homepageSection'
 import { freeGift } from './freeGift'
 import { siteSettings } from './siteSettings'
 import { gift } from './gift'
+import { sectionStroke } from './sectionStroke'
 
 export const schemaTypes = [
   course,
@@ -16,4 +17,5 @@ export const schemaTypes = [
   freeGift,
   siteSettings,
   gift,
+  sectionStroke,
 ]

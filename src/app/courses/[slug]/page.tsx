@@ -1,12 +1,20 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
-import { PortableText } from '@portabletext/react'
-import { fetchCourseBySlug, fetchCourses } from '@/lib/queries'
+import { fetchCourseBySlug, fetchCourses, fetchTestimonials } from '@/lib/queries'
 import { getImageUrl } from '@/lib/image-utils'
 import type { Course } from '@/lib/types'
 import { CourseJsonLd } from '@/components/JsonLd'
-import CTAButton from '@/components/ui/CTAButton'
+import BokehBackground from '@/components/ui/BokehBackground'
+import SectionDivider from '@/components/ui/SectionDivider'
+import RecommendersSection from '@/components/RecommendersSection'
+import ContactForm from '@/components/ContactForm'
+import { COURSE_TYPE_LABELS } from '@/lib/constants'
+import CourseLearnSection from '@/components/course/CourseLearnSection'
+import CourseWhoSection from '@/components/course/CourseWhoSection'
+import CoursePricingSection from '@/components/course/CoursePricingSection'
+import CourseFAQSection from '@/components/course/CourseFAQSection'
+import CourseDetailsSection from '@/components/course/CourseDetailsSection'
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -19,52 +27,183 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const course: Course | null = await fetchCourseBySlug(slug).catch(() => null)
   if (!course) return { title: 'קורס לא נמצא' }
-  return { title: course.title, description: course.shortDescription }
+  return {
+    title: `${course.title} — טל רומן`,
+    description: course.shortDescription,
+    openGraph: { title: course.title, description: course.shortDescription, type: 'website' },
+  }
+}
+
+function BuyButton({ href, label }: { href: string; label?: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block bg-gold hover:bg-gold/80 text-night font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-gold/20 transition-all hover:scale-105"
+    >
+      {label || 'לרכישה עכשיו'}
+    </a>
+  )
+}
+
+function ContactButton() {
+  return (
+    <a
+      href="#contact"
+      className="inline-block bg-gold hover:bg-gold/80 text-night font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-gold/20 transition-all hover:scale-105"
+    >
+      אשמח לקבל פרטים נוספים
+    </a>
+  )
 }
 
 export default async function CourseDetailPage({ params }: Props) {
   const { slug } = await params
-  const course: Course | null = await fetchCourseBySlug(slug).catch(() => null)
+  const [course, testimonials] = await Promise.all([
+    fetchCourseBySlug(slug).catch(() => null),
+    fetchTestimonials().catch(() => []),
+  ])
   if (!course) notFound()
 
-  const imageUrl = getImageUrl(course.thumbnail, 'banner')
+  const heroImageUrl = getImageUrl(course.primaryImage ?? course.thumbnail, 'banner')
+  const ctaUrl = course.purchaseUrl || course.landingPageUrl
+  const hasContactForm = !course.purchaseUrl
 
   return (
-    <div className="min-h-screen bg-cream">
-      <CourseJsonLd title={course.title} description={course.shortDescription} price={course.price} url={`https://talroman.com/courses/${slug}`} />
-      <div className="max-w-4xl mx-auto px-4 py-16">
-        {imageUrl && (
-          <div className="relative w-full h-72 md:h-96 rounded-[24px] overflow-hidden mb-10 shadow-lg">
-            <Image src={imageUrl} alt={course.title} fill className="object-cover" priority sizes="100vw" />
+    <div className="min-h-screen bg-cream" dir="rtl">
+      <CourseJsonLd
+        title={course.title}
+        description={course.shortDescription}
+        price={course.price}
+        url={`https://talroman.com/courses/${slug}`}
+      />
+
+      {/* ── HERO ── */}
+      <section className="relative py-28 md:py-36 bg-dusk text-white overflow-hidden">
+        <BokehBackground />
+        {heroImageUrl && (
+          <div className="absolute inset-0 opacity-10">
+            <Image src={heroImageUrl} alt={course.title} fill className="object-cover" priority sizes="100vw" />
           </div>
         )}
-
-        <h1 className="text-4xl md:text-5xl font-bold text-ink mb-4">{course.title}</h1>
-
-        {course.shortDescription && (
-          <p className="text-xl text-charcoal mb-8 leading-relaxed">{course.shortDescription}</p>
-        )}
-
-        <div className="flex items-center gap-6 mb-10 pb-8 border-b border-gold/20">
-          {course.price && (
-            <div>
-              <span className="text-sm text-mist">מחיר</span>
-              <p className="text-3xl font-bold text-brand">{course.price}</p>
-            </div>
+        <div className="relative max-w-4xl mx-auto px-6 text-center">
+          {course.type && (
+            <span className="inline-block bg-gold/15 text-gold border border-gold/25 text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-[0.2em] uppercase">
+              {COURSE_TYPE_LABELS[course.type] ?? course.type}
+            </span>
           )}
-          {course.purchaseUrl && (
-            <CTAButton href={course.purchaseUrl} target="_blank" rel="noopener noreferrer" className="text-lg shadow-md px-10">
-              לרכישה
-            </CTAButton>
+          <h1 className="text-5xl md:text-7xl font-extrabold text-gold leading-tight mb-6">
+            {course.title}
+          </h1>
+          {course.shortDescription && (
+            <p className="text-sand text-xl md:text-2xl leading-relaxed mb-4 max-w-2xl mx-auto">
+              {course.shortDescription}
+            </p>
+          )}
+          {course.paragraphBelowSubtitle && (
+            <p className="text-sand/65 text-lg leading-loose mb-10 max-w-2xl mx-auto">
+              {course.paragraphBelowSubtitle}
+            </p>
+          )}
+          {course.price && (
+            <p className="text-5xl font-extrabold text-gold mb-8 font-garamond">{course.price}</p>
+          )}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {ctaUrl ? (
+              <BuyButton href={ctaUrl} label={course.ctaButtonLabel} />
+            ) : (
+              <ContactButton />
+            )}
+          </div>
+          <div className="mt-12">
+            <SectionDivider />
+          </div>
+        </div>
+      </section>
+
+      {/* ── HERO IMAGE ── */}
+      {heroImageUrl && (
+        <section className="bg-night py-0">
+          <div className="max-w-4xl mx-auto">
+            <div className="relative w-full aspect-video overflow-hidden">
+              <Image
+                src={heroImageUrl}
+                alt={course.title}
+                fill
+                className="object-cover opacity-80"
+                sizes="(max-width: 768px) 100vw, 896px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-night/60 via-transparent to-transparent" />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── FULL DETAILS ── */}
+      <CourseDetailsSection
+        fullDetails={course.fullDetails}
+        description={course.description}
+        ctaUrl={ctaUrl}
+        ctaButtonLabel={course.ctaButtonLabel}
+      />
+
+      {/* ── WHAT YOU'LL LEARN ── */}
+      <CourseLearnSection items={course.whatYoullLearn ?? []} />
+
+      {/* ── WHO IS IT FOR ── */}
+      <CourseWhoSection items={course.whoIsItFor ?? []} />
+
+      {/* ── TESTIMONIALS ── */}
+      {testimonials.length > 0 && (
+        <RecommendersSection testimonials={testimonials} dark />
+      )}
+
+      {/* ── PRICING ── */}
+      <CoursePricingSection
+        price={course.price}
+        location={course.location}
+        cancellationPolicy={course.cancellationPolicy}
+        ctaText={course.ctaText}
+        ctaUrl={ctaUrl}
+        ctaButtonLabel={course.ctaButtonLabel}
+      />
+
+      {/* ── FAQ ── */}
+      <CourseFAQSection items={course.faq ?? []} />
+
+      {/* ── FINAL CTA STRIP ── */}
+      <section className="py-24 bg-gradient-to-br from-dusk to-night text-white text-center relative overflow-hidden">
+        <BokehBackground />
+        <div className="relative max-w-2xl mx-auto px-6">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gold mb-4">
+            מוכנ/ת להתחיל?
+          </h2>
+          <p className="text-sand/80 text-lg leading-relaxed mb-10">
+            {course.ctaText || `הצטרפ/י ל${course.title} וצא/י לדרך.`}
+          </p>
+          {ctaUrl ? (
+            <BuyButton href={ctaUrl} label={course.ctaButtonLabel} />
+          ) : (
+            <ContactButton />
           )}
         </div>
+      </section>
 
-        {course.description && (
-          <div className="prose prose-lg max-w-none text-charcoal [&_h2]:text-ink [&_h3]:text-ink [&_strong]:text-ink">
-            <PortableText value={course.description} />
+      {/* ── CONTACT FORM ── */}
+      {hasContactForm && (
+        <section id="contact" className="py-24 bg-cream">
+          <div className="max-w-xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <p className="text-sienna text-xs font-bold uppercase tracking-[0.25em] mb-3">צור קשר</p>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-ink mb-3">השאירי פרטים</h2>
+              <p className="text-charcoal text-base">ואחזור אליך בהקדם לתיאום שיחת היכרות</p>
+              <div className="mt-6"><SectionDivider /></div>
+            </div>
+            <ContactForm tag={course.slug} status="קר" />
           </div>
-        )}
-      </div>
+        </section>
+      )}
     </div>
   )
 }

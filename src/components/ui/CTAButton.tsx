@@ -10,7 +10,7 @@ interface CTAButtonProps {
 }
 
 export default function CTAButton({ children, href, onClick, className = '', target, rel }: CTAButtonProps) {
-  const base = `bg-brand text-white font-bold px-8 py-4 rounded-full hover:bg-brand-dark transition-colors ${className}`
+  const base = `bg-brand text-white font-bold px-7 py-3 rounded-full hover:bg-brand-dark transition-colors ${className}`
 
   if (href) {
     if (href.startsWith('http') || href.startsWith('https') || target) {

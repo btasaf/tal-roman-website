@@ -48,7 +48,7 @@ export default function SocialIconLink({ href, label, icon, className = '', size
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className={`text-white/60 hover:text-gold transition-colors ${className}`}
+      className={`transition-colors ${className}`}
     >
       <Icon size={size} />
     </a>

@@ -29,7 +29,8 @@ export const COURSE_TYPE_LABELS: Record<string, string> = {
 }
 
 export const NAV_LINKS = [
-  { href: '/', label: 'בית' },
+  { href: '/personal-coaching', label: 'ליווי אישי' },
+  { href: '/communities', label: 'קהילות' },
   { href: '/courses', label: 'קורסים' },
   { href: '/recommendations', label: 'המלצות' },
   { href: '/articles', label: 'מאמרים' },

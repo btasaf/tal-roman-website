@@ -30,20 +30,16 @@ export const course = defineType({
     defineField({ name: 'fullDetails', title: 'פרטים מלאים על הסדנה', type: 'text', rows: 6 }),
     defineField({ name: 'paragraphBelowSubtitle', title: 'פסקה מתחת לכותרת משנה', type: 'text', rows: 4 }),
     defineField({
-      name: 'suitableFor',
-      title: 'למי זה מתאים / מה נלמד',
+      name: 'whatYoullLearn',
+      title: '📚 מה נלמד',
       type: 'array',
-      of: [
-        defineField({
-          name: 'listItem',
-          title: 'פריט',
-          type: 'object',
-          fields: [
-            defineField({ name: 'text', title: 'טקסט', type: 'text', rows: 2 }),
-            defineField({ name: 'listType', title: 'סוג', type: 'string' }),
-          ],
-        }),
-      ],
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'whoIsItFor',
+      title: '👤 למי זה מתאים',
+      type: 'array',
+      of: [{ type: 'string' }],
     }),
     defineField({
       name: 'faq',

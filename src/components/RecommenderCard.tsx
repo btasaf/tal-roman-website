@@ -83,7 +83,7 @@ export default function RecommenderCard({ t, index = 0, dark = false }: Recommen
           {t.body}
         </p>
 
-        <div className={`flex items-center justify-end gap-2 mt-4 pt-3 border-t ${dark ? 'border-gold/15' : 'border-gold/20'}`}>
+        <div className={`flex items-center justify-start gap-2 mt-4 pt-3 border-t ${dark ? 'border-gold/15' : 'border-gold/20'}`}>
           <div className="text-right">
             <p className={`font-bold text-sm ${dark ? 'text-gold' : 'text-ink'}`}>{t.name}</p>
             {t.courseTitle && (

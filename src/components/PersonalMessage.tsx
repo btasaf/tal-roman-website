@@ -25,7 +25,7 @@ type Block = { _type: string; _key: string; [key: string]: unknown }
 export default function PersonalMessage({ message, bgImage }: { message: Block[] | string; bgImage?: object | null }) {
   return (
     <section className="py-24 bg-dusk relative overflow-hidden">
-      <SectionBackground image={bgImage} />
+      <SectionBackground image={bgImage} opacity={100} />
       <BokehBackground />
 
       <div className="relative max-w-3xl mx-auto px-4 text-center">

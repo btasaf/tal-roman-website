@@ -55,7 +55,13 @@
       "Bash(lsof -ti:3000)",
       "Bash(xargs kill *)",
       "Bash(npm list *)",
-      "Read(//home/asaf/.claude/**)"
+      "Read(//home/asaf/.claude/**)",
+      "Bash(grep -E \"\\\\.\\(tsx?|jsx?\\)$\")",
+      "Skill(update-config)",
+      "Skill(design-review)"
     ]
+  },
+  "skillOverrides": {
+    "tal": "user-invocable-only"
   }
 }

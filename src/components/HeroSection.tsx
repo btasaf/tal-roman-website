@@ -6,6 +6,42 @@ import { getImageUrl } from '@/lib/image-utils'
 import CTAButton from '@/components/ui/CTAButton'
 import SectionBackground from '@/components/ui/SectionBackground'
 
+// ─────────────────────────────────────────────
+//  HERO CONFIG  ← שנה כאן את המראה של הבאנר
+// ─────────────────────────────────────────────
+const CONFIG = {
+  // יישור הטקסט: 'center' = מרכז  |  'right' = ימין
+  textAlign: 'center' as 'center' | 'right',
+
+  // גודל כותרת משנה (הטקסט הקטן מתחת לכותרת הראשית)
+  subtitleSize: 'text-4xl md:text-5xl lg:text-6xl',
+
+  // גודל טקסט גוף (הטקסט הארוך מתחת לכותרות)
+  bodySize: 'text-3xl md:text-4xl lg:text-2xl',
+
+  // יישור הכפתור: 'center' = מרכז  |  'right' = ימין  |  'left' = שמאל
+  buttonAlign: 'center' as 'center' | 'right' | 'left',
+
+  // גודל הכפתור — padding פנימי
+  buttonPadding: 'px-14 py-2',
+
+  // גודל פונט הכפתור
+  buttonFont: 'text-2xl',
+}
+// ─────────────────────────────────────────────
+
+const alignClass = {
+  center: 'text-center',
+  right: 'text-right',
+  left: 'text-left',
+}
+
+const buttonJustify = {
+  center: 'flex justify-center',
+  right: 'flex justify-end',
+  left: 'flex justify-start',
+}
+
 interface HeroSectionProps {
   headline: string
   subheadline: string
@@ -61,7 +97,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
         </m.div>
 
         {/* Text */}
-        <div className="text-right">
+        <div className={alignClass[CONFIG.textAlign]}>
           <m.h1
             className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dusk leading-tight mb-8 tracking-tight"
             initial={{ opacity: 0, y: 20 }}
@@ -73,7 +109,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
 
           {subheadline && (
             <m.p
-              className="text-xl md:text-2xl text-sienna font-medium mb-8"
+              className={`${CONFIG.subtitleSize} text-sienna font-medium mb-8`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -84,7 +120,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
 
           {bodyText && (
             <m.p
-              className="text-[#4f3a2a] text-lg leading-relaxed mb-16 max-w-lg mr-0 ml-auto md:ml-0"
+              className={`text-[#4f3a2a] ${CONFIG.bodySize} leading-relaxed mb-16 max-w-lg mx-auto`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.45 }}
@@ -94,11 +130,12 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
           )}
 
           <m.div
+            className={buttonJustify[CONFIG.buttonAlign]}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <CTAButton onClick={scrollToGifts} className="text-lg shadow-lg shadow-brand/30 px-9">
+            <CTAButton onClick={scrollToGifts} className={`${CONFIG.buttonFont} ${CONFIG.buttonPadding} shadow-lg shadow-brand/30`}>
               {ctaText ?? 'לקבלת מתנות חינמיות'}
             </CTAButton>
           </m.div>

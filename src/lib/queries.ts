@@ -13,8 +13,12 @@ export const featuredCoursesQuery = `*[_type == "course" && featured == true] | 
 }`
 
 export const courseBySlugQuery = `*[_type == "course" && slug.current == $slug][0] {
-  title, "slug": slug.current, description, shortDescription,
-  thumbnail, price, purchaseUrl, type
+  title, "slug": slug.current, shortDescription, description,
+  thumbnail, primaryImage, price, purchaseUrl, landingPageUrl, type,
+  location, cancellationPolicy, ctaText, ctaButtonLabel,
+  fullDetails, paragraphBelowSubtitle,
+  whatYoullLearn, whoIsItFor,
+  faq[] { question, answer }
 }`
 
 export const testimonialsQuery = `*[_type == "testimonial" && featured == true] | order(sort asc, _createdAt desc) {
@@ -44,14 +48,22 @@ export const freeGiftsQuery = `*[_type == "freeGift"] | order(order asc) {
 
 export const homepageSectionQuery = `*[_type == "homepageSection"][0] {
   heroHeadline, heroSubheadline, heroBodyText, heroCtaText, heroImage, heroBgImage,
+  heroStroke,
   personalMessage, personalMessageBgImage,
+  personalMessageStroke,
   giftsHeadline, giftsSubheadline, giftsBgImage,
+  giftsStroke,
   aboutImage, aboutBio, aboutQuote, aboutBgImage,
+  aboutStroke,
   featuredPromoTitle, featuredPromoBody, featuredPromoCtaText, featuredPromoUrl, featuredPromoImage, featuredPromoBgImage,
+  featuredPromoStroke,
   coursesHeadline, coursesBgImage,
+  coursesStroke,
   featuredCourses[]-> { title, "slug": slug.current, shortDescription, thumbnail, price, purchaseUrl, type },
   testimonialsBgImage,
+  testimonialsStroke,
   contactBgImage,
+  contactStroke,
   scrollGalleryItems[] { image, headline, body }
 }`
 

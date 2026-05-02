@@ -41,8 +41,7 @@ export default function CourseCard({ title, slug, shortDescription, thumbnail, p
         {shortDescription && (
           <p className="text-charcoal text-sm leading-relaxed mb-4 line-clamp-2">{shortDescription}</p>
         )}
-        <div className="flex items-center justify-between mt-auto">
-          {price && <span className="text-brand font-semibold text-lg">{price}</span>}
+        <div className="flex items-center justify-end mt-auto">
           <Link
             href={`/courses/${slug}`}
             className="bg-brand text-white text-sm font-medium px-5 py-2.5 rounded-full hover:bg-brand-dark transition-colors"

@@ -38,7 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="min-h-full flex flex-col bg-[#0d0804] font-heebo">
         <MotionProvider>
           <Nav />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 pt-20">{children}</main>
           <Footer settings={settings} />
         </MotionProvider>
         {process.env.NEXT_PUBLIC_GA_ID && (

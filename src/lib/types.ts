@@ -18,11 +18,22 @@ export interface Course {
   shortDescription?: string
   description?: { _type: string; _key: string; [key: string]: unknown }[]
   thumbnail?: object | null
+  primaryImage?: object | null
   price?: string
   purchaseUrl?: string
+  landingPageUrl?: string
   type?: string
   featured?: boolean
   order?: number
+  location?: string
+  cancellationPolicy?: string
+  ctaText?: string
+  ctaButtonLabel?: string
+  fullDetails?: string
+  paragraphBelowSubtitle?: string
+  whatYoullLearn?: string[]
+  whoIsItFor?: string[]
+  faq?: { question: string; answer: string }[]
 }
 
 export interface BlogPost {

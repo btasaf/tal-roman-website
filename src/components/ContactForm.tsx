@@ -62,7 +62,7 @@ export default function ContactForm({ tag, status }: ContactFormProps) {
 
   const inputBase =
     'w-full bg-white border border-gold/30 rounded-xl px-4 py-3 text-right text-ink placeholder-mist focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/20 transition-colors dir-rtl'
-  const labelBase = 'block text-sm font-semibold text-sand mb-1 text-right'
+  const labelBase = 'block text-sm font-semibold text-ink mb-1 text-right'
 
   if (state === 'success') {
     return (
