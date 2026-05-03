@@ -1,10 +1,13 @@
 'use client'
 
-import { m } from 'framer-motion'
+import { useRef } from 'react'
+import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { getImageUrl } from '@/lib/image-utils'
 import CTAButton from '@/components/ui/CTAButton'
 import SectionBackground from '@/components/ui/SectionBackground'
+import RevealText from '@/components/ui/RevealText'
+import MagneticButton from '@/components/ui/MagneticButton'
 
 // ─────────────────────────────────────────────
 //  HERO CONFIG  ← שנה כאן את המראה של הבאנר
@@ -60,9 +63,17 @@ function scrollToGifts() {
 export default function HeroSection({ headline, subheadline, bodyText, heroImage, bgImage, ctaText }: HeroSectionProps) {
   const imageUrl = getImageUrl(heroImage, 'hero') ?? '/wix-assets/images/tal-photos/VV9A8369%20copy_edited.jpg'
 
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] })
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0])
+
   return (
-    <section className="relative overflow-hidden min-h-[92vh] flex items-center bg-cream">
-      <SectionBackground image={bgImage} />
+    <section ref={sectionRef} className="relative overflow-hidden min-h-[92vh] flex items-center bg-cream">
+      {/* Parallax bg layer */}
+      <m.div className="absolute inset-0" style={{ y: bgY }}>
+        <SectionBackground image={bgImage} />
+      </m.div>
       {/* Bokeh particle layer */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[8%]  left-[15%]  w-72  h-72  bg-gold/18 rounded-full blur-3xl" />
@@ -75,12 +86,12 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
 
       <div className="relative max-w-7xl mx-auto px-3 md:px-4 py-16 w-full grid grid-cols-1 md:grid-cols-[480px_1fr] gap-16 items-center">
 
-        {/* Portrait */}
+        {/* Portrait — wipe reveal */}
         <m.div
           className="flex justify-center md:justify-start"
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
+          initial={{ opacity: 0, scale: 0.92, filter: 'blur(12px)' }}
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1, ease: 'easeOut' }}
         >
           <div className="relative w-[320px] h-[400px] md:w-[460px] md:h-[580px]">
             <Image
@@ -96,26 +107,22 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
           </div>
         </m.div>
 
-        {/* Text */}
-        <div className={alignClass[CONFIG.textAlign]}>
-          <m.h1
-            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dusk leading-tight mb-8 tracking-tight font-garamond"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-          >
-            {headline}
-          </m.h1>
+        {/* Text — word-by-word reveal */}
+        <m.div className={alignClass[CONFIG.textAlign]} style={{ opacity }}>
+          <RevealText
+            text={headline}
+            as="h1"
+            className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dusk leading-tight mb-8 tracking-tight font-garamond block"
+            delay={0.1}
+          />
 
           {subheadline && (
-            <m.p
-              className={`${CONFIG.subtitleSize} text-sienna font-medium mb-8`}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              {subheadline}
-            </m.p>
+            <RevealText
+              text={subheadline}
+              as="p"
+              className={`${CONFIG.subtitleSize} text-sienna font-medium mb-8 block`}
+              delay={0.3}
+            />
           )}
 
           {bodyText && (
@@ -123,7 +130,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
               className={`text-[#4f3a2a] ${CONFIG.bodySize} leading-relaxed mb-16 max-w-lg mx-auto`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.45 }}
+              transition={{ duration: 0.6, delay: 0.55 }}
             >
               {bodyText}
             </m.p>
@@ -133,13 +140,15 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
             className={buttonJustify[CONFIG.buttonAlign]}
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.75 }}
           >
-            <CTAButton onClick={scrollToGifts} className={`${CONFIG.buttonFont} ${CONFIG.buttonPadding} shadow-lg shadow-brand/30`}>
-              {ctaText ?? 'לקבלת מתנות חינמיות'}
-            </CTAButton>
+            <MagneticButton>
+              <CTAButton onClick={scrollToGifts} className={`${CONFIG.buttonFont} ${CONFIG.buttonPadding} shadow-lg shadow-brand/30`}>
+                {ctaText ?? 'לקבלת מתנות חינמיות'}
+              </CTAButton>
+            </MagneticButton>
           </m.div>
-        </div>
+        </m.div>
       </div>
     </section>
   )

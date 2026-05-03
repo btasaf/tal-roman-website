@@ -1,10 +1,13 @@
 'use client'
 
-import { m } from 'framer-motion'
+import { useRef } from 'react'
+import { m, useScroll, useTransform } from 'framer-motion'
 import { getImageUrl } from '@/lib/image-utils'
-import { fadeInLeft, fadeInRight } from '@/lib/animations'
+import { fadeInRight, fadeInLeft } from '@/lib/animations'
 import BokehBackground from '@/components/ui/BokehBackground'
 import SectionBackground from '@/components/ui/SectionBackground'
+import WipeReveal from '@/components/ui/WipeReveal'
+import RevealText from '@/components/ui/RevealText'
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 
 const IMAGE = {
@@ -48,19 +51,21 @@ interface AboutSectionProps {
 export default function AboutSection({ aboutImage, aboutBio, aboutQuote, bgImage }: AboutSectionProps) {
   const imageUrl = getImageUrl(aboutImage, 'about') ?? '/wix-assets/images/tal-photos/IMG_4913_2048px_.JPG'
 
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start end', 'end start'] })
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1.08, 1.0])
+
   return (
-    <section className="py-20 bg-dusk text-white relative overflow-hidden">
+    <section ref={sectionRef} className="py-20 bg-dusk text-white relative overflow-hidden">
       <SectionBackground image={bgImage} opacity={100} />
       <BokehBackground />
 
-
       <div className="relative max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <m.div className="flex justify-center" {...fadeInLeft}>
-          <div className="relative inline-block">
-            <div
-              className="overflow-hidden shadow-2xl"
-              style={{ borderRadius: IMAGE.borderRadius, width: IMAGE.width }}
-            >
+
+        {/* Image — wipe reveal + scroll zoom */}
+        <WipeReveal direction="right" delay={0.1} className="flex justify-center">
+          <div className="relative inline-block overflow-hidden" style={{ borderRadius: IMAGE.borderRadius, width: IMAGE.width }}>
+            <m.div style={{ scale: imgScale }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={imageUrl}
@@ -69,11 +74,11 @@ export default function AboutSection({ aboutImage, aboutBio, aboutQuote, bgImage
                   width: '100%',
                   height: 'auto',
                   display: 'block',
-                  transform: `scale(${IMAGE.zoom})`,
                   transformOrigin: IMAGE.position,
                 }}
+                className="shadow-2xl"
               />
-            </div>
+            </m.div>
             <div
               className="absolute pointer-events-none"
               style={{
@@ -83,21 +88,34 @@ export default function AboutSection({ aboutImage, aboutBio, aboutQuote, bgImage
               }}
             />
           </div>
-        </m.div>
+        </WipeReveal>
 
+        {/* Text */}
         <m.div {...fadeInRight} className={TEXT.alignment}>
-          <h2 className={`${TEXT.titleSize} font-bold mb-6 ${TEXT.titleColor}`}>טל רומן</h2>
+          <RevealText text="טל רומן" as="h2" className={`${TEXT.titleSize} font-bold mb-6 ${TEXT.titleColor} block`} delay={0.2} />
           {aboutBio && (
-            <p className={`${TEXT.bioColor} leading-relaxed mb-8 ${TEXT.bioSize} whitespace-pre-line`}>
+            <m.p
+              className={`${TEXT.bioColor} leading-relaxed mb-8 ${TEXT.bioSize} whitespace-pre-line`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.35 }}
+            >
               {aboutBio}
-            </p>
+            </m.p>
           )}
           {aboutQuote && (
-            <blockquote className="border-r-4 border-gold/50 pr-4">
+            <m.blockquote
+              className="border-r-4 border-gold/50 pr-4"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
               <p className={`${TEXT.quoteColor} italic leading-relaxed ${TEXT.quoteSize}`}>
                 "{aboutQuote}"
               </p>
-            </blockquote>
+            </m.blockquote>
           )}
         </m.div>
       </div>

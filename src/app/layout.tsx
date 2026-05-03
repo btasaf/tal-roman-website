@@ -6,6 +6,9 @@ import { fetchSiteSettings } from '@/lib/queries'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import WhatsAppFAB from '@/components/ui/WhatsAppFAB'
+import ScrollProgressBar from '@/components/ui/ScrollProgressBar'
+import GrainOverlay from '@/components/ui/GrainOverlay'
+import SmoothScroll from '@/components/ui/SmoothScroll'
 import './globals.css'
 
 const heebo = Heebo({
@@ -38,6 +41,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="he" dir="rtl" className={`${heebo.variable} ${ebGaramond.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[#0d0804] font-heebo">
         <MotionProvider>
+          <SmoothScroll />
+          <ScrollProgressBar />
+          <GrainOverlay />
           <Nav />
           <main className="flex-1 pt-20">{children}</main>
           <Footer settings={settings} />

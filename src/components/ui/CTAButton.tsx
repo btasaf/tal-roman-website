@@ -1,4 +1,6 @@
+'use client'
 import Link from 'next/link'
+import MagneticButton from '@/components/ui/MagneticButton'
 
 interface CTAButtonProps {
   children: React.ReactNode
@@ -12,12 +14,16 @@ interface CTAButtonProps {
 export default function CTAButton({ children, href, onClick, className = '', target, rel }: CTAButtonProps) {
   const base = `bg-brand text-white font-bold px-7 py-3 rounded-full hover:bg-brand-dark transition-colors ${className}`
 
+  let inner: React.ReactNode
   if (href) {
     if (href.startsWith('http') || href.startsWith('https') || target) {
-      return <a href={href} className={base} target={target} rel={rel}>{children}</a>
+      inner = <a href={href} className={base} target={target} rel={rel}>{children}</a>
+    } else {
+      inner = <Link href={href} className={base}>{children}</Link>
     }
-    return <Link href={href} className={base}>{children}</Link>
+  } else {
+    inner = <button onClick={onClick} className={`${base} cursor-pointer`}>{children}</button>
   }
 
-  return <button onClick={onClick} className={`${base} cursor-pointer`}>{children}</button>
+  return <MagneticButton>{inner}</MagneticButton>
 }
