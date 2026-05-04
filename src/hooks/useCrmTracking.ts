@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useCallback } from 'react'
 
-const CRM_BASE = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://crm.talroman.com/api'
 
 function getOrCreateVisitorId(): string {
   const KEY = 'crm_visitor_id'
@@ -39,7 +38,7 @@ export function useCrmTracking() {
     const visitorId = visitorIdRef.current
     if (!visitorId) return
 
-    await fetch(`${CRM_BASE}/wix/track`, {
+    await fetch('/api/crm/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -61,7 +60,7 @@ export function useCrmTracking() {
   const saveCustomer = useCallback(async (data: SaveCustomerData) => {
     const visitorId = visitorIdRef.current
 
-    const res = await fetch(`${CRM_BASE}/wix/customer`, {
+    const res = await fetch('/api/crm/save-customer', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

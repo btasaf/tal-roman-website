@@ -10,6 +10,7 @@ export interface CrmCustomerData {
   status?: string
   enrollToSchool?: string
   visitorId?: string
+  notifyTal?: boolean
 }
 
 export interface CrmTrackEventData {
@@ -40,7 +41,7 @@ export async function crmSaveCustomer(data: CrmCustomerData): Promise<CrmSaveRes
     throw new Error('Either mail or phone is required')
   }
 
-  const res = await fetch(`${CRM_BASE_URL}/api/wix/customer`, {
+  const res = await fetch(`${CRM_BASE_URL}/wix/customer`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
@@ -63,7 +64,7 @@ export async function crmSaveCustomer(data: CrmCustomerData): Promise<CrmSaveRes
 }
 
 export async function crmTrackEvent(data: CrmTrackEventData): Promise<CrmTrackResult> {
-  const res = await fetch(`${CRM_BASE_URL}/api/wix/track`, {
+  const res = await fetch(`${CRM_BASE_URL}/wix/track`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),

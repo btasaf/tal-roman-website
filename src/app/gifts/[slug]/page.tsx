@@ -45,7 +45,7 @@ export default async function GiftPage({ params }: Props) {
 
   return (
     <div>
-      <GiftPageContent gift={gift} />
+      <GiftPageContent gift={gift} slug={slug} />
 
       <RecommendersSection
         testimonials={testimonials.slice(0, 6)}

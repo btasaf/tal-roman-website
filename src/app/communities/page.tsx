@@ -62,9 +62,9 @@ const whatsappGroups = [
       'ידע איכותי מעולמות היחסים והמיניות',
       'עדכונים חשובים — בלי הצפה ובלי ספאם',
     ],
-    href: null,
-    buttonText: 'בקרוב...',
-    available: false,
+    href: 'https://chat.whatsapp.com/FPZYN0ApHYp2tlYXVasGdm',
+    buttonText: 'הצטרפו לקבוצה',
+    available: true,
   },
 ]
 

@@ -1,21 +1,22 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
-
-const CRM_URL = process.env.NEXT_PUBLIC_CRM_URL ?? 'https://crm.talroman.com/api'
+import { useCrmTracking } from '@/hooks/useCrmTracking'
 
 interface GiftFormProps {
   tag?: string
   status?: string
   enrollToSchool?: string
+  slug?: string
 }
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
-export default function GiftForm({ tag, status, enrollToSchool }: GiftFormProps) {
+export default function GiftForm({ tag, status, enrollToSchool, slug }: GiftFormProps) {
   const [state, setState] = useState<FormState>('idle')
   const [errors, setErrors] = useState<Record<string, string>>({})
   const visitorIdRef = useRef<string | null>(null)
+  const { track } = useCrmTracking()
 
   useEffect(() => {
     const KEY = 'crm_visitor_id'
@@ -65,7 +66,7 @@ export default function GiftForm({ tag, status, enrollToSchool }: GiftFormProps)
         visitorId:      visitorIdRef.current ?? null,
       }
 
-      const res = await fetch(`${CRM_URL}/wix/customer`, {
+      const res = await fetch('/api/crm/save-customer', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify(body),
@@ -76,6 +77,7 @@ export default function GiftForm({ tag, status, enrollToSchool }: GiftFormProps)
       if (result?.uniqueLink) {
         window.open(result.uniqueLink, '_blank', 'noopener,noreferrer')
       }
+      if (slug) track(`got_gift_${slug}`)
       setState('success')
     } catch {
       setState('error')

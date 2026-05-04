@@ -29,7 +29,7 @@ function CheckIcon() {
   )
 }
 
-export default function GiftPageContent({ gift }: { gift: Gift }) {
+export default function GiftPageContent({ gift, slug }: { gift: Gift; slug: string }) {
   const imageUrl = getImageUrl(gift.image ?? null, 'section')
   console.log("gift",gift );
   function scrollToCta() {
@@ -201,6 +201,7 @@ export default function GiftPageContent({ gift }: { gift: Gift }) {
             tag={gift.crmTags}
             status={gift.crmStatus}
             enrollToSchool={gift.enrollToSchool}
+            slug={slug}
           />
         </div>
       </section>
