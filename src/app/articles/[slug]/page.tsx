@@ -86,7 +86,7 @@ export default async function ArticleDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <ArticleViewTracker slug={slug} title={post.title} />
+      <ArticleViewTracker slug={slug} />
       <div className="min-h-screen bg-cream" dir="rtl">
         {/* Hero */}
         <div className="bg-gradient-to-b from-night/95 to-night/80 pt-24 pb-12 px-4">

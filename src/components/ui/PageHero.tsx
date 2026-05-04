@@ -1,4 +1,4 @@
-import BokehBackground from '@/components/ui/BokehBackground'
+import LavaBackground from '@/components/ui/LavaBackground'
 import SectionDivider from '@/components/ui/SectionDivider'
 
 interface PageHeroProps {
@@ -7,12 +7,16 @@ interface PageHeroProps {
   subtitle?: string
   children?: React.ReactNode
   align?: 'center' | 'right'
+  lavaColor1?: string
+  lavaColor2?: string
+  lavaColor3?: string
+  lavaSpeed?: number
 }
-
-export default function PageHero({ eyebrow, title, subtitle, children, align = 'center' }: PageHeroProps) {
+const lavaSpeed = 2
+export default function PageHero({ eyebrow, title, subtitle, children, align = 'center', lavaColor1, lavaColor2, lavaColor3 }: PageHeroProps) {
   return (
     <section className="relative py-32 bg-dusk text-white overflow-hidden">
-      <BokehBackground />
+      <LavaBackground color1={lavaColor1} color2={lavaColor2} color3={lavaColor3} speed={lavaSpeed} />
       <div className={`relative max-w-3xl mx-auto px-6 ${align === 'center' ? 'text-center' : 'text-right'}`}>
         {eyebrow && (
           <p className="text-gold/70 text-sm font-semibold uppercase tracking-widest mb-4">

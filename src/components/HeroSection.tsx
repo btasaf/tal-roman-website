@@ -17,19 +17,19 @@ const CONFIG = {
   textAlign: 'center' as 'center' | 'right',
 
   // גודל כותרת משנה (הטקסט הקטן מתחת לכותרת הראשית)
-  subtitleSize: 'text-2xl md:text-3xl',
+  subtitleSize: 'text-xl lg:text-2xl xl:text-3xl',
 
   // גודל טקסט גוף (הטקסט הארוך מתחת לכותרות)
-  bodySize: 'text-2xl md:text-3xl',
+  bodySize: 'text-xl lg:text-2xl xl:text-3xl',
 
   // יישור הכפתור: 'center' = מרכז  |  'right' = ימין  |  'left' = שמאל
   buttonAlign: 'center' as 'center' | 'right' | 'left',
 
   // גודל הכפתור — padding פנימי
-  buttonPadding: 'px-14 py-2',
+  buttonPadding: 'px-8 py-2 xl:px-14',
 
   // גודל פונט הכפתור
-  buttonFont: 'text-2xl',
+  buttonFont: 'text-xl xl:text-2xl',
 }
 // ─────────────────────────────────────────────
 
@@ -84,7 +84,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
         <div className="absolute bottom-[25%] right-[25%] w-64 h-64  bg-gold/6  rounded-full blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-3 md:px-8 pt-4 pb-12 w-full grid grid-cols-1 md:grid-cols-[560px_1fr] gap-12 items-center">
+      <div className="relative max-w-7xl mx-auto px-3 md:px-8 pt-4 pb-12 w-full grid grid-cols-1 md:grid-cols-[400px_1fr] xl:grid-cols-[560px_1fr] gap-8 xl:gap-12 items-center">
 
         {/* Portrait — wipe reveal */}
         <m.div
@@ -93,7 +93,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
           animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
           transition={{ duration: 1, ease: 'easeOut' }}
         >
-          <div className="relative w-[320px] h-[400px] md:w-[530px] md:h-[660px]">
+          <div className="relative w-[320px] h-[400px] md:w-[380px] md:h-[480px] xl:w-[530px] xl:h-[660px]">
             <Image
               src={imageUrl}
               alt="טל רומן"
@@ -112,7 +112,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
           <RevealText
             text={headline}
             as="h1"
-            className="text-6xl md:text-7xl font-extrabold text-[#2d1a0e] leading-tight mb-8 tracking-tight font-garamond block"
+            className="text-5xl xl:text-7xl font-extrabold text-[#2d1a0e] leading-tight mb-6 xl:mb-8 tracking-tight font-garamond block"
             delay={0.1}
           />
 
@@ -129,7 +129,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
 
           {subheadline && (
             <m.p
-              className="text-[#8a7060] text-base italic mb-14 block"
+              className="text-[#8a7060] text-base italic mb-8 xl:mb-14 block"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.55 }}
