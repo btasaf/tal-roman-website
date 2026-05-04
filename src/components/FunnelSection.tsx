@@ -71,7 +71,7 @@ function OptionCard({
             src={imageUrl}
             alt=""
             fill
-            className={`object-cover object-center grayscale group-hover:grayscale-0 scale-100 group-hover:scale-110 transition-all duration-700 ease-out ${imgOrigin}`}
+            className={`object-cover object-center scale-100 group-hover:scale-110 transition-all duration-700 ease-out ${imgOrigin}`}
             sizes="(max-width: 768px) 100vw, 50vw"
           />
         ) : (
@@ -83,24 +83,24 @@ function OptionCard({
       {/* Content */}
       <div className={`relative z-10 w-full pb-14 pt-20 text-right ${contentPadding}`}>
         <div className="transition-transform duration-500 group-hover:scale-[1.03]">
-          <h3 className="text-2xl md:text-3xl font-extrabold text-white leading-snug mb-5">
+          <h3 className="text-3xl md:text-4xl font-extrabold text-white leading-snug mb-5">
             {copy.title}
           </h3>
 
           {copy.lines.map((line, i) => (
-            <p key={i} className="text-sand/85 text-base leading-relaxed mb-3 text-right" dir="rtl">
+            <p key={i} className="text-white/90 text-xl leading-relaxed mb-3 text-right font-medium" dir="rtl">
               <span className="text-gold me-1.5">•</span>{line}
             </p>
           ))}
 
           {copy.subtitle && (
-            <p className="text-sand/70 text-sm leading-relaxed mt-2 mb-5 text-right" dir="rtl">
+            <p className="text-white/80 text-lg leading-relaxed mt-2 mb-5 text-right font-medium" dir="rtl">
               {copy.subtitle}
             </p>
           )}
 
           <div className="mt-8">
-            <span className="inline-block border-2 border-white/55 text-white/90 font-bold px-8 py-3.5 rounded-full text-base group-hover:border-gold group-hover:text-gold transition-all duration-300">
+            <span className="inline-block border-2 border-brand text-brand font-bold px-10 py-4 rounded-full text-xl group-hover:bg-brand group-hover:text-white transition-all duration-300">
               זה אני
             </span>
           </div>
@@ -141,7 +141,7 @@ export default function FunnelSection({ gifts }: { gifts: Gift[] }) {
         <OptionCard copy={OPTION_COPY[0]} imageUrl={img0} href={href0} isRight />
         <div className="flex items-center bg-cream">
           <div className="flex-1 h-px bg-gold/30" />
-          <div className="w-14 h-14 rounded-full border-2 border-gold/50 bg-cream flex items-center justify-center text-gold font-extrabold text-lg shadow-md flex-shrink-0">
+          <div className="w-14 h-14 rounded-full border-2 border-brand bg-white flex items-center justify-center text-brand font-extrabold text-lg shadow-md flex-shrink-0">
             או
           </div>
           <div className="flex-1 h-px bg-gold/30" />
@@ -190,7 +190,7 @@ export default function FunnelSection({ gifts }: { gifts: Gift[] }) {
           className="absolute z-30 pointer-events-none"
           style={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
         >
-          <div className="w-16 h-16 rounded-full border-2 border-gold/60 bg-white flex items-center justify-center text-gold font-extrabold text-lg shadow-2xl">
+          <div className="w-16 h-16 rounded-full border-2 border-brand bg-white flex items-center justify-center text-brand font-extrabold text-lg shadow-2xl">
             או
           </div>
         </div>

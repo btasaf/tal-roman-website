@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import {
   fetchHomepageSection,
   fetchAllTestimonials,
@@ -75,7 +76,7 @@ export default async function HomePage() {
         bgImage={homepage?.heroBgImage ?? null}
         ctaText={homepage?.heroCtaText}
       />
-      <BottomDivider stroke={homepage?.heroStroke} />
+      <BottomDivider stroke={{ ...homepage?.heroStroke, bottomColor: '#fdf6ec' }} />
 
       {homepage?.personalMessage && (
         <>
@@ -96,11 +97,11 @@ export default async function HomePage() {
       {homepage?.featuredCourses?.length > 0 && (
         <>
           <TopDivider stroke={homepage?.coursesStroke} />
-          <section className="relative overflow-hidden py-20 bg-gold/25">
+          <section className="relative overflow-hidden py-20 bg-gradient-to-b from-[#f5e0a0] to-[#f2c0b0]">
             <SectionBackground image={homepage?.coursesBgImage ?? null} />
             <div className="relative max-w-6xl mx-auto px-4">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-[#2d1a0e] mb-4">
                   {homepage.coursesHeadline ?? 'בואו להעשיר את עצמכם ביחד איתי'}
                 </h2>
                 <SectionDivider />

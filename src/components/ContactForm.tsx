@@ -13,7 +13,7 @@ type FormState = 'idle' | 'submitting' | 'success' | 'error'
 export default function ContactForm({ tag, status }: ContactFormProps) {
   const [state, setState] = useState<FormState>('idle')
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const { saveCustomer, trackFormSubmit } = useCrmTracking()
+  const { saveCustomer } = useCrmTracking()
 
   function validate(data: FormData) {
     const errs: Record<string, string> = {}
@@ -52,7 +52,6 @@ export default function ContactForm({ tag, status }: ContactFormProps) {
         emailConsent: data.get('emailConsent') === 'on',
         notifyTal: true,
       })
-      trackFormSubmit('contact')
       setState('success')
       form.reset()
     } catch {
@@ -90,7 +89,7 @@ export default function ContactForm({ tag, status }: ContactFormProps) {
           id="name"
           name="name"
           type="text"
-          placeholder="הכניסי את שמך"
+          placeholder="שם מלא"
           className={inputBase}
           aria-invalid={!!errors.name}
         />
@@ -135,7 +134,7 @@ export default function ContactForm({ tag, status }: ContactFormProps) {
           id="freeText"
           name="freeText"
           rows={4}
-          placeholder="כתבי לי..."
+          placeholder="מה תרצו לשאול או לספר לי?"
           className={`${inputBase} resize-none`}
         />
       </div>

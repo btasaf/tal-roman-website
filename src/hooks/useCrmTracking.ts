@@ -52,17 +52,11 @@ export function useCrmTracking() {
     }).catch(() => {})
   }, [])
 
-  const trackPageView = useCallback(() => {
-    track('page_view')
+  const trackPageView = useCallback((slug?: string) => {
+    const label = slug ? `page_view_${slug}` : 'page_view_main_page'
+    track(label)
   }, [track])
 
-  const trackFormStart = useCallback((formName: string) => {
-    track('form_start', { formName })
-  }, [track])
-
-  const trackFormSubmit = useCallback((formName: string) => {
-    track('form_submit', { formName })
-  }, [track])
 
   const saveCustomer = useCallback(async (data: SaveCustomerData) => {
     const visitorId = visitorIdRef.current
@@ -79,5 +73,5 @@ export function useCrmTracking() {
     return res.json()
   }, [])
 
-  return { track, trackPageView, trackFormStart, trackFormSubmit, saveCustomer }
+  return { track, trackPageView, saveCustomer }
 }

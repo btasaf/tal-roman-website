@@ -34,28 +34,28 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 bg-cream/95 backdrop-blur-md border-b border-gold/30 transition-transform duration-300 ${
+      className={`fixed top-0 w-full z-50 bg-[#f5e8c0] border-b border-[#e8d4a0]/20 transition-transform duration-300 ${
         hidden ? '-translate-y-full' : 'translate-y-0'
       }`}
     >
       {/* Desktop — 3-column grid: logo(right) | nav(center) | media(left) */}
-      <div className="hidden md:grid grid-cols-[1fr_auto_1fr] w-full px-[100px] h-20 items-center">
+      <div className="hidden md:grid grid-cols-[auto_1fr_auto] w-full px-[60px] h-20 items-center gap-6">
 
         {/* col-1 → RIGHT in RTL — logo */}
         <div className="flex items-center justify-start">
           <Link href="/" className="flex items-center gap-2.5">
-            <span className="text-2xl font-extrabold text-gold tracking-wide">טל רומן</span>
+            <span className="text-2xl font-extrabold text-ink tracking-wide">טל רומן</span>
             <Image src="/logo.png" alt="טל רומן" width={40} height={40} className="rounded-full" priority />
           </Link>
         </div>
 
         {/* col-2 — nav links centered */}
-        <nav className="flex items-center justify-center gap-10">
+        <nav className="flex items-center justify-center gap-14">
           {NAV_LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className={`py-2 text-xl font-semibold whitespace-nowrap transition-colors relative
+              className={`py-2 text-2xl font-semibold whitespace-nowrap transition-colors relative
                 ${isActive(l.href)
                   ? 'text-brand font-bold after:absolute after:bottom-0 after:right-0 after:left-0 after:h-[2px] after:bg-brand after:rounded-full'
                   : 'text-ink hover:text-brand'
@@ -67,12 +67,12 @@ export default function Nav() {
         </nav>
 
         {/* col-3 → LEFT in RTL — social media icons */}
-        <div className="flex items-center justify-end gap-3">
-          {SOCIAL_LINKS.map((s) => (
-            <div key={s.icon} className="p-2">
-              <SocialIconLink href={s.href} label={s.label} icon={s.icon} size={24} className="text-black hover:text-brand" />
-            </div>
-          ))}
+        <div className="flex items-center justify-end">
+          <div className="flex items-center gap-3 bg-black rounded-full px-5 py-2.5">
+            {SOCIAL_LINKS.map((s) => (
+              <SocialIconLink key={s.icon} href={s.href} label={s.label} icon={s.icon} size={22} className="text-white hover:text-brand" />
+            ))}
+          </div>
         </div>
       </div>
 

@@ -12,7 +12,7 @@ interface CTAButtonProps {
 }
 
 export default function CTAButton({ children, href, onClick, className = '', target, rel }: CTAButtonProps) {
-  const base = `bg-brand text-white font-bold px-7 py-3 rounded-full hover:bg-brand-dark transition-colors ${className}`
+  const base = `bg-brand text-white font-bold px-7 py-3 rounded-xl hover:bg-brand-dark transition-colors ${className}`
 
   let inner: React.ReactNode
   if (href) {
@@ -25,5 +25,5 @@ export default function CTAButton({ children, href, onClick, className = '', tar
     inner = <button onClick={onClick} className={`${base} cursor-pointer`}>{children}</button>
   }
 
-  return <MagneticButton>{inner}</MagneticButton>
+  return <>{inner}</>
 }
