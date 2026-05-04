@@ -58,7 +58,10 @@
       "Read(//home/asaf/.claude/**)",
       "Bash(grep -E \"\\\\.\\(tsx?|jsx?\\)$\")",
       "Skill(update-config)",
-      "Skill(design-review)"
+      "Skill(design-review)",
+      "Bash(gh repo *)",
+      "Bash(python3 *)",
+      "Bash(echo \"Started, PID: $!\")"
     ]
   },
   "skillOverrides": {
