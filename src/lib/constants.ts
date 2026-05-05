@@ -36,7 +36,7 @@ export const NAV_LINKS = [
   { href: '/articles', label: 'מאמרים' },
   { href: '/media', label: 'תקשורת' },
   { href: '/contact', label: 'צור קשר' },
-  { href: '#', label: 'קצת עלי' },
+  { href: '#about', label: 'קצת עלי' },
 ]
 
 export const SOCIAL_LINKS = [

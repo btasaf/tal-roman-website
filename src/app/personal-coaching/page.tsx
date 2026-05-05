@@ -4,6 +4,8 @@ import PageHero from '@/components/ui/PageHero'
 import SectionDivider from '@/components/ui/SectionDivider'
 import ContactForm from '@/components/ContactForm'
 import RecommendersSection from '@/components/RecommendersSection'
+import LiquidBackground from '@/components/ui/LiquidBackground'
+import SparkleBackground from '@/components/ui/SparkleBackground'
 import { fetchTestimonials } from '@/lib/queries'
 
 export const metadata: Metadata = { title: 'ליווי אישי — טל רומן' }
@@ -88,9 +90,6 @@ export default async function PersonalCoachingPage() {
       {/* 2 ── Personal Story ── BRIGHT */}
       <section className="py-24 bg-cream">
         <div className="max-w-2xl mx-auto px-6 text-right">
-          <p className="text-sienna text-sm font-semibold uppercase tracking-widest mb-6 text-center">
-            למה אני עושה את זה
-          </p>
           <div className="space-y-5 text-charcoal text-lg leading-loose">
             <p>
               יכול להיות שכבר הרבה זמן משהו לא עובד לך.
@@ -142,12 +141,10 @@ export default async function PersonalCoachingPage() {
       </section>
 
       {/* 3 ── What We'll Learn ── DARK */}
-      <section className="py-24 bg-night text-white">
-        <div className="max-w-5xl mx-auto px-6">
+      <section className="py-24 text-white relative overflow-hidden">
+        <LiquidBackground />
+        <div className="relative max-w-5xl mx-auto px-6">
           <div className="text-center mb-14">
-            <p className="text-gold/60 text-sm font-semibold uppercase tracking-widest mb-3">
-              מה תקבל מהתהליך
-            </p>
             <h2 className="text-3xl md:text-4xl font-extrabold text-gold mb-4">
               מה נלמד יחד?
             </h2>
@@ -170,12 +167,10 @@ export default async function PersonalCoachingPage() {
       </section>
 
       {/* 4 ── For Whom ── BRIGHT */}
-      <section className="py-24 bg-cream">
-        <div className="max-w-3xl mx-auto px-6">
+      <section className="py-24 bg-cream relative overflow-hidden">
+        <SparkleBackground />
+        <div className="relative max-w-3xl mx-auto px-6">
           <div className="text-center mb-14">
-            <p className="text-sienna text-sm font-semibold uppercase tracking-widest mb-3">
-              האם זה בשבילך?
-            </p>
             <h2 className="text-3xl md:text-4xl font-extrabold text-ink mb-4">
               למי זה מתאים?
             </h2>
@@ -198,19 +193,17 @@ export default async function PersonalCoachingPage() {
       {/* 5 ── Testimonials ── DARK */}
       <RecommendersSection testimonials={testimonials} dark />
 
-      {/* 6 ── Pricing ── BRIGHT */}
-      <section className="py-24 bg-cream">
-        <div className="max-w-xl mx-auto px-6">
+      {/* 6 ── Pricing ── LIQUID */}
+      <section className="py-24 text-white relative overflow-hidden">
+        <LiquidBackground />
+        <div className="relative max-w-xl mx-auto px-6">
           <div className="text-center mb-14">
-            <p className="text-sienna text-sm font-semibold uppercase tracking-widest mb-3">
-              כל מה שצריך לדעת
-            </p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-ink mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-gold mb-4">
               מיקום ועלויות
             </h2>
             <SectionDivider />
           </div>
-          <div className="bg-white rounded-3xl shadow-xl border border-gold/20 overflow-hidden">
+          <div className="bg-white/8 rounded-3xl border border-gold/25 overflow-hidden">
             <div className="bg-gradient-to-br from-dusk to-night p-8 text-center text-white">
               <p className="text-gold text-5xl font-extrabold mb-1">₪400</p>
               <p className="text-sand/70 text-base">לפגישה · שעה מלאה</p>
@@ -218,15 +211,15 @@ export default async function PersonalCoachingPage() {
             <div className="p-8 space-y-5 text-right">
               <div className="flex items-center gap-3">
                 <span className="text-gold text-xl shrink-0">📍</span>
-                <p className="text-charcoal text-base">קליניקה בדרום תל אביב או בזום</p>
+                <p className="text-sand/85 text-base">קליניקה בדרום תל אביב או בזום</p>
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-gold text-xl shrink-0">🗓</span>
-                <p className="text-charcoal text-base">תדירות מומלצת — פעם בשבוע, עם גמישות מלאה לפי הצורך</p>
+                <p className="text-sand/85 text-base">תדירות מומלצת — פעם בשבוע, עם גמישות מלאה לפי הצורך</p>
               </div>
               <div className="flex items-center gap-3">
                 <span className="text-gold text-xl shrink-0">🔒</span>
-                <p className="text-charcoal text-base">פרטיות מלאה ומרחב לא שיפוטי</p>
+                <p className="text-sand/85 text-base">פרטיות מלאה ומרחב לא שיפוטי</p>
               </div>
               <div className="pt-4 border-t border-gold/10">
                 <CtaButton />
@@ -236,14 +229,11 @@ export default async function PersonalCoachingPage() {
         </div>
       </section>
 
-      {/* 7 ── FAQ ── DARK */}
-      <section className="py-24 bg-night text-white">
+      {/* 7 ── FAQ ── CREAM */}
+      <section className="py-24 bg-cream text-ink">
         <div className="max-w-2xl mx-auto px-6">
           <div className="text-center mb-14">
-            <p className="text-gold/60 text-sm font-semibold uppercase tracking-widest mb-3">
-              שאלות נפוצות
-            </p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-gold mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-ink mb-4">
               שאלות ותשובות
             </h2>
             <SectionDivider />
@@ -252,14 +242,14 @@ export default async function PersonalCoachingPage() {
             {faq.map((item, i) => (
               <div
                 key={i}
-                className="border border-gold/20 rounded-2xl overflow-hidden"
+                className="border border-gold/25 rounded-2xl overflow-hidden bg-white"
               >
-                <div className="flex items-start gap-3 p-5 bg-white/5">
-                  <span className="text-gold font-bold text-lg shrink-0 mt-0.5">?</span>
-                  <p className="font-bold text-sand text-right text-base">{item.q}</p>
+                <div className="flex items-start gap-3 p-5 bg-gold/5">
+                  <span className="text-sienna font-bold text-lg shrink-0 mt-0.5">?</span>
+                  <p className="font-bold text-ink text-right text-base">{item.q}</p>
                 </div>
-                <div className="px-5 py-4 bg-white/10 text-right">
-                  <p className="text-sand/80 leading-relaxed text-base">{item.a}</p>
+                <div className="px-5 py-4 text-right">
+                  <p className="text-charcoal leading-relaxed text-base">{item.a}</p>
                 </div>
               </div>
             ))}
@@ -271,9 +261,6 @@ export default async function PersonalCoachingPage() {
       <section id="contact" className="py-24 bg-cream relative overflow-hidden">
         <div className="relative max-w-xl mx-auto px-6">
           <div className="text-center mb-12">
-            <p className="text-sienna text-sm font-semibold uppercase tracking-widest mb-3">
-              מוכנ\ת להתחיל?
-            </p>
             <h2 className="text-3xl md:text-4xl font-extrabold text-ink mb-3">
               השאירי פרטים
             </h2>

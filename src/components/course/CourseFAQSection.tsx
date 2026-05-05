@@ -15,13 +15,13 @@ interface Props {
 
 function FAQRow({ item, isOpen, onToggle }: { item: FAQItem; isOpen: boolean; onToggle: () => void }) {
   return (
-    <div className={`border rounded-2xl overflow-hidden transition-colors duration-300 ${isOpen ? 'border-gold/40 bg-white/8' : 'border-white/8 bg-white/[0.03]'}`}>
+    <div className={`border rounded-2xl overflow-hidden transition-colors duration-300 ${isOpen ? 'border-gold/50 bg-gold/5' : 'border-gold/20 bg-white'}`}>
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between gap-4 p-5 text-right cursor-pointer"
         aria-expanded={isOpen}
       >
-        <p className={`font-bold text-base transition-colors duration-200 ${isOpen ? 'text-gold' : 'text-sand'}`}>
+        <p className={`font-bold text-base transition-colors duration-200 ${isOpen ? 'text-sienna' : 'text-ink'}`}>
           {item.question}
         </p>
         <span className={`shrink-0 w-7 h-7 rounded-full border flex items-center justify-center transition-all duration-300 ${isOpen ? 'border-gold/60 bg-gold/10 rotate-45' : 'border-white/15 bg-white/5'}`}>
@@ -41,7 +41,7 @@ function FAQRow({ item, isOpen, onToggle }: { item: FAQItem; isOpen: boolean; on
             className="overflow-hidden"
           >
             <div className="px-5 pb-5 border-t border-gold/10">
-              <p className="text-sand/75 leading-relaxed text-right text-base pt-4">{item.answer}</p>
+              <p className="text-charcoal leading-relaxed text-right text-base pt-4">{item.answer}</p>
             </div>
           </m.div>
         )}
@@ -56,7 +56,7 @@ export default function CourseFAQSection({ items }: Props) {
   if (items.length === 0) return null
 
   return (
-    <section className="py-28 bg-night text-white overflow-hidden">
+    <section className="py-28 bg-cream text-ink overflow-hidden">
       <div className="max-w-2xl mx-auto px-6">
         <m.div
           className="text-center mb-16"
@@ -65,8 +65,7 @@ export default function CourseFAQSection({ items }: Props) {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-gold/50 text-xs font-bold uppercase tracking-[0.25em] mb-3">שאלות נפוצות</p>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gold mb-5">שאלות ותשובות</h2>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-ink mb-5">שאלות ותשובות</h2>
           <SectionDivider />
         </m.div>
 

@@ -92,6 +92,7 @@ export default function AboutSection({ aboutImage, aboutBio, aboutQuote, bgImage
 
         {/* Text */}
         <m.div {...fadeInRight} className={TEXT.alignment}>
+          <div id="about" />
           <RevealText text="טל רומן" as="h2" className={`${TEXT.titleSize} font-bold mb-6 ${TEXT.titleColor} block`} delay={0.2} />
           {aboutBio && (
             <m.p

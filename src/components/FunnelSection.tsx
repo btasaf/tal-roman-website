@@ -12,7 +12,7 @@ import type { Gift } from '@/lib/types'
 const OPTION_COPY = [
   {
     title: 'התשוקה בינינו כבר לא כמו שהייתה',
-    lines: ['אני מנסה ומשקיע, אבל מרגיש שככל שאני מתאמץ יותר — היא דווקא מתרחקת'],
+    lines: ['אני מנסה ומשקיע, אבל מרגיש שככל שאני מתאמץ יותר – היא דווקא מתרחקת'],
     subtitle: null,
   },
   {
@@ -89,12 +89,12 @@ function OptionCard({
 
           {copy.lines.map((line, i) => (
             <p key={i} className="text-white/90 text-xl leading-relaxed mb-3 text-right font-medium" dir="rtl">
-              <span className="text-gold me-1.5">•</span>{line}
+              {line}
             </p>
           ))}
 
           {copy.subtitle && (
-            <p className="text-white/80 text-lg leading-relaxed mt-2 mb-5 text-right font-medium" dir="rtl">
+            <p className="text-white/90 text-xl leading-relaxed mt-2 mb-5 text-right font-medium" dir="rtl">
               {copy.subtitle}
             </p>
           )}

@@ -2,6 +2,7 @@
 
 import { m } from 'framer-motion'
 import SectionDivider from '@/components/ui/SectionDivider'
+import LiquidBackground from '@/components/ui/LiquidBackground'
 
 interface Props {
   items: string[]
@@ -11,8 +12,9 @@ export default function CourseLearnSection({ items }: Props) {
   if (items.length === 0) return null
 
   return (
-    <section className="py-28 bg-night text-white overflow-hidden">
-      <div className="max-w-5xl mx-auto px-6">
+    <section className="py-28 text-white overflow-hidden relative">
+      <LiquidBackground />
+      <div className="relative max-w-5xl mx-auto px-6">
         <m.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 24 }}
@@ -20,7 +22,6 @@ export default function CourseLearnSection({ items }: Props) {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-gold/50 text-xs font-bold uppercase tracking-[0.25em] mb-3">מה תקבל</p>
           <h2 className="text-4xl md:text-5xl font-extrabold text-gold mb-5">מה נלמד יחד?</h2>
           <SectionDivider />
         </m.div>

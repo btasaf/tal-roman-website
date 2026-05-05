@@ -6,27 +6,35 @@ export async function POST(request: NextRequest) {
     const body: CrmCustomerData & { location?: { lat: number; lng: number; accuracy?: number } } =
       await request.json()
 
-    const { location, ...customerData } = body
+    const { location, ...rawCustomerData } = body
 
     const eventData = location
       ? { geo: location, source: 'website' }
       : { source: 'website' }
 
-    // If location provided, embed it in tag or notes via eventData in customerData
-    const payload: CrmCustomerData = {
-      ...customerData,
-      tag: [customerData.tag, location ? `geo:${location.lat},${location.lng}` : '']
-        .filter(Boolean)
-        .join(',') || undefined,
+    const trim = (v?: string | null) => v?.trim() || undefined
+
+    const customerData = {
+      ...rawCustomerData,
+      name:          trim(rawCustomerData.name),
+      mail:          trim(rawCustomerData.mail),
+      phone:         trim(rawCustomerData.phone),
+      tag:           trim(rawCustomerData.tag),
+      status:        trim(rawCustomerData.status),
+      enrollToSchool: trim(rawCustomerData.enrollToSchool),
     }
 
-    // Remove empty tag
-    if (!payload.tag) delete payload.tag
+    const tags = [customerData.tag, location ? `geo:${location.lat},${location.lng}` : undefined]
+      .filter((t): t is string => !!t?.trim())
+
+    const payload: CrmCustomerData = {
+      ...customerData,
+      tag: tags.length ? tags.join(',') : undefined,
+    }
+
+    void eventData
 
     const result = await crmSaveCustomer(payload)
-
-    // If we also have a visitorId, the CRM wix endpoint already links it
-    void eventData // suppress unused warning
 
     return Response.json(result)
   } catch (err) {

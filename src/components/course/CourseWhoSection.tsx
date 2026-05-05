@@ -20,7 +20,6 @@ export default function CourseWhoSection({ items }: Props) {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-sienna text-xs font-bold uppercase tracking-[0.25em] mb-3">האם זה בשבילך?</p>
           <h2 className="text-4xl md:text-5xl font-extrabold text-ink mb-5">למי זה מתאים?</h2>
           <SectionDivider />
         </m.div>

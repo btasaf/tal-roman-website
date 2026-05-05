@@ -59,9 +59,9 @@ export default function GiftForm({ tag, status, enrollToSchool, slug }: GiftForm
       const body: Record<string, unknown> = {
         name:           data.get('name')?.toString().trim() ?? null,
         mail:           data.get('email')?.toString().trim() ?? null,
-        tag:            tag            ?? null,
-        status:         status         ?? null,
-        enrollToSchool: enrollToSchool ?? null,
+        tag:            tag?.trim()            || null,
+        status:         status?.trim()         || null,
+        enrollToSchool: enrollToSchool?.trim() || null,
         notifyTal:      true,
         visitorId:      visitorIdRef.current ?? null,
       }

@@ -41,7 +41,6 @@ export default function CourseDetailsSection({ fullDetails, description, ctaUrl,
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-sienna text-xs font-bold uppercase tracking-[0.25em] mb-3">על הקורס</p>
           <h2 className="text-4xl md:text-5xl font-extrabold text-ink mb-5">פרטים נוספים</h2>
           <SectionDivider />
         </m.div>
@@ -51,18 +50,31 @@ export default function CourseDetailsSection({ fullDetails, description, ctaUrl,
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-right"
+          className="text-center"
         >
           {paragraphs.length > 0 && (
-            <div className="space-y-5">
-              {paragraphs.map((para, i) => (
-                <p
-                  key={i}
-                  className={`text-charcoal leading-loose text-lg ${i === 0 ? 'text-xl text-ink font-medium' : ''}`}
-                >
-                  {para}
-                </p>
-              ))}
+            <div className="space-y-6">
+              {paragraphs.map((para, i) => {
+                const isLast = i === paragraphs.length - 1
+                const isFirst = i === 0
+                if (isFirst) return (
+                  <p key={i} className="text-3xl text-ink font-semibold leading-loose text-center">
+                    {para}
+                  </p>
+                )
+                if (isLast) return (
+                  <div key={i} className="text-center">
+                    <p className="text-ink text-xl leading-loose font-semibold inline-block border-b-4 border-sienna/50 pb-2">
+                      {para}
+                    </p>
+                  </div>
+                )
+                return (
+                  <p key={i} className="text-charcoal text-xl leading-loose text-center">
+                    {para}
+                  </p>
+                )
+              })}
             </div>
           )}
 

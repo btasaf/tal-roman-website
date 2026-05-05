@@ -88,22 +88,12 @@ export default async function CourseDetailPage({ params }: Props) {
           </div>
         )}
         <div className="relative max-w-4xl mx-auto px-6 text-center">
-          {course.type && (
-            <span className="inline-block bg-gold/15 text-gold border border-gold/25 text-xs font-bold px-4 py-1.5 rounded-full mb-6 tracking-[0.2em] uppercase">
-              {COURSE_TYPE_LABELS[course.type] ?? course.type}
-            </span>
-          )}
           <h1 className="text-5xl md:text-7xl font-extrabold text-gold leading-tight mb-6">
             {course.title}
           </h1>
           {course.shortDescription && (
-            <p className="text-sand text-xl md:text-2xl leading-relaxed mb-4 max-w-2xl mx-auto">
+            <p className="text-sand text-xl md:text-2xl leading-relaxed mb-10 max-w-2xl mx-auto">
               {course.shortDescription}
-            </p>
-          )}
-          {course.paragraphBelowSubtitle && (
-            <p className="text-sand/65 text-lg leading-loose mb-10 max-w-2xl mx-auto">
-              {course.paragraphBelowSubtitle}
             </p>
           )}
           {course.price && (
@@ -159,10 +149,7 @@ export default async function CourseDetailPage({ params }: Props) {
       <section className="py-24 bg-gradient-to-br from-dusk to-night text-white text-center relative overflow-hidden">
         <BokehBackground />
         <div className="relative max-w-2xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-gold mb-4">
-            מוכנ/ת להתחיל?
-          </h2>
-          <p className="text-sand/80 text-lg leading-relaxed mb-10">
+          <p className="text-sand/90 text-3xl md:text-4xl font-bold leading-relaxed mb-10">
             {course.ctaText || `הצטרפ/י ל${course.title} וצא/י לדרך.`}
           </p>
           {ctaUrl ? (
