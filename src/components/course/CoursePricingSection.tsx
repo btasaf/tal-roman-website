@@ -3,6 +3,7 @@
 import { m } from 'framer-motion'
 import SectionDivider from '@/components/ui/SectionDivider'
 import LiquidBackground from '@/components/ui/LiquidBackground'
+import { useOriginRipple } from '@/hooks/useOriginRipple'
 
 interface Props {
   price?: string
@@ -14,25 +15,31 @@ interface Props {
 }
 
 function BuyButton({ href, label }: { href: string; label?: string }) {
+  const { rippleHandlers, ripple } = useOriginRipple()
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="w-full block text-center bg-gold hover:bg-gold/80 text-night font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-gold/20 transition-all hover:scale-[1.02]"
+      className="relative overflow-hidden w-full block text-center bg-gold text-night font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-gold/20"
+      {...rippleHandlers}
     >
-      {label || 'לרכישה עכשיו'}
+      <span className="relative">{label || 'לרכישה עכשיו'}</span>
+      {ripple}
     </a>
   )
 }
 
 function ContactButton() {
+  const { rippleHandlers, ripple } = useOriginRipple()
   return (
     <a
       href="#contact"
-      className="w-full block text-center bg-gold hover:bg-gold/80 text-night font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-gold/20 transition-all hover:scale-[1.02]"
+      className="relative overflow-hidden w-full block text-center bg-gold text-night font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-gold/20"
+      {...rippleHandlers}
     >
-      אשמח לקבל פרטים נוספים
+      <span className="relative">אשמח לקבל פרטים נוספים</span>
+      {ripple}
     </a>
   )
 }

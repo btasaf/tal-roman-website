@@ -15,6 +15,7 @@ import CourseWhoSection from '@/components/course/CourseWhoSection'
 import CoursePricingSection from '@/components/course/CoursePricingSection'
 import CourseFAQSection from '@/components/course/CourseFAQSection'
 import CourseDetailsSection from '@/components/course/CourseDetailsSection'
+import CTAButton from '@/components/ui/CTAButton'
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -36,25 +37,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function BuyButton({ href, label }: { href: string; label?: string }) {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block bg-gold hover:bg-gold/80 text-night font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-gold/20 transition-all hover:scale-105"
-    >
+    <CTAButton href={href} target="_blank" rel="noopener noreferrer" variant="gold" className="rounded-full text-lg shadow-lg shadow-gold/20 px-10 py-4">
       {label || 'לרכישה עכשיו'}
-    </a>
+    </CTAButton>
   )
 }
 
 function ContactButton() {
   return (
-    <a
-      href="#contact"
-      className="inline-block bg-gold hover:bg-gold/80 text-night font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-gold/20 transition-all hover:scale-105"
-    >
+    <CTAButton href="#contact" variant="gold" className="rounded-full text-lg shadow-lg shadow-gold/20 px-10 py-4">
       אשמח לקבל פרטים נוספים
-    </a>
+    </CTAButton>
   )
 }
 

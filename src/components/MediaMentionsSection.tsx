@@ -3,8 +3,8 @@
 import { useRef, type CSSProperties } from 'react'
 import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
-import Link from 'next/link'
 import { urlFor } from '@/sanity/client'
+import CTAButton from '@/components/ui/CTAButton'
 import { SOURCE_LABELS, MEDIA_TYPE_LABELS } from '@/lib/constants'
 import type { MediaMention } from '@/lib/types'
 
@@ -258,12 +258,9 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
       {/* "See all" button — outside the section, never overlaps cards */}
       {hasMore && (
         <div className="bg-cream text-center py-10">
-          <Link
-            href="/media"
-            className="inline-block border-2 border-brand text-brand font-semibold px-8 py-4 rounded-full hover:bg-brand hover:text-white transition-colors"
-          >
+          <CTAButton href="/media" variant="outline" className="rounded-full px-8 py-4 font-semibold">
             לכל הכתבות
-          </Link>
+          </CTAButton>
         </div>
       )}
     </>

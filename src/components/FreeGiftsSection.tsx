@@ -7,6 +7,7 @@ import { fadeInUp } from '@/lib/animations'
 import SectionDivider from '@/components/ui/SectionDivider'
 import SectionBackground from '@/components/ui/SectionBackground'
 import type { FreeGift } from '@/lib/types'
+import CTAButton from '@/components/ui/CTAButton'
 
 interface Props {
   gifts: FreeGift[]
@@ -69,14 +70,9 @@ export default function FreeGiftsSection({ gifts, headline, subheadline, bgImage
                   <p className="text-charcoal text-sm mb-4">{g.description}</p>
                 )}
 
-                <a
-                  href={g.downloadUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#c9786e] text-white font-semibold px-7 py-3 rounded-full hover:bg-[#b8665c] transition-colors shadow-sm"
-                >
+                <CTAButton href={g.downloadUrl} target="_blank" rel="noopener noreferrer" className="rounded-full px-7 py-3 font-semibold shadow-sm">
                   לקבל את המתנה
-                </a>
+                </CTAButton>
               </m.div>
             )
           })}

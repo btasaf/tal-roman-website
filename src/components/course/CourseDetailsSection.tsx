@@ -3,6 +3,7 @@
 import { m } from 'framer-motion'
 import { PortableText } from '@portabletext/react'
 import SectionDivider from '@/components/ui/SectionDivider'
+import CTAButton from '@/components/ui/CTAButton'
 
 interface Props {
   fullDetails?: string
@@ -13,14 +14,9 @@ interface Props {
 
 function BuyButton({ href, label }: { href: string; label?: string }) {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block bg-gold hover:bg-gold/80 text-night font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-gold/20 transition-all hover:scale-105"
-    >
+    <CTAButton href={href} target="_blank" rel="noopener noreferrer" variant="gold" className="rounded-full text-lg shadow-lg shadow-gold/20 px-10 py-4">
       {label || 'לרכישה עכשיו'}
-    </a>
+    </CTAButton>
   )
 }
 

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { useCrmTracking } from '@/hooks/useCrmTracking'
+import { useOriginRipple } from '@/hooks/useOriginRipple'
 
 interface GiftFormProps {
   tag?: string
@@ -17,6 +18,7 @@ export default function GiftForm({ tag, status, enrollToSchool, slug }: GiftForm
   const [errors, setErrors] = useState<Record<string, string>>({})
   const visitorIdRef = useRef<string | null>(null)
   const { track } = useCrmTracking()
+  const { rippleHandlers, ripple } = useOriginRipple()
 
   useEffect(() => {
     const KEY = 'crm_visitor_id'
@@ -140,9 +142,11 @@ export default function GiftForm({ tag, status, enrollToSchool, slug }: GiftForm
       <button
         type="submit"
         disabled={state === 'submitting'}
-        className="w-full bg-brand text-white font-bold py-4 rounded-full text-lg hover:bg-brand-dark disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-lg shadow-brand/30"
+        className="relative overflow-hidden w-full bg-brand text-white font-bold py-4 rounded-full text-lg disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-brand/30"
+        {...rippleHandlers}
       >
-        {state === 'submitting' ? 'שולח...' : 'שליחה'}
+        <span className="relative">{state === 'submitting' ? 'שולח...' : 'שליחה'}</span>
+        {ripple}
       </button>
     </form>
   )

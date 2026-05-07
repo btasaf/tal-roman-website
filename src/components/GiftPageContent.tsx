@@ -8,6 +8,7 @@ import GiftForm from '@/components/GiftForm'
 import BokehBackground from '@/components/ui/BokehBackground'
 import SectionDivider from '@/components/ui/SectionDivider'
 import type { Gift } from '@/lib/types'
+import { useOriginRipple } from '@/hooks/useOriginRipple'
 
 const bodyComponents: PortableTextComponents = {
   block: {
@@ -30,6 +31,7 @@ function CheckIcon() {
 }
 
 export default function GiftPageContent({ gift, slug }: { gift: Gift; slug: string }) {
+  const { rippleHandlers, ripple } = useOriginRipple()
   const imageUrl = getImageUrl(gift.image ?? null, 'section')
   console.log("gift",gift );
   function scrollToCta() {
@@ -90,9 +92,11 @@ export default function GiftPageContent({ gift, slug }: { gift: Gift; slug: stri
           >
             <button
               onClick={scrollToCta}
-              className="bg-brand text-white font-bold px-10 py-4 rounded-full text-lg hover:bg-brand-dark transition-colors shadow-xl shadow-brand/30"
+              className="relative overflow-hidden bg-brand text-white font-bold px-10 py-4 rounded-full text-lg shadow-xl shadow-brand/30"
+              {...rippleHandlers}
             >
-              קבל עכשיו — בחינם ↓
+              <span className="relative">קבל עכשיו — בחינם ↓</span>
+              {ripple}
             </button>
           </m.div>
         </div>

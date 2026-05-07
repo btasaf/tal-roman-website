@@ -8,6 +8,7 @@ import Footer from '@/components/Footer'
 import WhatsAppFAB from '@/components/ui/WhatsAppFAB'
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar'
 import GrainOverlay from '@/components/ui/GrainOverlay'
+import MagicalRibbon from '@/components/ui/MagicalRibbon'
 import SmoothScroll from '@/components/ui/SmoothScroll'
 import PageViewTracker from '@/components/PageViewTracker'
 import './globals.css'
@@ -46,6 +47,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <PageViewTracker />
           <ScrollProgressBar />
           <GrainOverlay />
+          {/* <MagicalRibbon /> */}
           <Nav />
           <main className="flex-1 pt-20">{children}</main>
           <Footer settings={settings} />

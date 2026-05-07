@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useCrmTracking } from '@/hooks/useCrmTracking'
+import { useOriginRipple } from '@/hooks/useOriginRipple'
 
 interface ContactFormProps {
   tag?: string
@@ -14,6 +15,7 @@ export default function ContactForm({ tag, status }: ContactFormProps) {
   const [state, setState] = useState<FormState>('idle')
   const [errors, setErrors] = useState<Record<string, string>>({})
   const { saveCustomer } = useCrmTracking()
+  const { rippleHandlers, ripple } = useOriginRipple()
 
   function validate(data: FormData) {
     const errs: Record<string, string> = {}
@@ -157,9 +159,11 @@ export default function ContactForm({ tag, status }: ContactFormProps) {
       <button
         type="submit"
         disabled={state === 'submitting'}
-        className="w-full bg-brand text-white font-bold py-4 rounded-full text-lg hover:bg-brand-dark disabled:opacity-60 disabled:cursor-not-allowed transition-colors shadow-lg shadow-brand/30"
+        className="relative overflow-hidden w-full bg-brand text-white font-bold py-4 rounded-full text-lg disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-brand/30"
+        {...rippleHandlers}
       >
-        {state === 'submitting' ? 'שולח...' : 'שלח פנייה'}
+        <span className="relative">{state === 'submitting' ? 'שולח...' : 'שלח פנייה'}</span>
+        {ripple}
       </button>
     </form>
   )
