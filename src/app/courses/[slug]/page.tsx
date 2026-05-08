@@ -76,7 +76,7 @@ export default async function CourseDetailPage({ params }: Props) {
       <section className="relative py-28 md:py-36 bg-dusk text-white overflow-hidden">
         <BokehBackground />
         {heroImageUrl && (
-          <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 opacity-40">
             <Image src={heroImageUrl} alt={course.title} fill className="object-cover" priority sizes="100vw" />
           </div>
         )}
@@ -136,10 +136,9 @@ export default async function CourseDetailPage({ params }: Props) {
       <CourseFAQSection items={course.faq ?? []} />
 
       {/* ── FINAL CTA STRIP ── */}
-      <section className="py-24 bg-gradient-to-br from-dusk to-night text-white text-center relative overflow-hidden">
-        <BokehBackground />
+      <section className="py-24 bg-gradient-to-b from-[#f5e8c0] to-[#fdf6ec] text-center relative overflow-hidden">
         <div className="relative max-w-2xl mx-auto px-6">
-          <p className="text-sand/90 text-3xl md:text-4xl font-bold leading-relaxed mb-10">
+          <p className="text-ink text-3xl md:text-4xl font-bold leading-relaxed mb-10">
             {course.ctaText || `הצטרפ/י ל${course.title} וצא/י לדרך.`}
           </p>
           {ctaUrl ? (

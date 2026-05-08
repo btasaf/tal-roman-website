@@ -184,8 +184,17 @@ export default function GiftPageContent({ gift, slug }: { gift: Gift; slug: stri
       )}
 
       {/* ── CTA / Form ───────────────────────────────────────── */}
-      <section id="gift-cta" className="py-20 bg-night relative overflow-hidden">
-        <BokehBackground />
+      <section id="gift-cta" className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <Image
+            src="/wix-assets/images/background/gettyimages-1459343241-640x640.jpg"
+            alt=""
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-night/60" />
+        </div>
         <div className="relative max-w-xl mx-auto px-6">
           <m.div
             className="text-center mb-10"

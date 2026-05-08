@@ -75,7 +75,7 @@ export default function CommunitiesPage() {
       <PageHero
         eyebrow="מתחברים ומתחברות"
         title="קהילות"
-        subtitle="כ-7,500 נשים וגברים שתומכים, נתמכים ולומדים המון — בחינם, ביחד"
+        subtitle="מעל ל-22,000 נשים וגברים שתומכים, נתמכים ולומדים המון — בחינם, ביחד"
       />
 
       {/* Facebook intro */}
@@ -236,7 +236,7 @@ export default function CommunitiesPage() {
             שתי הקבוצות נפתחו בתקופת הקורונה
           </h3>
           <p className="text-ink/80 text-lg leading-relaxed">
-            וכבר מעל 22 אלף גברים ונשים תומכים, נתמכים ולומדים המון ביחד. בואו להצטרף אלינו!
+            וכבר מעל 22,000ד' גברים ונשים תומכים, נתמכים ולומדים המון ביחד. בואו להצטרף אלינו!
           </p>
         </div>
       </section>
