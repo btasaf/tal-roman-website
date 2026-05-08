@@ -7,7 +7,8 @@ import PageHero from '@/components/ui/PageHero'
 export const metadata: Metadata = { title: 'קורסים ומוצרים' }
 
 export default async function CoursesPage() {
-  const courses: Course[] = await fetchCourses().catch(() => [])
+  const rawCourses: Course[] = await fetchCourses().catch(() => [])
+  const courses = rawCourses.filter((c, i, arr) => arr.findIndex(x => x.slug === c.slug) === i)
 
   const digital = courses.filter((c) => c.type === 'digital')
   const workshops = courses.filter((c) => c.type === 'workshop')
