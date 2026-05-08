@@ -12,6 +12,15 @@ export default function SmoothScroll() {
     let rafId: number
     const ease = 0.1
 
+    // קפיצה פתאומית (Home, End, PgUp, PgDn, עוגן) — מסנכרן מיד
+    function onScroll() {
+      const jump = Math.abs(window.scrollY - current)
+      if (jump > 60) {
+        current = window.scrollY
+        target = window.scrollY
+      }
+    }
+
     function onWheel(e: WheelEvent) {
       e.preventDefault()
       target += e.deltaY
@@ -28,10 +37,12 @@ export default function SmoothScroll() {
     }
 
     window.addEventListener('wheel', onWheel, { passive: false })
+    window.addEventListener('scroll', onScroll, { passive: true })
     rafId = requestAnimationFrame(loop)
 
     return () => {
       window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('scroll', onScroll)
       cancelAnimationFrame(rafId)
     }
   }, [])

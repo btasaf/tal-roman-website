@@ -45,6 +45,7 @@ export const mediaMention = defineType({
     defineField({ name: 'upperTitle', title: 'כותרת עליונה', type: 'string' }),
     defineField({ name: 'externalUrl', title: 'קישור לכתבה', type: 'url', validation: r => r.required() }),
     defineField({ name: 'publicationDate', title: 'תאריך פרסום', type: 'date' }),
+    defineField({ name: 'active', title: 'פעיל', type: 'boolean', initialValue: true }),
     defineField({ name: 'featured', title: 'מוצג בדף הבית', type: 'boolean', initialValue: true }),
     defineField({ name: 'order', title: 'סדר הצגה', type: 'number' }),
   ],

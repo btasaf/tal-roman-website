@@ -10,6 +10,7 @@ export const blogPost = defineType({
     defineField({ name: 'slug', title: 'כתובת URL', type: 'slug', options: { source: 'title' }, validation: r => r.required() }),
     defineField({ name: 'excerpt', title: 'תקציר קצר (לכרטיס ו-SEO)', type: 'text', rows: 2 }),
     defineField({ name: 'thumbnail', title: 'תמונה ראשית', type: 'image', options: { hotspot: true } }),
+    defineField({ name: 'active', title: 'פעיל', type: 'boolean', initialValue: true }),
     defineField({ name: 'publishedAt', title: 'תאריך פרסום', type: 'datetime' }),
   ],
 })

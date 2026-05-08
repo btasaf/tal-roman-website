@@ -3,12 +3,12 @@ import type { Testimonial, Course, MediaMention, BlogPost, FreeGift, SiteSetting
 
 const revalidate = { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } }
 
-export const coursesQuery = `*[_type == "course"] | order(order asc) {
+export const coursesQuery = `*[_type == "course" && active != false] | order(order asc) {
   title, "slug": slug.current, shortDescription, description,
   thumbnail, price, purchaseUrl, type, featured, order
 }`
 
-export const featuredCoursesQuery = `*[_type == "course" && featured == true] | order(order asc) {
+export const featuredCoursesQuery = `*[_type == "course" && active != false && featured == true] | order(order asc) {
   title, "slug": slug.current, shortDescription, thumbnail, price, purchaseUrl, type
 }`
 
@@ -21,15 +21,15 @@ export const courseBySlugQuery = `*[_type == "course" && slug.current == $slug][
   faq[] { question, answer }
 }`
 
-export const testimonialsQuery = `*[_type == "testimonial" && featured == true] | order(sort asc, _createdAt desc) {
+export const testimonialsQuery = `*[_type == "testimonial" && active != false && featured == true] | order(sort asc, _createdAt desc) {
   name, courseTitle, body, image
 }`
 
-export const allTestimonialsQuery = `*[_type == "testimonial"] | order(sort asc, _createdAt desc) {
+export const allTestimonialsQuery = `*[_type == "testimonial" && active != false] | order(sort asc, _createdAt desc) {
   name, courseTitle, body, image
 }`
 
-export const blogPostsQuery = `*[_type == "blogPost"] | order(publishedAt desc) {
+export const blogPostsQuery = `*[_type == "blogPost" && active != false] | order(publishedAt desc) {
   title, "slug": slug.current, publishedAt, excerpt, thumbnail
 }`
 
@@ -38,11 +38,11 @@ export const blogPostBySlugQuery = `*[_type == "blogPost" && slug.current == $sl
   "docxFileUrl": docxFile.asset->url
 }`
 
-export const mediaMentionsQuery = `*[_type == "mediaMention"] | order(order asc, publicationDate desc) {
+export const mediaMentionsQuery = `*[_type == "mediaMention" && active != false] | order(order asc, publicationDate desc) {
   title, source, mediaType, externalUrl, publicationDate, excerpt, thumbnail, logo, logoAlt, featured, upperTitle
 }`
 
-export const freeGiftsQuery = `*[_type == "freeGift"] | order(order asc) {
+export const freeGiftsQuery = `*[_type == "freeGift" && active != false] | order(order asc) {
   title, subtitle, description, emoji, image, downloadUrl
 }`
 

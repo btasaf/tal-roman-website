@@ -11,6 +11,7 @@ export const freeGift = defineType({
     defineField({ name: 'image', title: 'תמונה עגולה', type: 'image', options: { hotspot: true } }),
     defineField({ name: 'emoji', title: "אמוג'י (גיבוי)", type: 'string', placeholder: '🎁' }),
     defineField({ name: 'downloadUrl', title: 'קישור להורדה/לדף חיצוני', type: 'url', validation: r => r.required() }),
+    defineField({ name: 'active', title: 'פעיל', type: 'boolean', initialValue: true }),
     defineField({ name: 'order', title: 'סדר הצגה', type: 'number' }),
   ],
   orderings: [{ title: 'סדר הצגה', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] }],

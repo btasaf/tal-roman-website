@@ -6,6 +6,7 @@ import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import { getImageUrl } from '@/lib/image-utils'
 import GiftForm from '@/components/GiftForm'
 import BokehBackground from '@/components/ui/BokehBackground'
+import LavaBackground from '@/components/ui/LavaBackground'
 import SectionDivider from '@/components/ui/SectionDivider'
 import type { Gift } from '@/lib/types'
 import { useOriginRipple } from '@/hooks/useOriginRipple'
@@ -184,17 +185,8 @@ export default function GiftPageContent({ gift, slug }: { gift: Gift; slug: stri
       )}
 
       {/* ── CTA / Form ───────────────────────────────────────── */}
-      <section id="gift-cta" className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <Image
-            src="/wix-assets/images/background/gettyimages-1459343241-640x640.jpg"
-            alt=""
-            fill
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-night/60" />
-        </div>
+      <section id="gift-cta" className="py-20 bg-dusk relative overflow-hidden">
+        <LavaBackground />
         <div className="relative max-w-xl mx-auto px-6">
           <m.div
             className="text-center mb-10"

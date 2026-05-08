@@ -9,7 +9,6 @@ import WhatsAppFAB from '@/components/ui/WhatsAppFAB'
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar'
 import GrainOverlay from '@/components/ui/GrainOverlay'
 import MagicalRibbon from '@/components/ui/MagicalRibbon'
-import SmoothScroll from '@/components/ui/SmoothScroll'
 import PageViewTracker from '@/components/PageViewTracker'
 import './globals.css'
 
@@ -43,7 +42,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="he" dir="rtl" className={`${heebo.variable} ${ebGaramond.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[#0d0804] font-heebo">
         <MotionProvider>
-          <SmoothScroll />
           <PageViewTracker />
           <ScrollProgressBar />
           <GrainOverlay />
