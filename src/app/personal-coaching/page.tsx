@@ -6,6 +6,7 @@ import ContactForm from '@/components/ContactForm'
 import RecommendersSection from '@/components/RecommendersSection'
 import LiquidBackground from '@/components/ui/LiquidBackground'
 import SparkleBackground from '@/components/ui/SparkleBackground'
+import CourseFAQSection from '@/components/course/CourseFAQSection'
 import { fetchTestimonials } from '@/lib/queries'
 
 export const metadata: Metadata = { title: 'ליווי אישי — טל רומן' }
@@ -229,33 +230,8 @@ export default async function PersonalCoachingPage() {
         </div>
       </section>
 
-      {/* 7 ── FAQ ── CREAM */}
-      <section className="py-24 bg-cream text-ink">
-        <div className="max-w-2xl mx-auto px-6">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-ink mb-4">
-              שאלות ותשובות
-            </h2>
-            <SectionDivider />
-          </div>
-          <div className="space-y-4">
-            {faq.map((item, i) => (
-              <div
-                key={i}
-                className="border border-gold/25 rounded-2xl overflow-hidden bg-white"
-              >
-                <div className="flex items-start gap-3 p-5 bg-gold/5">
-                  <span className="text-sienna font-bold text-lg shrink-0 mt-0.5">?</span>
-                  <p className="font-bold text-ink text-right text-base">{item.q}</p>
-                </div>
-                <div className="px-5 py-4 text-right">
-                  <p className="text-charcoal leading-relaxed text-base">{item.a}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 7 ── FAQ ── */}
+      <CourseFAQSection items={faq.map(f => ({ question: f.q, answer: f.a }))} />
 
       {/* 8 ── Contact Form ── BRIGHT */}
       <section id="contact" className="py-24 bg-cream relative overflow-hidden">
@@ -269,7 +245,9 @@ export default async function PersonalCoachingPage() {
               <SectionDivider />
             </div>
           </div>
-          <ContactForm tag="ליווי-אישי" status="קר" />
+          <div className="bg-white rounded-3xl border border-gold/25 shadow-xl shadow-gold/10 p-8">
+            <ContactForm tag="ליווי-אישי" status="קר" />
+          </div>
         </div>
       </section>
 

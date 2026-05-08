@@ -62,7 +62,6 @@ export default async function HomePage() {
     fetchSiteSettings().catch(() => null),
     fetchMediaMentions().catch(() => []),
   ])
-
   return (
     <>
       <PersonJsonLd />
@@ -94,7 +93,7 @@ export default async function HomePage() {
       <RecommendersSection testimonials={allTestimonials} bgImage={homepage?.testimonialsBgImage ?? null} />
       <BottomDivider stroke={homepage?.testimonialsStroke} />
 
-      {homepage?.featuredCourses?.length > 0 && (
+      {homepage?.featuredCourses?.filter((c: Course) => c?.active !== false)?.length > 0 && (
         <>
           <TopDivider stroke={homepage?.coursesStroke} />
           <section className="relative overflow-hidden py-20 bg-gradient-to-b from-[#f5e0a0] to-[#f2c0b0]">
@@ -107,7 +106,7 @@ export default async function HomePage() {
                 <SectionDivider />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {homepage.featuredCourses.map((course: Course, i: number) => (
+                {homepage.featuredCourses.filter((c: Course) => c?.slug && c?.active !== false).map((course: Course, i: number) => (
                   <CourseCard key={course.slug} {...course} index={i} />
                 ))}
               </div>

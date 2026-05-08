@@ -1,16 +1,15 @@
 import { client } from '@/sanity/client'
 import type { Testimonial, Course, MediaMention, BlogPost, FreeGift, SiteSettings, Gift } from './types'
 
-const revalidate = { next: { revalidate: process.env.NODE_ENV === 'production' ? 60 : 0 } }
+const revalidate = process.env.NODE_ENV === 'production'
+  ? { next: { revalidate: 60 } }
+  : { cache: 'no-store' as const }
 
 export const coursesQuery = `*[_type == "course" && active != false] | order(order asc) {
   title, "slug": slug.current, shortDescription, description,
-  thumbnail, price, purchaseUrl, type, featured, order
+  thumbnail, price, purchaseUrl, type, featured, order, active
 }`
 
-export const featuredCoursesQuery = `*[_type == "course" && active != false && featured == true] | order(order asc) {
-  title, "slug": slug.current, shortDescription, thumbnail, price, purchaseUrl, type
-}`
 
 export const courseBySlugQuery = `*[_type == "course" && slug.current == $slug][0] {
   title, "slug": slug.current, shortDescription, description,
@@ -59,7 +58,7 @@ export const homepageSectionQuery = `*[_type == "homepageSection"][0] {
   featuredPromoStroke,
   coursesHeadline, coursesBgImage,
   coursesStroke,
-  featuredCourses[]-> { title, "slug": slug.current, shortDescription, thumbnail, price, purchaseUrl, type },
+  "featuredCourses": featuredCourses[]->{ title, "slug": slug.current, shortDescription, thumbnail, price, purchaseUrl, type, active },
   testimonialsBgImage,
   testimonialsStroke,
   contactBgImage,

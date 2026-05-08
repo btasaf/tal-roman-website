@@ -13,6 +13,7 @@ export interface MediaMention {
 }
 
 export interface Course {
+  active?: boolean
   title: string
   slug: string
   shortDescription?: string
