@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function BuyButton({ href, label }: { href: string; label?: string }) {
   return (
-    <CTAButton href={href} target="_blank" rel="noopener noreferrer" variant="gold" className="rounded-full text-lg shadow-lg shadow-gold/20 px-10 py-4">
+    <CTAButton href={href} target="_blank" rel="noopener noreferrer" variant="gold" className="rounded-full text-base md:text-lg shadow-lg shadow-gold/20 px-6 md:px-10 py-3 md:py-4 w-full sm:w-auto text-center whitespace-normal">
       {label || 'לרכישה עכשיו'}
     </CTAButton>
   )
@@ -45,7 +45,7 @@ function BuyButton({ href, label }: { href: string; label?: string }) {
 
 function ContactButton() {
   return (
-    <CTAButton href="#contact" variant="gold" className="rounded-full text-lg shadow-lg shadow-gold/20 px-10 py-4">
+    <CTAButton href="#contact" variant="gold" className="rounded-full text-base md:text-lg shadow-lg shadow-gold/20 px-6 md:px-10 py-3 md:py-4 w-full sm:w-auto text-center whitespace-normal">
       אשמח לקבל פרטים נוספים
     </CTAButton>
   )
@@ -88,9 +88,6 @@ export default async function CourseDetailPage({ params }: Props) {
             <p className="text-sand text-xl md:text-2xl leading-relaxed mb-10 max-w-2xl mx-auto">
               {course.shortDescription}
             </p>
-          )}
-          {course.price && (
-            <p className="text-5xl font-extrabold text-gold mb-8 font-garamond">{course.price}</p>
           )}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             {ctaUrl ? (

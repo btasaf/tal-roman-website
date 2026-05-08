@@ -47,8 +47,31 @@ export default function RecommendersSection({ testimonials, bgImage, dark }: { t
           <SectionDivider />
         </m.div>
 
-        <div className="relative px-10">
-          {/* Right arrow — scroll toward RTL start (first cards) */}
+        {/* מובייל — קרוסלה עם swipe */}
+        <div className="md:hidden">
+          <div
+            className="flex gap-4 overflow-x-auto no-scrollbar pb-4"
+            style={{
+              scrollSnapType: 'x mandatory',
+              WebkitOverflowScrolling: 'touch',
+              paddingLeft: '12%',
+              paddingRight: '12%',
+            }}
+          >
+            {testimonials.map((t, i) => (
+              <div
+                key={i}
+                className="flex-none"
+                style={{ width: '76%', scrollSnapAlign: 'center' }}
+              >
+                <RecommenderCard t={t} index={i} mobile />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* דסקטופ — קרוסלה */}
+        <div className="hidden md:block relative px-10">
           <button
             onClick={() => scrollRef.current?.scrollBy({ left: SCROLL_BY, behavior: 'smooth' })}
             aria-label="הקודם"
@@ -58,8 +81,6 @@ export default function RecommendersSection({ testimonials, bgImage, dark }: { t
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </button>
-
-          {/* Left arrow — scroll toward more cards */}
           <button
             onClick={() => scrollRef.current?.scrollBy({ left: -SCROLL_BY, behavior: 'smooth' })}
             aria-label="הבא"
@@ -69,15 +90,9 @@ export default function RecommendersSection({ testimonials, bgImage, dark }: { t
               <polyline points="15 18 9 12 15 6" />
             </svg>
           </button>
-
-          {/* Fade edges */}
           <div className={`absolute right-10 top-0 bottom-4 w-16 bg-gradient-to-l ${fadeColor} to-transparent z-10 pointer-events-none`} />
           <div className={`absolute left-10 top-0 bottom-4 w-16 bg-gradient-to-r ${fadeColor} to-transparent z-10 pointer-events-none`} />
-
-          <div
-            ref={scrollRef}
-            className="flex flex-row gap-6 overflow-x-auto no-scrollbar pb-4"
-          >
+          <div ref={scrollRef} className="flex flex-row gap-6 overflow-x-auto no-scrollbar pb-4">
             {testimonials.map((t, i) => (
               <div key={i} className="flex-none w-72 md:w-80">
                 <RecommenderCard t={t} index={i} />

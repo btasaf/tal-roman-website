@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
+import Image from 'next/image'
 import { m, useScroll, useTransform } from 'framer-motion'
 import { getImageUrl } from '@/lib/image-utils'
 import { fadeInRight, fadeInLeft } from '@/lib/animations'
@@ -62,21 +63,24 @@ export default function AboutSection({ aboutImage, aboutBio, aboutQuote, bgImage
 
       <div className="relative max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
-        {/* Image — wipe reveal + scroll zoom */}
-        <WipeReveal direction="right" delay={0.1} className="flex justify-center">
-          <div className="relative inline-block overflow-hidden" style={{ borderRadius: IMAGE.borderRadius, width: IMAGE.width }}>
+        {/* Image */}
+        <m.div
+          className="flex justify-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '0px' }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+        >
+          <div className="relative overflow-hidden" style={{ borderRadius: IMAGE.borderRadius, width: '100%', maxWidth: IMAGE.width }}>
             <m.div style={{ scale: imgScale }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={imageUrl}
                 alt="טל רומן"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                  display: 'block',
-                  transformOrigin: IMAGE.position,
-                }}
-                className="shadow-2xl"
+                width={IMAGE.width}
+                height={600}
+                priority
+                className="shadow-2xl w-full h-auto"
+                style={{ display: 'block', transformOrigin: IMAGE.position }}
               />
             </m.div>
             <div
@@ -88,7 +92,7 @@ export default function AboutSection({ aboutImage, aboutBio, aboutQuote, bgImage
               }}
             />
           </div>
-        </WipeReveal>
+        </m.div>
 
         {/* Text */}
         <m.div {...fadeInRight} className={TEXT.alignment}>

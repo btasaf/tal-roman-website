@@ -79,20 +79,20 @@ export default function CommunitiesPage() {
       />
 
       {/* Facebook intro */}
-      <section className="py-20 bg-night text-white">
+      <section className="py-20 bg-gradient-to-b from-[#f5dada] to-[#fff2d4] text-ink">
         <div className="max-w-3xl mx-auto px-6 text-center">
-          <div className="inline-flex items-center gap-2 bg-gold/10 text-gold text-sm font-semibold px-5 py-2 rounded-full mb-8 border border-gold/30">
+          <div className="inline-flex items-center gap-2 bg-[#1877f2]/10 text-[#1877f2] text-sm font-semibold px-5 py-2 rounded-full mb-8 border border-[#1877f2]/30">
             <FacebookIcon />
             קהילות הפייסבוק שלנו
           </div>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gold mb-6">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-ink mb-6">
             קהילות מתחברים ומתחברות
           </h2>
           <p className="text-sand/90 text-lg leading-loose mb-4">
             אני מזמינה אתכם להצטרף אלינו לקהילות מתחברים ומתחברות — הקהילות הכי שוות בפייסבוק לחיבור לעצמנו ובינינו!
           </p>
-          <div className="text-right max-w-2xl mx-auto space-y-3 text-sand/80 text-base leading-relaxed border border-gold/20 rounded-2xl p-6 bg-white/5 mt-8">
-            <p className="font-bold text-gold text-lg mb-4">איך אנו עושים זאת בקהילות?</p>
+          <div className="text-right max-w-2xl mx-auto space-y-3 text-ink/80 text-base leading-relaxed border border-[#1877f2]/20 rounded-2xl p-6 bg-white/60 mt-8">
+            <p className="font-bold text-[#1877f2] text-lg mb-4">איך אנו עושים זאת בקהילות?</p>
             <div className="flex gap-3">
               <span className="text-gold shrink-0 mt-1">✦</span>
               <p>למידה על חיבור לגוף, מיניות ויחסים דרך מורים מובילים שמתנדבים ומעניקים מהידע שלהם כל שבוע</p>
@@ -123,12 +123,12 @@ export default function CommunitiesPage() {
                 key={group.title}
                 className="bg-white rounded-2xl shadow-lg border border-gold/15 overflow-hidden flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="bg-gradient-to-br from-dusk to-night p-8 text-white text-center border-b border-gold/15">
-                  <div className="flex justify-center mb-4 text-gold">
+                <div className="bg-[#1877f2] p-8 text-white text-center">
+                  <div className="flex justify-center mb-4">
                     <FacebookIcon size={36} />
                   </div>
-                  <h3 className="text-2xl font-extrabold mb-1 text-gold">{group.title}</h3>
-                  <p className="text-sand/70 text-sm">{group.subtitle}</p>
+                  <h3 className="text-2xl font-extrabold mb-1">{group.title}</h3>
+                  <p className="text-white/70 text-sm">{group.subtitle}</p>
                 </div>
                 <div className="p-6 flex flex-col flex-1">
                   <p className="text-charcoal leading-relaxed text-right mb-6 flex-1">
@@ -138,7 +138,7 @@ export default function CommunitiesPage() {
                     href={group.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 bg-brand hover:bg-brand-dark text-white font-bold px-6 py-4 rounded-full transition-colors w-full text-center"
+                    className="flex items-center justify-center gap-2 bg-[#1877f2] hover:bg-[#1565d8] text-white font-bold px-6 py-4 rounded-full transition-colors w-full text-center"
                   >
                     <FacebookIcon size={20} />
                     {group.buttonText}
@@ -185,14 +185,14 @@ export default function CommunitiesPage() {
                     : 'border-gold/10 opacity-75'
                 }`}
               >
-                <div className="bg-gradient-to-br from-dusk to-night p-8 text-white text-center border-b border-gold/15">
-                  <div className="flex justify-center mb-4 text-gold">
+                <div className="bg-[#25d366] p-8 text-white text-center">
+                  <div className="flex justify-center mb-4">
                     <WhatsAppIcon size={36} />
                   </div>
-                  <p className="text-xs font-semibold uppercase tracking-widest text-gold/60 mb-1">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-white/70 mb-1">
                     {group.tagline}
                   </p>
-                  <h3 className="text-xl font-extrabold leading-snug text-gold">{group.title}</h3>
+                  <h3 className="text-xl font-extrabold leading-snug">{group.title}</h3>
                 </div>
                 <div className="p-6 flex flex-col flex-1">
                   <p className="text-charcoal leading-relaxed text-right mb-4">
@@ -211,7 +211,7 @@ export default function CommunitiesPage() {
                       href={group.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 bg-brand hover:bg-brand-dark text-white font-bold px-6 py-4 rounded-full transition-colors w-full text-center"
+                      className="flex items-center justify-center gap-2 bg-[#25d366] hover:bg-[#1db954] text-white font-bold px-6 py-4 rounded-full transition-colors w-full text-center"
                     >
                       <WhatsAppIcon size={20} />
                       {group.buttonText}
@@ -229,14 +229,14 @@ export default function CommunitiesPage() {
       </section>
 
       {/* Footer CTA */}
-      <section className="py-16 bg-night text-white text-center">
+      <section className="py-16 bg-gradient-to-b from-cream to-[#f5dada] text-center">
         <div className="max-w-2xl mx-auto px-6">
           <SectionDivider />
           <h3 className="text-2xl font-extrabold text-gold mt-8 mb-4">
             שתי הקבוצות נפתחו בתקופת הקורונה
           </h3>
-          <p className="text-sand/80 text-lg leading-relaxed">
-            וכבר כ-7,500 גברים ונשים תומכים, נתמכים ולומדים המון ביחד. בואו להצטרף אלינו!
+          <p className="text-ink/80 text-lg leading-relaxed">
+            וכבר מעל 22 אלף גברים ונשים תומכים, נתמכים ולומדים המון ביחד. בואו להצטרף אלינו!
           </p>
         </div>
       </section>

@@ -126,26 +126,16 @@ export default function FunnelSection({ gifts }: { gifts: Gift[] }) {
     <section id="gifts" className="bg-cream relative overflow-hidden">
       <BokehBackground />
 
-      {/* ── Header — full-width single line, no side padding ── */}
-      <div className="relative text-center py-16">
-        <m.div {...fadeInUp}>
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-ink leading-tight mb-5 px-2">
-            איך האינטימיות ביניכם מרגישה לאחרונה?
-          </h2>
-          <SectionDivider />
-        </m.div>
+      {/* ── Header — מובייל בלבד ── */}
+      <div className="relative text-center py-10 md:hidden">
+        <h2 className="text-2xl font-extrabold text-ink leading-tight px-4">
+          איך האינטימיות ביניכם מרגישה לאחרונה?
+        </h2>
       </div>
 
       {/* ── Mobile: stacked ── */}
       <div className="flex flex-col md:hidden">
         <OptionCard copy={OPTION_COPY[0]} imageUrl={img0} href={href0} isRight />
-        <div className="flex items-center bg-cream">
-          <div className="flex-1 h-px bg-gold/30" />
-          <div className="w-14 h-14 rounded-full border-2 border-brand bg-white flex items-center justify-center text-brand font-extrabold text-lg shadow-md flex-shrink-0">
-            או
-          </div>
-          <div className="flex-1 h-px bg-gold/30" />
-        </div>
         <OptionCard copy={OPTION_COPY[1]} imageUrl={img1} href={href1} isRight={false} />
       </div>
 
@@ -162,6 +152,15 @@ export default function FunnelSection({ gifts }: { gifts: Gift[] }) {
         Dead-centre at every height → "או" sits at (50%, 50%).
         ──────────────────────────────────────────────────────────────────────── */}
       <div className="hidden md:block relative" style={{ minHeight: '78vh' }}>
+
+        {/* כותרת על התמונות */}
+        <div className="absolute top-0 inset-x-0 z-30 text-center pt-10 pointer-events-none">
+          <m.div {...fadeInUp}>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight drop-shadow-lg px-4">
+              איך האינטימיות ביניכם מרגישה לאחרונה?
+            </h2>
+          </m.div>
+        </div>
 
         {/* Card 2 — physical LEFT */}
         <div

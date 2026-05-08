@@ -11,7 +11,7 @@ export const metadata: Metadata = { title: 'המלצות' }
 
 const COURSE_GROUPS = [
   { courseTitle: 'מה נשים רוצות במיטה', label: 'מה נשים רוצות במיטה' },
-  { courseTitle: 'סדנת טנטרה זוגית', label: 'סדנה פרטית טנטרה לזוגות' },
+  { courseTitle: 'סדנת טנטרה זוגית', label: 'סדנת טנטרה זוגית' },
 ]
 
 export default async function RecommendationsPage() {

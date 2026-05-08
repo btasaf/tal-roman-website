@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, type CSSProperties } from 'react'
+import { useRef, useState, useEffect, type CSSProperties } from 'react'
 import { m, useScroll, useTransform } from 'framer-motion'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/client'
@@ -102,6 +102,19 @@ const L2_CELLS = [
   { col: 2, row: 3, idx: 4 },
   { col: 4, row: 3, idx: 5 },
 ]
+// מובייל — 3 עמודות
+const L1_CELLS_MOBILE = [
+  { col: 1, row: 1, idx: 0 },
+  { col: 3, row: 1, idx: 1 },
+  { col: 1, row: 2, idx: 2 },
+  { col: 3, row: 2, idx: 3 },
+  { col: 1, row: 3, idx: 4 },
+  { col: 3, row: 3, idx: 5 },
+]
+const L2_CELLS_MOBILE = [
+  { col: 2, row: 1, idx: 0 },
+  { col: 2, row: 3, idx: 1 },
+]
 
 export default function MediaMentionsSection({ mentions }: { mentions: MediaMention[] }) {
   if (!mentions?.length) return null
@@ -147,13 +160,21 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
       label: SOURCE_LABELS[item.source] ?? item.source,
     }))
 
+  const [isMobile, setIsMobile] = useState(false)
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
   // Grid sized to fit all 3 rows within the viewport
   const gridStyle: CSSProperties = {
     width: '1400px',
     maxWidth: 'calc(100% - 3rem)',
     height: 'calc(100vh - 80px)',
     display: 'grid',
-    gridTemplateColumns: 'repeat(5, 1fr)',
+    gridTemplateColumns: isMobile ? 'repeat(3, 1fr)' : 'repeat(5, 1fr)',
     gridTemplateRows: 'repeat(3, 1fr)',
     gap: GAP,
     position: 'absolute',
@@ -182,9 +203,9 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
             {/* ── Grid ─────────────────────────────────────── */}
             <div style={gridStyle}>
 
-              {/* Layer 1 — cols 1 + 5 */}
+              {/* Layer 1 */}
               <m.div style={{ ...layerBase, opacity: l1Opacity, scale: l1Scale, pointerEvents: 'none' }}>
-                {L1_CELLS.map(({ col, row, idx }) =>
+                {(isMobile ? L1_CELLS_MOBILE : L1_CELLS).map(({ col, row, idx }) =>
                   l1Cards[idx] ? (
                     <div key={`l1-${idx}`} style={{ gridColumn: col, gridRow: row, pointerEvents: 'auto' }}>
                       <GridCard item={l1Cards[idx]!} />
@@ -193,9 +214,9 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
                 )}
               </m.div>
 
-              {/* Layer 2 — cols 2 + 4 */}
+              {/* Layer 2 */}
               <m.div style={{ ...layerBase, opacity: l2Opacity, scale: l2Scale, pointerEvents: 'none' }}>
-                {L2_CELLS.map(({ col, row, idx }) =>
+                {(isMobile ? L2_CELLS_MOBILE : L2_CELLS).map(({ col, row, idx }) =>
                   l2Cards[idx] ? (
                     <div key={`l2-${idx}`} style={{ gridColumn: col, gridRow: row, pointerEvents: 'auto' }}>
                       <GridCard item={l2Cards[idx]!} />
@@ -204,8 +225,8 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
                 )}
               </m.div>
 
-              {/* Layer 3 — col 3, rows 1 + 3 */}
-              <m.div style={{ ...layerBase, opacity: l3Opacity, scale: l3Scale, pointerEvents: 'none' }}>
+              {/* Layer 3 — col 3, rows 1 + 3 (desktop only) */}
+              <m.div style={{ ...layerBase, opacity: isMobile ? 0 : l3Opacity, scale: l3Scale, pointerEvents: 'none' }}>
                 {l3Cards[0] && (
                   <div style={{ gridColumn: 3, gridRow: 1, pointerEvents: 'auto' }}>
                     <GridCard item={l3Cards[0]} />
@@ -221,22 +242,22 @@ export default function MediaMentionsSection({ mentions }: { mentions: MediaMent
               {/* Scaler — center cell. Its content cross-fades: logos → real card */}
               {scaler && (
                 <m.div
-                  style={{ gridArea: '2 / 3', scale: scalerScale, zIndex: 2, position: 'relative' }}
+                  style={{ gridArea: isMobile ? '2 / 2' : '2 / 3', scale: scalerScale, zIndex: 2, position: 'relative' }}
                 >
                   {/* Logos face — visible while large, shrinks with the card */}
                   <m.div
                     style={{ opacity: logosOpacity }}
                     className="absolute inset-0 rounded-xl overflow-hidden bg-cream flex flex-col items-center justify-center p-4 pointer-events-none"
                   >
-                    <div className="flex flex-wrap items-center justify-center gap-2">
+                    <div className="flex flex-wrap items-center justify-center gap-1.5">
                       {allLogos.map((logo, i) => (
-                        <div key={i} className="bg-white rounded-lg px-2 py-1.5 shadow-sm">
+                        <div key={i} className="bg-white rounded px-1.5 py-1 shadow-sm">
                           <Image
                             src={logo.url}
                             alt={logo.label}
-                            width={70}
-                            height={35}
-                            className="object-contain h-7 w-auto"
+                            width={isMobile ? 36 : 70}
+                            height={isMobile ? 18 : 35}
+                            className={`object-contain w-auto ${isMobile ? 'h-4' : 'h-7'}`}
                           />
                         </div>
                       ))}

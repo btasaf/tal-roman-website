@@ -9,10 +9,11 @@ interface RecommenderCardProps {
   t: Testimonial
   index?: number
   dark?: boolean
+  mobile?: boolean
 }
 
-export default function RecommenderCard({ t, index = 0, dark = false }: RecommenderCardProps) {
-  const imgUrl = t.image ? urlFor(t.image as object).width(600).height(400).url() : null
+export default function RecommenderCard({ t, index = 0, dark = false, mobile = false }: RecommenderCardProps) {
+  const imgUrl = t.image ? urlFor(t.image as object).width(600).height(600).url() : null
 
   return (
     <m.div
@@ -26,14 +27,15 @@ export default function RecommenderCard({ t, index = 0, dark = false }: Recommen
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: index * 0.08, ease: 'easeOut' }}
     >
-      {/* תמונה — חלק עליון */}
-      <div className="relative w-full h-52 flex-shrink-0">
+      {/* תמונה — מתאים לקונטיינר */}
+      <div className={`relative w-full flex-shrink-0 ${dark ? 'bg-white/5' : 'bg-gold/5'}`}>
         {imgUrl ? (
           <Image
             src={imgUrl}
             alt={t.name}
-            fill
-            className="object-cover object-top"
+            width={600}
+            height={600}
+            className="w-full h-auto object-contain"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
         ) : (
@@ -44,19 +46,24 @@ export default function RecommenderCard({ t, index = 0, dark = false }: Recommen
         <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-gold/60 to-transparent" />
       </div>
 
-      {/* טקסט — חלק תחתון */}
-      <div className="flex flex-col flex-1 p-5 text-right">
-        <span className={`text-4xl leading-none font-serif mb-2 block ${dark ? 'text-gold/40' : 'text-gold/50'}`}>"</span>
-
-        <p className={`text-sm leading-relaxed flex-1 ${dark ? 'text-white/80' : 'text-charcoal'}`}>
+      {/* טקסט — קטן יותר, לא קובע גובה */}
+      <div className="flex flex-col flex-1 p-4 text-right">
+        <p className={`leading-relaxed overflow-hidden flex-1 ${dark ? 'text-white/80' : 'text-charcoal'}`}
+          style={{
+            fontSize: 'clamp(10px, 1.5vw, 13px)',
+            display: '-webkit-box',
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: 'vertical',
+          }}
+        >
           {t.body}
         </p>
 
-        <div className={`flex items-center justify-start gap-2 mt-4 pt-3 border-t ${dark ? 'border-gold/15' : 'border-gold/20'}`}>
+        <div className={`flex items-center justify-start gap-2 mt-3 pt-2 border-t shrink-0 ${dark ? 'border-gold/15' : 'border-gold/20'}`}>
           <div className="text-right">
-            <p className={`font-bold text-sm ${dark ? 'text-gold' : 'text-ink'}`}>{t.name}</p>
+            <p className={`font-bold ${dark ? 'text-gold' : 'text-ink'}`} style={{ fontSize: 'clamp(10px, 1.5vw, 13px)' }}>{t.name}</p>
             {t.courseTitle && (
-              <p className={`text-xs mt-0.5 ${dark ? 'text-white/40' : 'text-mist'}`}>{t.courseTitle}</p>
+              <p className={`mt-0.5 ${dark ? 'text-white/40' : 'text-mist'}`} style={{ fontSize: 'clamp(9px, 1.2vw, 11px)' }}>{t.courseTitle}</p>
             )}
           </div>
           <div className="w-2 h-2 rounded-full bg-gold flex-shrink-0" />
