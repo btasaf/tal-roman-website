@@ -69,7 +69,8 @@
       "Bash(cp /tmp/2.png /home/asaf/projects/tal-roman-website/public/funnel-2.png)",
       "WebFetch(domain:framer.com)",
       "WebFetch(domain:www.framer.com)",
-      "Bash(grep -v \"//\\\\|import\\\\|aria-\\\\|icon\\\\|svg\\\\|children\\\\|^\\\\-\\\\-$\")"
+      "Bash(grep -v \"//\\\\|import\\\\|aria-\\\\|icon\\\\|svg\\\\|children\\\\|^\\\\-\\\\-$\")",
+      "Bash(identify /home/asaf/projects/tal-roman-website/public/logo.png)"
     ]
   },
   "skillOverrides": {

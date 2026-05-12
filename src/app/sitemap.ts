@@ -1,14 +1,15 @@
 import type { MetadataRoute } from 'next'
-import { fetchCourses, fetchBlogPosts } from '@/lib/queries'
+import { fetchCourses, fetchBlogPosts, fetchGifts } from '@/lib/queries'
 
 export const dynamic = 'force-static'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://talroman.com'
 
-  const [courses, posts] = await Promise.all([
+  const [courses, posts, gifts] = await Promise.all([
     fetchCourses().catch(() => []),
     fetchBlogPosts().catch(() => []),
+    fetchGifts().catch(() => []),
   ])
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -18,6 +19,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${baseUrl}/articles`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/media`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${baseUrl}/communities`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${baseUrl}/personal-coaching`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${baseUrl}/recommendations`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
   ]
 
   const courseRoutes: MetadataRoute.Sitemap = courses.map((c: any) => ({
@@ -34,5 +38,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  return [...staticRoutes, ...courseRoutes, ...articleRoutes]
+  const giftRoutes: MetadataRoute.Sitemap = gifts.map((g: any) => ({
+    url: `${baseUrl}/gifts/${g.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  return [...staticRoutes, ...courseRoutes, ...articleRoutes, ...giftRoutes]
 }

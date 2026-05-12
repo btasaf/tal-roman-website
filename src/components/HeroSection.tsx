@@ -8,6 +8,7 @@ import CTAButton from '@/components/ui/CTAButton'
 import SectionBackground from '@/components/ui/SectionBackground'
 import RevealText from '@/components/ui/RevealText'
 import MagneticButton from '@/components/ui/MagneticButton'
+import SvgReveal from '@/components/SvgReveal'
 
 // ─────────────────────────────────────────────
 //  HERO CONFIG  ← שנה כאן את המראה של הבאנר
@@ -74,6 +75,15 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
       <m.div className="absolute inset-0" style={{ y: bgY }}>
         <SectionBackground image={bgImage} />
       </m.div>
+      {/* SVG illustration reveal */}
+      <SvgReveal
+        path="M 2 80 C 15 60, 30 90, 50 70 C 70 50, 85 80, 98 55 M 5 25 C 20 10, 40 40, 60 28 C 78 16, 90 35, 98 20"
+        color="#b87c4a"
+        strokeWidth={2.5}
+        opacity={0.75}
+        hideOnMobile={false}
+      />
+
       {/* Bokeh particle layer */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-[8%]  left-[15%]  w-72  h-72  bg-gold/18 rounded-full blur-3xl" />
