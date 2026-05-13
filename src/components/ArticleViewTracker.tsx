@@ -11,7 +11,7 @@ export default function ArticleViewTracker({ slug }: Props) {
   const { track } = useCrmTracking()
 
   useEffect(() => {
-    track(`article_view_${slug}`)
+    track(`article-view/${slug}`)
   }, [slug, track])
 
   return null
