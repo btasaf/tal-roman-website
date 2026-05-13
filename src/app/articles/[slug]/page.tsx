@@ -155,7 +155,7 @@ export default async function ArticleDetailPage({ params }: Props) {
             </article>
 
             {/* Floating gift sidebar */}
-            <ArticleGiftSidebar />
+            <ArticleGiftSidebar articleSlug={slug} />
           </div>
         </div>
       </div>

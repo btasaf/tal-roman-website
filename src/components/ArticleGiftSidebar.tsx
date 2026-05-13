@@ -1,9 +1,12 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import { fetchGifts } from '@/lib/queries'
 import { urlFor } from '@/sanity/client'
+import ArticleGiftLink from '@/components/ArticleGiftLink'
 
-export default async function ArticleGiftSidebar() {
+interface Props {
+  articleSlug: string
+}
+
+export default async function ArticleGiftSidebar({ articleSlug }: Props) {
   const gifts = await fetchGifts().catch(() => [])
   if (!gifts.length) return null
 
@@ -22,29 +25,13 @@ export default async function ArticleGiftSidebar() {
               : null
 
             return (
-              <Link
+              <ArticleGiftLink
                 key={gift.slug}
-                href={`/gifts/${gift.slug}`}
-                className="group block p-3 hover:bg-cream/60 transition-colors"
-              >
-                {imgUrl && (
-                  <div className="relative w-full h-24 rounded-lg overflow-hidden mb-2">
-                    <Image
-                      src={imgUrl}
-                      alt={gift.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      sizes="224px"
-                    />
-                  </div>
-                )}
-                <p className="text-sm font-bold text-ink leading-snug mb-1 group-hover:text-sienna transition-colors line-clamp-2">
-                  {gift.title}
-                </p>
-                <span className="text-xs font-semibold text-sienna group-hover:text-gold transition-colors">
-                  קבל עכשיו ←
-                </span>
-              </Link>
+                giftSlug={gift.slug}
+                giftTitle={gift.title}
+                imgUrl={imgUrl}
+                articleSlug={articleSlug}
+              />
             )
           })}
         </div>
