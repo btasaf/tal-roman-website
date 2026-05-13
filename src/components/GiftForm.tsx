@@ -79,7 +79,7 @@ export default function GiftForm({ tag, status, enrollToSchool, slug }: GiftForm
       if (result?.uniqueLink) {
         window.open(result.uniqueLink, '_blank', 'noopener,noreferrer')
       }
-      if (slug) track(`got_gift_${slug}`)
+      if (slug) track(`got-gift/${slug}`)
       setState('success')
     } catch {
       setState('error')

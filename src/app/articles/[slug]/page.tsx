@@ -7,7 +7,6 @@ import mammoth from 'mammoth'
 import { fetchBlogPostBySlug, fetchBlogPosts } from '@/lib/queries'
 import { getImageUrl } from '@/lib/image-utils'
 import ArticleGiftSidebar from '@/components/ArticleGiftSidebar'
-import ArticleViewTracker from '@/components/ArticleViewTracker'
 import type { BlogPost } from '@/lib/types'
 
 interface Props { params: Promise<{ slug: string }> }
@@ -86,8 +85,7 @@ export default async function ArticleDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <ArticleViewTracker slug={slug} />
-      <div className="min-h-screen bg-cream" dir="rtl">
+<div className="min-h-screen bg-cream" dir="rtl">
         {/* Hero */}
         <div className="bg-gradient-to-b from-night/95 to-night/80 pt-24 pb-12 px-4">
           <div className="max-w-5xl mx-auto">
