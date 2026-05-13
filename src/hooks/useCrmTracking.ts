@@ -51,8 +51,9 @@ export function useCrmTracking() {
     }).catch(() => {})
   }, [])
 
-  const trackPageView = useCallback((slug?: string) => {
-    const label = slug ? `page_view_${slug}` : 'page_view_main_page'
+  const trackPageView = useCallback((slug?: string, prefix?: string) => {
+    const parts = ['page-view', prefix, slug].filter(Boolean)
+    const label = parts.length > 1 ? parts.join('/') : 'page-view/main-page'
     track(label)
   }, [track])
 

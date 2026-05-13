@@ -75,5 +75,18 @@
   },
   "skillOverrides": {
     "tal": "user-invocable-only"
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 /home/asaf/projects/tal-roman-website/.claude/hooks/sitemap-check.py"
+          }
+        ]
+      }
+    ]
   }
 }

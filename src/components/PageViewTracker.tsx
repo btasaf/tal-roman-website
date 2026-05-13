@@ -11,7 +11,9 @@ export default function PageViewTracker() {
   useEffect(() => {
     const segments = pathname.split('/').filter(Boolean)
     const slug = segments.at(-1) || undefined
-    trackPageView(slug)
+    const prefixMap: Record<string, string> = { gifts: 'gifts' }
+    const prefix = segments[0] ? prefixMap[segments[0]] : undefined
+    trackPageView(slug, prefix)
   }, [pathname, trackPageView])
 
   return null
