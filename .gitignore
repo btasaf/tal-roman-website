@@ -47,3 +47,6 @@ next-env.d.ts
 /public/wix-assets
 /memory
 .claude/
+
+# scripts with secrets
+src/scripts/seed-course-lists.mjs
