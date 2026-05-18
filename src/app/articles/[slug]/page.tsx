@@ -44,6 +44,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+function processHyperlinks(html: string): string {
+  return html.replace(/<a\s+href="(https?:\/\/[^"]+)"/g, (_, url) => {
+    const isInternal = url.includes('talroman.com')
+    if (isInternal) return `<a href="${url}"`
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer"`
+  })
+}
+
 async function parseDocx(url: string): Promise<string | null> {
   try {
     const res = await fetch(url)
@@ -51,7 +59,7 @@ async function parseDocx(url: string): Promise<string | null> {
     const arrayBuffer = await res.arrayBuffer()
     const buffer = Buffer.from(arrayBuffer)
     const { value } = await mammoth.convertToHtml({ buffer })
-    return value || null
+    return value ? processHyperlinks(value) : null
   } catch (err) {
     console.error('[parseDocx] failed:', err)
     return null
