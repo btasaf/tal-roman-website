@@ -70,7 +70,8 @@
       "WebFetch(domain:framer.com)",
       "WebFetch(domain:www.framer.com)",
       "Bash(grep -v \"//\\\\|import\\\\|aria-\\\\|icon\\\\|svg\\\\|children\\\\|^\\\\-\\\\-$\")",
-      "Bash(identify /home/asaf/projects/tal-roman-website/public/logo.png)"
+      "Bash(identify /home/asaf/projects/tal-roman-website/public/logo.png)",
+      "Bash(~/.claude/skills/gstack/bin/gstack-config get *)"
     ]
   },
   "skillOverrides": {

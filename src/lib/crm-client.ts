@@ -77,3 +77,23 @@ export async function crmTrackEvent(data: CrmTrackEventData): Promise<CrmTrackRe
 
   return await res.json()
 }
+
+export interface CrmUpdateEventData {
+  eventData: {
+    timeOnPageSeconds?: number
+    maxScrollDepthPercent?: number
+  }
+}
+
+export async function crmUpdateEvent(eventId: string, data: CrmUpdateEventData): Promise<void> {
+  const res = await fetch(`${CRM_BASE_URL}/wix/track/${eventId}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!res.ok) {
+    const text = await res.text()
+    throw new Error(`CRM update failed (${res.status}): ${text}`)
+  }
+}

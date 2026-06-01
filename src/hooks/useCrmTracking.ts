@@ -34,11 +34,11 @@ export function useCrmTracking() {
     visitorIdRef.current = getOrCreateVisitorId()
   }, [])
 
-  const track = useCallback(async (eventType: string, eventData?: Record<string, unknown>) => {
+  const track = useCallback(async (eventType: string, eventData?: Record<string, unknown>): Promise<string | undefined> => {
     const visitorId = visitorIdRef.current
-    if (!visitorId) return
+    if (!visitorId) return undefined
 
-    await fetch('/api/crm/track', {
+    const res = await fetch('/api/crm/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -48,15 +48,12 @@ export function useCrmTracking() {
         referrer: document.referrer || undefined,
         eventData: eventData ?? undefined,
       }),
-    }).catch(() => {})
+    }).catch(() => undefined)
+
+    if (!res) return undefined
+    const data = await res.json().catch(() => undefined)
+    return data?.eventId != null ? String(data.eventId) : undefined
   }, [])
-
-  const trackPageView = useCallback((slug?: string, prefix?: string) => {
-    const parts = ['page-view', prefix, slug].filter(Boolean)
-    const label = parts.length > 1 ? parts.join('/') : 'page-view/main-page'
-    track(label)
-  }, [track])
-
 
   const saveCustomer = useCallback(async (data: SaveCustomerData) => {
     const visitorId = visitorIdRef.current
@@ -73,5 +70,5 @@ export function useCrmTracking() {
     return res.json()
   }, [])
 
-  return { track, trackPageView, saveCustomer }
+  return { track, saveCustomer }
 }
