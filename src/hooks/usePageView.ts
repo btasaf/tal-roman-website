@@ -8,6 +8,9 @@ export function usePageView(slug?: string, prefix?: string) {
   const eventIdRef = useRef<string | null>(null)
   const startTimeRef = useRef<number>(0)
   const maxScrollRef = useRef<number>(0)
+  const hiddenAccumRef = useRef<number>(0)
+  const hiddenSinceRef = useRef<number | null>(null)
+  const hasSentRef = useRef<boolean>(false)
 
   useEffect(() => {
     const parts = ['page-view', prefix, slug].filter(Boolean)
@@ -15,44 +18,68 @@ export function usePageView(slug?: string, prefix?: string) {
 
     startTimeRef.current = Date.now()
     maxScrollRef.current = 0
+    hiddenAccumRef.current = 0
+    hiddenSinceRef.current = null
+    hasSentRef.current = false
+    eventIdRef.current = null
+
+    const getDepth = () => {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight
+      if (scrollable <= 0) return 100
+      return Math.min(100, Math.round((window.scrollY / scrollable) * 100))
+    }
 
     const handleScroll = () => {
-      const scrolled = window.scrollY + window.innerHeight
-      const total = document.documentElement.scrollHeight
-      const depth = Math.round((scrolled / total) * 100)
+      const depth = getDepth()
       if (depth > maxScrollRef.current) maxScrollRef.current = depth
     }
+    handleScroll() // capture scroll position if browser restored scroll on navigation
     window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll() // capture initial viewport
 
     void track(label).then(id => { if (id) eventIdRef.current = id }).catch(() => {})
 
-    let hasSent = false
+    const getActiveSeconds = () => {
+      const now = Date.now()
+      const hiddenNow = hiddenSinceRef.current ? now - hiddenSinceRef.current : 0
+      return Math.round((now - startTimeRef.current - hiddenAccumRef.current - hiddenNow) / 1000)
+    }
+
     const sendEngagement = () => {
-      if (hasSent) return
+      if (hasSentRef.current) return
       const eventId = eventIdRef.current
       if (!eventId) return
-      hasSent = true
+      hasSentRef.current = true
 
-      const timeOnPage = Math.round((Date.now() - startTimeRef.current) / 1000)
       navigator.sendBeacon(
         `/api/crm/track/${eventId}`,
         new Blob(
-          [JSON.stringify({ eventData: { timeOnPageSeconds: timeOnPage, maxScrollDepthPercent: maxScrollRef.current } })],
+          [JSON.stringify({ eventData: {
+            timeOnPageSeconds: getActiveSeconds(),
+            maxScrollDepthPercent: maxScrollRef.current,
+          }})],
           { type: 'application/json' }
         )
       )
     }
 
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') sendEngagement()
+      if (document.visibilityState === 'hidden') {
+        hiddenSinceRef.current = Date.now()
+        sendEngagement() // checkpoint save in case user doesn't come back
+      } else {
+        if (hiddenSinceRef.current) {
+          hiddenAccumRef.current += Date.now() - hiddenSinceRef.current
+          hiddenSinceRef.current = null
+        }
+        hasSentRef.current = false // allow re-send on real exit with accurate time
+      }
     }
 
     document.addEventListener('visibilitychange', handleVisibilityChange)
     window.addEventListener('beforeunload', sendEngagement)
 
     return () => {
-      sendEngagement() // fires on Next.js client navigation (component unmount)
+      sendEngagement()
       window.removeEventListener('scroll', handleScroll)
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       window.removeEventListener('beforeunload', sendEngagement)
