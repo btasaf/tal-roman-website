@@ -9,6 +9,8 @@ import {
   fetchHomepageSection,
 } from '@/lib/queries'
 import type { Gift, Testimonial } from '@/lib/types'
+import { getImageUrl } from '@/lib/image-utils'
+import { BreadcrumbJsonLd } from '@/components/JsonLd'
 import GiftPageContent from '@/components/GiftPageContent'
 import RecommendersSection from '@/components/RecommendersSection'
 import MediaMentionsSection from '@/components/MediaMentionsSection'
@@ -25,9 +27,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const gift = await fetchGiftBySlug(decodeURIComponent(slug)).catch(() => null)
   if (!gift) return { title: 'מתנה לא נמצאה' }
+  const imageUrl = getImageUrl(gift.image ?? null, 'detail')
+  const canonicalUrl = `https://talroman.com/gifts/${slug}`
+  const title = gift.heroHeadline ?? gift.title
+  const description = gift.secondaryText ?? gift.subtitle
   return {
-    title: gift.heroHeadline ?? gift.title,
-    description: gift.secondaryText ?? gift.subtitle,
+    title,
+    description,
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      locale: 'he_IL',
+      type: 'website',
+      ...(imageUrl ? { images: [{ url: imageUrl, width: 1200, height: 600 }] } : {}),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      ...(imageUrl ? { images: [imageUrl] } : {}),
+    },
   }
 }
 
@@ -45,6 +66,10 @@ export default async function GiftPage({ params }: Props) {
 
   return (
     <div>
+      <BreadcrumbJsonLd items={[
+        { name: 'דף הבית', url: 'https://talroman.com' },
+        { name: gift.title, url: `https://talroman.com/gifts/${slug}` },
+      ]} />
       <GiftPageContent gift={gift} slug={slug} />
 
       <RecommendersSection

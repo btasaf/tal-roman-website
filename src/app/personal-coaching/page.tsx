@@ -7,9 +7,26 @@ import RecommendersSection from '@/components/RecommendersSection'
 import LiquidBackground from '@/components/ui/LiquidBackground'
 import SparkleBackground from '@/components/ui/SparkleBackground'
 import CourseFAQSection from '@/components/course/CourseFAQSection'
+import { BreadcrumbJsonLd, FaqJsonLd } from '@/components/JsonLd'
 import { fetchTestimonials } from '@/lib/queries'
 
-export const metadata: Metadata = { title: 'ליווי אישי — טל רומן' }
+export const metadata: Metadata = {
+  title: 'ליווי אישי — טל רומן',
+  description: 'ליווי רגשי אישי ומקצועי בנושא מיניות, אינטימיות ויחסים — תהליך מעמיק עם טל רומן במרחב בטוח ולא שיפוטי.',
+  alternates: { canonical: 'https://talroman.com/personal-coaching' },
+  openGraph: {
+    title: 'ליווי אישי — טל רומן',
+    description: 'ליווי רגשי אישי ומקצועי בנושא מיניות, אינטימיות ויחסים — תהליך מעמיק עם טל רומן במרחב בטוח ולא שיפוטי.',
+    url: 'https://talroman.com/personal-coaching',
+    locale: 'he_IL',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ליווי אישי — טל רומן',
+    description: 'ליווי רגשי אישי ומקצועי בנושא מיניות, אינטימיות ויחסים — תהליך מעמיק עם טל רומן במרחב בטוח ולא שיפוטי.',
+  },
+}
 
 const learnItems = [
   'ליצור שינוי שמתרחב מהמיניות והאינטימיות אל הזוגיות, היחסים ואיכות החיים כולה.',
@@ -74,6 +91,11 @@ export default async function PersonalCoachingPage() {
 
   return (
     <div className="min-h-screen bg-cream" dir="rtl">
+      <BreadcrumbJsonLd items={[
+        { name: 'דף הבית', url: 'https://talroman.com' },
+        { name: 'ליווי אישי', url: 'https://talroman.com/personal-coaching' },
+      ]} />
+      <FaqJsonLd items={faq.map(f => ({ question: f.q, answer: f.a }))} />
 
       {/* 1 ── Hero ── DARK */}
       <PageHero

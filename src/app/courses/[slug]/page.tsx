@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { fetchCourseBySlug, fetchCourses, fetchTestimonials } from '@/lib/queries'
 import { getImageUrl } from '@/lib/image-utils'
 import type { Course } from '@/lib/types'
-import { CourseJsonLd } from '@/components/JsonLd'
+import { CourseJsonLd, BreadcrumbJsonLd, FaqJsonLd } from '@/components/JsonLd'
 import BokehBackground from '@/components/ui/BokehBackground'
 import SectionDivider from '@/components/ui/SectionDivider'
 import RecommendersSection from '@/components/RecommendersSection'
@@ -28,10 +28,26 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const course: Course | null = await fetchCourseBySlug(slug).catch(() => null)
   if (!course) return { title: 'קורס לא נמצא' }
+  const imageUrl = getImageUrl(course.primaryImage ?? course.thumbnail, 'detail')
+  const canonicalUrl = `https://talroman.com/courses/${slug}`
   return {
     title: `${course.title} — טל רומן`,
     description: course.shortDescription,
-    openGraph: { title: course.title, description: course.shortDescription, type: 'website' },
+    alternates: { canonical: canonicalUrl },
+    openGraph: {
+      title: course.title,
+      description: course.shortDescription,
+      type: 'website',
+      url: canonicalUrl,
+      locale: 'he_IL',
+      ...(imageUrl ? { images: [{ url: imageUrl, width: 1200, height: 600 }] } : {}),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: course.title,
+      description: course.shortDescription,
+      ...(imageUrl ? { images: [imageUrl] } : {}),
+    },
   }
 }
 
@@ -71,6 +87,14 @@ export default async function CourseDetailPage({ params }: Props) {
         price={course.price}
         url={`https://talroman.com/courses/${slug}`}
       />
+      <BreadcrumbJsonLd items={[
+        { name: 'דף הבית', url: 'https://talroman.com' },
+        { name: 'קורסים', url: 'https://talroman.com/courses' },
+        { name: course.title, url: `https://talroman.com/courses/${slug}` },
+      ]} />
+      {course.faq && course.faq.length > 0 && (
+        <FaqJsonLd items={course.faq} />
+      )}
 
       {/* ── HERO ── */}
       <section className="relative py-28 md:py-36 bg-dusk text-white overflow-hidden">

@@ -2,7 +2,23 @@ import type { Metadata } from 'next'
 import PageHero from '@/components/ui/PageHero'
 import SectionDivider from '@/components/ui/SectionDivider'
 
-export const metadata: Metadata = { title: 'קהילות — טל רומן' }
+export const metadata: Metadata = {
+  title: 'קהילות — טל רומן',
+  description: 'הצטרפו לקהילות הפייסבוק והוואטסאפ של טל רומן — מעל 22,000 נשים וגברים שלומדים ומתחברים סביב מיניות, זוגיות ואינטימיות.',
+  alternates: { canonical: 'https://talroman.com/communities' },
+  openGraph: {
+    title: 'קהילות — טל רומן',
+    description: 'הצטרפו לקהילות הפייסבוק והוואטסאפ של טל רומן — מעל 22,000 נשים וגברים שלומדים ומתחברים סביב מיניות, זוגיות ואינטימיות.',
+    url: 'https://talroman.com/communities',
+    locale: 'he_IL',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'קהילות — טל רומן',
+    description: 'הצטרפו לקהילות הפייסבוק והוואטסאפ של טל רומן — מעל 22,000 נשים וגברים שלומדים ומתחברים סביב מיניות, זוגיות ואינטימיות.',
+  },
+}
 
 function FacebookIcon({ size = 18 }: { size?: number }) {
   return (

@@ -71,7 +71,9 @@
       "WebFetch(domain:www.framer.com)",
       "Bash(grep -v \"//\\\\|import\\\\|aria-\\\\|icon\\\\|svg\\\\|children\\\\|^\\\\-\\\\-$\")",
       "Bash(identify /home/asaf/projects/tal-roman-website/public/logo.png)",
-      "Bash(~/.claude/skills/gstack/bin/gstack-config get *)"
+      "Bash(~/.claude/skills/gstack/bin/gstack-config get *)",
+      "Bash(identify /home/asaf/projects/tal-roman-website/public/funnel-1.png)",
+      "Bash(xargs -I{} git -C /home/asaf/projects/tal-roman-website show {} --name-only)"
     ]
   },
   "skillOverrides": {

@@ -4,7 +4,23 @@ import type { Course } from '@/lib/types'
 import CourseCard from '@/components/CourseCard'
 import PageHero from '@/components/ui/PageHero'
 
-export const metadata: Metadata = { title: 'קורסים ומוצרים' }
+export const metadata: Metadata = {
+  title: 'קורסים ומוצרים',
+  description: 'קורסים דיגיטליים, סדנאות וליווי אישי בנושא מיניות, זוגיות ואינטימיות — בהנחיית טל רומן.',
+  alternates: { canonical: 'https://talroman.com/courses' },
+  openGraph: {
+    title: 'קורסים ומוצרים | טל רומן',
+    description: 'קורסים דיגיטליים, סדנאות וליווי אישי בנושא מיניות, זוגיות ואינטימיות — בהנחיית טל רומן.',
+    url: 'https://talroman.com/courses',
+    locale: 'he_IL',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'קורסים ומוצרים | טל רומן',
+    description: 'קורסים דיגיטליים, סדנאות וליווי אישי בנושא מיניות, זוגיות ואינטימיות — בהנחיית טל רומן.',
+  },
+}
 
 export default async function CoursesPage() {
   const rawCourses: Course[] = await fetchCourses().catch(() => [])

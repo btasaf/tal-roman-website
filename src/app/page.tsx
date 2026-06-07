@@ -8,7 +8,7 @@ import {
   fetchMediaMentions,
 } from '@/lib/queries'
 import type { Course } from '@/lib/types'
-import { PersonJsonLd } from '@/components/JsonLd'
+import { PersonJsonLd, WebsiteJsonLd } from '@/components/JsonLd'
 import HeroSection from '@/components/HeroSection'
 import PersonalMessage from '@/components/PersonalMessage'
 import FunnelSection from '@/components/FunnelSection'
@@ -24,6 +24,20 @@ import PaintStroke, { type StrokePattern } from '@/components/ui/PaintStroke'
 
 export const metadata: Metadata = {
   title: 'טל רומן — חינוך מיני ואינטימיות',
+  description: 'קורסים, סדנאות וליווי אישי בנושא מיניות ואינטימיות לזוגות ויחידים.',
+  alternates: { canonical: 'https://talroman.com' },
+  openGraph: {
+    title: 'טל רומן — חינוך מיני ואינטימיות',
+    description: 'קורסים, סדנאות וליווי אישי בנושא מיניות ואינטימיות לזוגות ויחידים.',
+    url: 'https://talroman.com',
+    locale: 'he_IL',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'טל רומן — חינוך מיני ואינטימיות',
+    description: 'קורסים, סדנאות וליווי אישי בנושא מיניות ואינטימיות לזוגות ויחידים.',
+  },
 }
 
 // Container is half the SVG height, negative-margin = same as container height → zero net flow shift.
@@ -65,6 +79,7 @@ export default async function HomePage() {
   return (
     <>
       <PersonJsonLd />
+      <WebsiteJsonLd />
 
       <TopDivider stroke={homepage?.heroStroke} />
       <HeroSection

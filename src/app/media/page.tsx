@@ -7,7 +7,23 @@ import type { MediaMention } from '@/lib/types'
 import PageHero from '@/components/ui/PageHero'
 import { urlFor } from '@/sanity/client'
 
-export const metadata: Metadata = { title: 'טל רומן בתקשורת' }
+export const metadata: Metadata = {
+  title: 'טל רומן בתקשורת',
+  description: 'כתבות, ראיונות והופעות תקשורתיות של טל רומן — מדריכת מיניות ואינטימיות — ב-ynet, מאקו, וואלה ועוד.',
+  alternates: { canonical: 'https://talroman.com/media' },
+  openGraph: {
+    title: 'טל רומן בתקשורת',
+    description: 'כתבות, ראיונות והופעות תקשורתיות של טל רומן — מדריכת מיניות ואינטימיות — ב-ynet, מאקו, וואלה ועוד.',
+    url: 'https://talroman.com/media',
+    locale: 'he_IL',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'טל רומן בתקשורת',
+    description: 'כתבות, ראיונות והופעות תקשורתיות של טל רומן — מדריכת מיניות ואינטימיות — ב-ynet, מאקו, וואלה ועוד.',
+  },
+}
 
 export default async function MediaPage() {
   const mentions: MediaMention[] = await fetchMediaMentions().catch(() => [])

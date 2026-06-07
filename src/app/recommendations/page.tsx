@@ -7,7 +7,23 @@ import type { Testimonial, Course } from '@/lib/types'
 import PageHero from '@/components/ui/PageHero'
 import RecommenderCard from '@/components/RecommenderCard'
 
-export const metadata: Metadata = { title: 'המלצות' }
+export const metadata: Metadata = {
+  title: 'המלצות',
+  description: 'מה אומרים משתתפי הקורסים והסדנאות של טל רומן — חוויות אמיתיות מנשים שעברו תהליך של שינוי במיניות ובאינטימיות.',
+  alternates: { canonical: 'https://talroman.com/recommendations' },
+  openGraph: {
+    title: 'המלצות | טל רומן',
+    description: 'מה אומרים משתתפי הקורסים והסדנאות של טל רומן — חוויות אמיתיות מנשים שעברו תהליך של שינוי במיניות ובאינטימיות.',
+    url: 'https://talroman.com/recommendations',
+    locale: 'he_IL',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'המלצות | טל רומן',
+    description: 'מה אומרים משתתפי הקורסים והסדנאות של טל רומן — חוויות אמיתיות מנשים שעברו תהליך של שינוי במיניות ובאינטימיות.',
+  },
+}
 
 const COURSE_GROUPS = [
   { courseTitle: 'מה נשים רוצות במיטה', label: 'מה נשים רוצות במיטה' },

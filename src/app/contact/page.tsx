@@ -4,7 +4,23 @@ import { cleanWhatsApp } from '@/lib/utils'
 import PageHero from '@/components/ui/PageHero'
 import ContactForm from '@/components/ContactForm'
 
-export const metadata: Metadata = { title: 'צור קשר' }
+export const metadata: Metadata = {
+  title: 'צור קשר',
+  description: 'יש לכם שאלה? רוצים להתחיל תהליך? צרו קשר עם טל רומן — מדריכת מיניות ואינטימיות.',
+  alternates: { canonical: 'https://talroman.com/contact' },
+  openGraph: {
+    title: 'צור קשר | טל רומן',
+    description: 'יש לכם שאלה? רוצים להתחיל תהליך? צרו קשר עם טל רומן — מדריכת מיניות ואינטימיות.',
+    url: 'https://talroman.com/contact',
+    locale: 'he_IL',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'צור קשר | טל רומן',
+    description: 'יש לכם שאלה? רוצים להתחיל תהליך? צרו קשר עם טל רומן — מדריכת מיניות ואינטימיות.',
+  },
+}
 
 export default async function ContactPage() {
   const settings = await fetchSiteSettings().catch(() => null)

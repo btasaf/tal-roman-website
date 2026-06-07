@@ -6,6 +6,19 @@ import ArticlesClient from './ArticlesClient'
 export const metadata: Metadata = {
   title: 'מאמרים | טל רומן',
   description: 'מחשבות, תובנות, ותשובות לשאלות שאנשים שואלים בשקט.',
+  alternates: { canonical: 'https://talroman.com/articles' },
+  openGraph: {
+    title: 'מאמרים | טל רומן',
+    description: 'מחשבות, תובנות, ותשובות לשאלות שאנשים שואלים בשקט.',
+    url: 'https://talroman.com/articles',
+    locale: 'he_IL',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'מאמרים | טל רומן',
+    description: 'מחשבות, תובנות, ותשובות לשאלות שאנשים שואלים בשקט.',
+  },
 }
 
 export default async function ArticlesPage() {
