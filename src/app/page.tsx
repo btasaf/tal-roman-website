@@ -25,18 +25,20 @@ import PaintStroke, { type StrokePattern } from '@/components/ui/PaintStroke'
 export const metadata: Metadata = {
   title: 'טל רומן — חינוך מיני ואינטימיות',
   description: 'קורסים, סדנאות וליווי אישי בנושא מיניות ואינטימיות לזוגות ויחידים.',
-  alternates: { canonical: 'https://talroman.com' },
+  alternates: { canonical: 'https://www.talroman.com' },
   openGraph: {
     title: 'טל רומן — חינוך מיני ואינטימיות',
     description: 'קורסים, סדנאות וליווי אישי בנושא מיניות ואינטימיות לזוגות ויחידים.',
-    url: 'https://talroman.com',
+    url: 'https://www.talroman.com',
     locale: 'he_IL',
     type: 'website',
+    images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'טל רומן — חינוך מיני ואינטימיות',
     description: 'קורסים, סדנאות וליווי אישי בנושא מיניות ואינטימיות לזוגות ויחידים.',
+    images: ['/og-image.jpg'],
   },
 }
 

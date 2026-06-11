@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { useCrmTracking } from './useCrmTracking'
+import { notFoundSignal } from '@/lib/not-found-signal'
 
 export function usePageView(slug?: string, prefix?: string) {
   const { track } = useCrmTracking()
@@ -36,7 +37,9 @@ export function usePageView(slug?: string, prefix?: string) {
     handleScroll() // capture scroll position if browser restored scroll on navigation
     window.addEventListener('scroll', handleScroll, { passive: true })
 
-    void track(label).then(id => { if (id) eventIdRef.current = id }).catch(() => {})
+    const attemptedUrl = notFoundSignal.get()
+    const extraData = attemptedUrl ? { attemptedUrl } : undefined
+    void track(label, extraData).then(id => { if (id) eventIdRef.current = id }).catch(() => {})
 
     const getActiveSeconds = () => {
       const now = Date.now()

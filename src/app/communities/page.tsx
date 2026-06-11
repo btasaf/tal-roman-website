@@ -5,11 +5,11 @@ import SectionDivider from '@/components/ui/SectionDivider'
 export const metadata: Metadata = {
   title: 'קהילות — טל רומן',
   description: 'הצטרפו לקהילות הפייסבוק והוואטסאפ של טל רומן — מעל 22,000 נשים וגברים שלומדים ומתחברים סביב מיניות, זוגיות ואינטימיות.',
-  alternates: { canonical: 'https://talroman.com/communities' },
+  alternates: { canonical: 'https://www.talroman.com/communities' },
   openGraph: {
     title: 'קהילות — טל רומן',
     description: 'הצטרפו לקהילות הפייסבוק והוואטסאפ של טל רומן — מעל 22,000 נשים וגברים שלומדים ומתחברים סביב מיניות, זוגיות ואינטימיות.',
-    url: 'https://talroman.com/communities',
+    url: 'https://www.talroman.com/communities',
     locale: 'he_IL',
     type: 'website',
   },

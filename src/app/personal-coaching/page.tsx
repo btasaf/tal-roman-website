@@ -13,11 +13,11 @@ import { fetchTestimonials } from '@/lib/queries'
 export const metadata: Metadata = {
   title: 'ליווי אישי — טל רומן',
   description: 'ליווי רגשי אישי ומקצועי בנושא מיניות, אינטימיות ויחסים — תהליך מעמיק עם טל רומן במרחב בטוח ולא שיפוטי.',
-  alternates: { canonical: 'https://talroman.com/personal-coaching' },
+  alternates: { canonical: 'https://www.talroman.com/personal-coaching' },
   openGraph: {
     title: 'ליווי אישי — טל רומן',
     description: 'ליווי רגשי אישי ומקצועי בנושא מיניות, אינטימיות ויחסים — תהליך מעמיק עם טל רומן במרחב בטוח ולא שיפוטי.',
-    url: 'https://talroman.com/personal-coaching',
+    url: 'https://www.talroman.com/personal-coaching',
     locale: 'he_IL',
     type: 'website',
   },
@@ -92,8 +92,8 @@ export default async function PersonalCoachingPage() {
   return (
     <div className="min-h-screen bg-cream" dir="rtl">
       <BreadcrumbJsonLd items={[
-        { name: 'דף הבית', url: 'https://talroman.com' },
-        { name: 'ליווי אישי', url: 'https://talroman.com/personal-coaching' },
+        { name: 'דף הבית', url: 'https://www.talroman.com' },
+        { name: 'ליווי אישי', url: 'https://www.talroman.com/personal-coaching' },
       ]} />
       <FaqJsonLd items={faq.map(f => ({ question: f.q, answer: f.a }))} />
 

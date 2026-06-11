@@ -12,7 +12,7 @@ export const coursesQuery = `*[_type == "course" && active != false] | order(ord
 
 
 export const courseBySlugQuery = `*[_type == "course" && slug.current == $slug][0] {
-  title, "slug": slug.current, shortDescription, description,
+  title, "slug": slug.current, shortDescription, description, seoTitle, seoDescription,
   thumbnail, primaryImage, price, purchaseUrl, landingPageUrl, type,
   location, cancellationPolicy, ctaText, ctaButtonLabel,
   fullDetails, paragraphBelowSubtitle,

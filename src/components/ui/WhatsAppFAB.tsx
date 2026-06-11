@@ -1,11 +1,13 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
+import { useCrmTracking } from '@/hooks/useCrmTracking'
 
 const WHATSAPP_URL = 'https://wa.me/+972586540744'
 
 export default function WhatsAppFAB() {
   const pathname = usePathname()
+  const { track } = useCrmTracking()
   if (pathname === '/contact') return null
 
   return (
@@ -13,6 +15,7 @@ export default function WhatsAppFAB() {
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => track('click_whatsapp_fab', { page: pathname })}
       aria-label="צרו קשר בוואטסאפ"
       className="fixed bottom-6 left-6 z-50 flex items-center justify-center w-14 h-14 rounded-full bg-brand hover:bg-brand-dark shadow-lg shadow-brand/40 hover:shadow-xl hover:scale-110 transition-all duration-200"
     >

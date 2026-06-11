@@ -17,6 +17,8 @@ export interface Course {
   title: string
   slug: string
   shortDescription?: string
+  seoTitle?: string
+  seoDescription?: string
   description?: { _type: string; _key: string; [key: string]: unknown }[]
   thumbnail?: object | null
   primaryImage?: object | null

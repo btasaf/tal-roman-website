@@ -15,6 +15,7 @@ type FormState = 'idle' | 'submitting' | 'success' | 'error'
 
 export default function GiftForm({ tag, status, enrollToSchool, slug }: GiftFormProps) {
   const [state, setState] = useState<FormState>('idle')
+  const [giftLink, setGiftLink] = useState<string | null>(null)
   const [errors, setErrors] = useState<Record<string, string>>({})
   const visitorIdRef = useRef<string | null>(null)
   const { track } = useCrmTracking()
@@ -76,9 +77,10 @@ export default function GiftForm({ tag, status, enrollToSchool, slug }: GiftForm
 
       const result = await res.json()
 
-      if (result?.uniqueLink) {
-        window.open(result.uniqueLink, '_blank', 'noopener,noreferrer')
-      }
+      // Don't window.open here — browsers block programmatic popups after
+      // async work, which silently lost leads. Show an explicit button
+      // instead (user-initiated clicks are never blocked) + email fallback.
+      if (result?.uniqueLink) setGiftLink(result.uniqueLink)
       if (slug) track(`got-gift/${slug}`)
       setState('success')
     } catch {
@@ -94,10 +96,25 @@ export default function GiftForm({ tag, status, enrollToSchool, slug }: GiftForm
     return (
       <div className="text-center py-10 max-w-lg mx-auto" dir="rtl">
         <div className="text-6xl mb-5">🎬</div>
-        <h3 className="text-2xl font-extrabold text-gold mb-3">תהנו מהצפייה!</h3>
-        <p className="text-sand text-lg leading-relaxed">
-          ההדרכה נפתחה בחלון חדש — אם לא ראיתם אותה, בדקו שהדפדפן לא חסם חלון קופץ.
-        </p>
+        <h3 className="text-2xl font-extrabold text-gold mb-3">ההדרכה מוכנה בשבילך!</h3>
+        {giftLink ? (
+          <>
+            <a
+              href={giftLink}
+              onClick={() => { if (slug) track(`watch-gift/${slug}`) }}
+              className="inline-block bg-brand text-white font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-brand/30 mb-5"
+            >
+              לצפייה בהדרכה עכשיו ←
+            </a>
+            <p className="text-sand text-base leading-relaxed">
+              פרטי הגישה נשלחים אליך למייל באופן אוטומטי, כדי שתוכל לחזור ולצפות מתי שנוח לך.
+            </p>
+          </>
+        ) : (
+          <p className="text-sand text-lg leading-relaxed">
+            הפרטים נקלטו בהצלחה! פרטי הגישה להדרכה יישלחו אליך למייל.
+          </p>
+        )}
       </div>
     )
   }

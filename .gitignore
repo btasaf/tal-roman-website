@@ -50,3 +50,5 @@ next-env.d.ts
 
 # scripts with secrets
 src/scripts/seed-course-lists.mjs
+/*.md
+/*.csv

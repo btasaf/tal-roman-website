@@ -38,6 +38,13 @@ export function useCrmTracking() {
     const visitorId = visitorIdRef.current
     if (!visitorId) return undefined
 
+    // Don't pollute prod CRM data with dev traffic.
+    // Set localStorage crm_track_debug=1 to test tracking locally.
+    const host = window.location.hostname
+    if ((host === 'localhost' || host === '127.0.0.1') && localStorage.getItem('crm_track_debug') !== '1') {
+      return undefined
+    }
+
     const res = await fetch('/api/crm/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

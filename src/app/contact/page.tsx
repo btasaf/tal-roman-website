@@ -7,11 +7,11 @@ import ContactForm from '@/components/ContactForm'
 export const metadata: Metadata = {
   title: 'צור קשר',
   description: 'יש לכם שאלה? רוצים להתחיל תהליך? צרו קשר עם טל רומן — מדריכת מיניות ואינטימיות.',
-  alternates: { canonical: 'https://talroman.com/contact' },
+  alternates: { canonical: 'https://www.talroman.com/contact' },
   openGraph: {
     title: 'צור קשר | טל רומן',
     description: 'יש לכם שאלה? רוצים להתחיל תהליך? צרו קשר עם טל רומן — מדריכת מיניות ואינטימיות.',
-    url: 'https://talroman.com/contact',
+    url: 'https://www.talroman.com/contact',
     locale: 'he_IL',
     type: 'website',
   },

@@ -15,6 +15,7 @@ import CourseWhoSection from '@/components/course/CourseWhoSection'
 import CoursePricingSection from '@/components/course/CoursePricingSection'
 import CourseFAQSection from '@/components/course/CourseFAQSection'
 import CourseDetailsSection from '@/components/course/CourseDetailsSection'
+import BuyCourseButton from '@/components/course/BuyCourseButton'
 import CTAButton from '@/components/ui/CTAButton'
 
 interface Props { params: Promise<{ slug: string }> }
@@ -29,14 +30,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const course: Course | null = await fetchCourseBySlug(slug).catch(() => null)
   if (!course) return { title: 'קורס לא נמצא' }
   const imageUrl = getImageUrl(course.primaryImage ?? course.thumbnail, 'detail')
-  const canonicalUrl = `https://talroman.com/courses/${slug}`
+  const canonicalUrl = `https://www.talroman.com/courses/${slug}`
+  const title = course.seoTitle ?? `${course.title} — טל רומן`
+  const description = course.seoDescription ?? course.shortDescription
   return {
-    title: `${course.title} — טל רומן`,
-    description: course.shortDescription,
+    title,
+    description,
     alternates: { canonical: canonicalUrl },
     openGraph: {
-      title: course.title,
-      description: course.shortDescription,
+      title,
+      description,
       type: 'website',
       url: canonicalUrl,
       locale: 'he_IL',
@@ -44,19 +47,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: 'summary_large_image',
-      title: course.title,
-      description: course.shortDescription,
+      title,
+      description,
       ...(imageUrl ? { images: [imageUrl] } : {}),
     },
   }
-}
-
-function BuyButton({ href, label }: { href: string; label?: string }) {
-  return (
-    <CTAButton href={href} target="_blank" rel="noopener noreferrer" variant="gold" className="rounded-full text-base md:text-lg shadow-lg shadow-gold/20 px-6 md:px-10 py-3 md:py-4 w-full sm:w-auto text-center whitespace-normal">
-      {label || 'לרכישה עכשיו'}
-    </CTAButton>
-  )
 }
 
 function ContactButton() {
@@ -85,12 +80,12 @@ export default async function CourseDetailPage({ params }: Props) {
         title={course.title}
         description={course.shortDescription}
         price={course.price}
-        url={`https://talroman.com/courses/${slug}`}
+        url={`https://www.talroman.com/courses/${slug}`}
       />
       <BreadcrumbJsonLd items={[
-        { name: 'דף הבית', url: 'https://talroman.com' },
-        { name: 'קורסים', url: 'https://talroman.com/courses' },
-        { name: course.title, url: `https://talroman.com/courses/${slug}` },
+        { name: 'דף הבית', url: 'https://www.talroman.com' },
+        { name: 'קורסים', url: 'https://www.talroman.com/courses' },
+        { name: course.title, url: `https://www.talroman.com/courses/${slug}` },
       ]} />
       {course.faq && course.faq.length > 0 && (
         <FaqJsonLd items={course.faq} />
@@ -115,7 +110,7 @@ export default async function CourseDetailPage({ params }: Props) {
           )}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             {ctaUrl ? (
-              <BuyButton href={ctaUrl} label={course.ctaButtonLabel} />
+              <BuyCourseButton href={ctaUrl} label={course.ctaButtonLabel} slug={slug} />
             ) : (
               <ContactButton />
             )}
@@ -133,6 +128,7 @@ export default async function CourseDetailPage({ params }: Props) {
         description={course.description}
         ctaUrl={ctaUrl}
         ctaButtonLabel={course.ctaButtonLabel}
+        slug={slug}
       />
 
       {/* ── WHAT YOU'LL LEARN ── */}
@@ -154,6 +150,7 @@ export default async function CourseDetailPage({ params }: Props) {
         ctaText={course.ctaText}
         ctaUrl={ctaUrl}
         ctaButtonLabel={course.ctaButtonLabel}
+        slug={slug}
       />
 
       {/* ── FAQ ── */}
@@ -166,7 +163,7 @@ export default async function CourseDetailPage({ params }: Props) {
             {course.ctaText || `הצטרפ/י ל${course.title} וצא/י לדרך.`}
           </p>
           {ctaUrl ? (
-            <BuyButton href={ctaUrl} label={course.ctaButtonLabel} />
+            <BuyCourseButton href={ctaUrl} label={course.ctaButtonLabel} slug={slug} />
           ) : (
             <ContactButton />
           )}

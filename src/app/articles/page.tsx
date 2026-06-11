@@ -6,11 +6,11 @@ import ArticlesClient from './ArticlesClient'
 export const metadata: Metadata = {
   title: 'מאמרים | טל רומן',
   description: 'מחשבות, תובנות, ותשובות לשאלות שאנשים שואלים בשקט.',
-  alternates: { canonical: 'https://talroman.com/articles' },
+  alternates: { canonical: 'https://www.talroman.com/articles' },
   openGraph: {
     title: 'מאמרים | טל רומן',
     description: 'מחשבות, תובנות, ותשובות לשאלות שאנשים שואלים בשקט.',
-    url: 'https://talroman.com/articles',
+    url: 'https://www.talroman.com/articles',
     locale: 'he_IL',
     type: 'website',
   },

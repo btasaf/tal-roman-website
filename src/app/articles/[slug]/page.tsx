@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const imageUrl = getImageUrl(post.thumbnail, 'detail')
 
-  const canonicalUrl = `https://talroman.com/articles/${slug}`
+  const canonicalUrl = `https://www.talroman.com/articles/${slug}`
   return {
     title: post.title,
     description: post.excerpt,
@@ -81,7 +81,7 @@ export default async function ArticleDetailPage({ params }: Props) {
   const docxHtml = post.docxFileUrl ? await parseDocx(post.docxFileUrl) : null
   console.log('[article] docxHtml length:', docxHtml?.length ?? 'null')
 
-  const articleUrl = `https://talroman.com/articles/${slug}`
+  const articleUrl = `https://www.talroman.com/articles/${slug}`
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -89,7 +89,7 @@ export default async function ArticleDetailPage({ params }: Props) {
     description: post.excerpt,
     url: articleUrl,
     mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
-    author: { '@type': 'Person', name: 'טל רומן', url: 'https://talroman.com' },
+    author: { '@type': 'Person', name: 'טל רומן', url: 'https://www.talroman.com' },
     datePublished: post.publishedAt,
     ...(imageUrl ? { image: imageUrl } : {}),
   }
@@ -101,9 +101,9 @@ export default async function ArticleDetailPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <BreadcrumbJsonLd items={[
-        { name: 'דף הבית', url: 'https://talroman.com' },
-        { name: 'מאמרים', url: 'https://talroman.com/articles' },
-        { name: post.title, url: `https://talroman.com/articles/${slug}` },
+        { name: 'דף הבית', url: 'https://www.talroman.com' },
+        { name: 'מאמרים', url: 'https://www.talroman.com/articles' },
+        { name: post.title, url: `https://www.talroman.com/articles/${slug}` },
       ]} />
 
 <div className="min-h-screen bg-cream" dir="rtl">

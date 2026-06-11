@@ -4,23 +4,28 @@ import { m } from 'framer-motion'
 import { PortableText } from '@portabletext/react'
 import SectionDivider from '@/components/ui/SectionDivider'
 import CTAButton from '@/components/ui/CTAButton'
+import { useCrmTracking } from '@/hooks/useCrmTracking'
 
 interface Props {
   fullDetails?: string
   description?: { _type: string; _key: string; [key: string]: unknown }[]
   ctaUrl?: string
   ctaButtonLabel?: string
+  slug?: string
 }
 
-function BuyButton({ href, label }: { href: string; label?: string }) {
+function BuyButton({ href, label, slug }: { href: string; label?: string; slug?: string }) {
+  const { track } = useCrmTracking()
   return (
-    <CTAButton href={href} target="_blank" rel="noopener noreferrer" variant="gold" className="rounded-full text-lg shadow-lg shadow-gold/20 px-10 py-4">
-      {label || 'לרכישה עכשיו'}
-    </CTAButton>
+    <span onClick={() => { if (slug) track(`click_buy_course/${slug}`) }}>
+      <CTAButton href={href} target="_blank" rel="noopener noreferrer" variant="gold" className="rounded-full text-lg shadow-lg shadow-gold/20 px-10 py-4">
+        {label || 'לרכישה עכשיו'}
+      </CTAButton>
+    </span>
   )
 }
 
-export default function CourseDetailsSection({ fullDetails, description, ctaUrl, ctaButtonLabel }: Props) {
+export default function CourseDetailsSection({ fullDetails, description, ctaUrl, ctaButtonLabel, slug }: Props) {
   if (!fullDetails && !description) return null
 
   const paragraphs = fullDetails
@@ -82,7 +87,7 @@ export default function CourseDetailsSection({ fullDetails, description, ctaUrl,
 
           {ctaUrl && (
             <div className="mt-12 text-center">
-              <BuyButton href={ctaUrl} label={ctaButtonLabel} />
+              <BuyButton href={ctaUrl} label={ctaButtonLabel} slug={slug} />
             </div>
           )}
         </m.div>

@@ -10,7 +10,7 @@ export function PersonJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'Person',
     name: 'טל רומן',
-    url: 'https://talroman.com',
+    url: 'https://www.talroman.com',
     jobTitle: 'מדריכת מיניות ואינטימיות',
     sameAs: SOCIAL_PROFILES,
   }
@@ -22,13 +22,13 @@ export function WebsiteJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'טל רומן',
-    url: 'https://talroman.com',
+    url: 'https://www.talroman.com',
     description: 'קורסים, סדנאות וליווי אישי בנושא מיניות ואינטימיות לזוגות ויחידים.',
     inLanguage: 'he',
     publisher: {
       '@type': 'Person',
       name: 'טל רומן',
-      url: 'https://talroman.com',
+      url: 'https://www.talroman.com',
       sameAs: SOCIAL_PROFILES,
     },
   }
@@ -77,7 +77,7 @@ export function CourseJsonLd({ title, description, price, url }: {
     offers: price
       ? { '@type': 'Offer', price: price.replace(/[^\d.]/g, '') || price, priceCurrency: 'ILS' }
       : undefined,
-    provider: { '@type': 'Person', name: 'טל רומן', url: 'https://talroman.com' },
+    provider: { '@type': 'Person', name: 'טל רומן', url: 'https://www.talroman.com' },
   }
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
 }

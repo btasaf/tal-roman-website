@@ -73,7 +73,11 @@
       "Bash(identify /home/asaf/projects/tal-roman-website/public/logo.png)",
       "Bash(~/.claude/skills/gstack/bin/gstack-config get *)",
       "Bash(identify /home/asaf/projects/tal-roman-website/public/funnel-1.png)",
-      "Bash(xargs -I{} git -C /home/asaf/projects/tal-roman-website show {} --name-only)"
+      "Bash(xargs -I{} git -C /home/asaf/projects/tal-roman-website show {} --name-only)",
+      "Bash(xargs sed -i 's|https://talroman\\\\.com|https://www.talroman.com|g')",
+      "Bash(npm uninstall *)",
+      "Bash(pkill -f \"next start\")",
+      "Bash(npx eslint *)"
     ]
   },
   "skillOverrides": {

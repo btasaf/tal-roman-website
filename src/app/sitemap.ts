@@ -4,7 +4,7 @@ import { fetchCourses, fetchBlogPosts, fetchGifts } from '@/lib/queries'
 export const dynamic = 'force-static'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://talroman.com'
+  const baseUrl = 'https://www.talroman.com'
 
   const [courses, posts, gifts] = await Promise.all([
     fetchCourses().catch(() => []),

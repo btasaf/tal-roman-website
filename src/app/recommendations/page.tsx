@@ -10,11 +10,11 @@ import RecommenderCard from '@/components/RecommenderCard'
 export const metadata: Metadata = {
   title: 'המלצות',
   description: 'מה אומרים משתתפי הקורסים והסדנאות של טל רומן — חוויות אמיתיות מנשים שעברו תהליך של שינוי במיניות ובאינטימיות.',
-  alternates: { canonical: 'https://talroman.com/recommendations' },
+  alternates: { canonical: 'https://www.talroman.com/recommendations' },
   openGraph: {
     title: 'המלצות | טל רומן',
     description: 'מה אומרים משתתפי הקורסים והסדנאות של טל רומן — חוויות אמיתיות מנשים שעברו תהליך של שינוי במיניות ובאינטימיות.',
-    url: 'https://talroman.com/recommendations',
+    url: 'https://www.talroman.com/recommendations',
     locale: 'he_IL',
     type: 'website',
   },

@@ -7,11 +7,11 @@ import PageHero from '@/components/ui/PageHero'
 export const metadata: Metadata = {
   title: 'קורסים ומוצרים',
   description: 'קורסים דיגיטליים, סדנאות וליווי אישי בנושא מיניות, זוגיות ואינטימיות — בהנחיית טל רומן.',
-  alternates: { canonical: 'https://talroman.com/courses' },
+  alternates: { canonical: 'https://www.talroman.com/courses' },
   openGraph: {
     title: 'קורסים ומוצרים | טל רומן',
     description: 'קורסים דיגיטליים, סדנאות וליווי אישי בנושא מיניות, זוגיות ואינטימיות — בהנחיית טל רומן.',
-    url: 'https://talroman.com/courses',
+    url: 'https://www.talroman.com/courses',
     locale: 'he_IL',
     type: 'website',
   },

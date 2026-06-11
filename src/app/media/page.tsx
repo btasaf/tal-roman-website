@@ -10,11 +10,11 @@ import { urlFor } from '@/sanity/client'
 export const metadata: Metadata = {
   title: 'טל רומן בתקשורת',
   description: 'כתבות, ראיונות והופעות תקשורתיות של טל רומן — מדריכת מיניות ואינטימיות — ב-ynet, מאקו, וואלה ועוד.',
-  alternates: { canonical: 'https://talroman.com/media' },
+  alternates: { canonical: 'https://www.talroman.com/media' },
   openGraph: {
     title: 'טל רומן בתקשורת',
     description: 'כתבות, ראיונות והופעות תקשורתיות של טל רומן — מדריכת מיניות ואינטימיות — ב-ynet, מאקו, וואלה ועוד.',
-    url: 'https://talroman.com/media',
+    url: 'https://www.talroman.com/media',
     locale: 'he_IL',
     type: 'website',
   },

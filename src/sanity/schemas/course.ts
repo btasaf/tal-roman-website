@@ -21,6 +21,8 @@ export const course = defineType({
       options: { list: [{ title: 'דיגיטלי', value: 'digital' }, { title: 'סדנה', value: 'workshop' }, { title: 'אישי', value: 'personal' }] }
     }),
     defineField({ name: 'active', title: 'פעיל', type: 'boolean', initialValue: true }),
+    defineField({ name: 'seoTitle', title: 'כותרת SEO (לגוגל)', type: 'string', description: 'אם ריק — ישתמש בשם הקורס' }),
+    defineField({ name: 'seoDescription', title: 'תיאור SEO (לגוגל)', type: 'text', rows: 2, description: 'אם ריק — ישתמש בתיאור הקצר' }),
     defineField({ name: 'featured', title: 'מוצג בדף הבית', type: 'boolean', initialValue: false }),
     defineField({ name: 'order', title: 'סדר הצגה', type: 'number' }),
     defineField({ name: 'location', title: 'מיקום', type: 'string' }),

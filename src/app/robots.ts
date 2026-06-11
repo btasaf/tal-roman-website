@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       { userAgent: '*', allow: '/', disallow: ['/studio', '/api'] },
     ],
-    sitemap: 'https://talroman.com/sitemap.xml',
+    sitemap: 'https://www.talroman.com/sitemap.xml',
   }
 }

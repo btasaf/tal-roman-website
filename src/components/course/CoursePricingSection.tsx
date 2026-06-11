@@ -4,6 +4,7 @@ import { m } from 'framer-motion'
 import SectionDivider from '@/components/ui/SectionDivider'
 import LiquidBackground from '@/components/ui/LiquidBackground'
 import { useOriginRipple } from '@/hooks/useOriginRipple'
+import { useCrmTracking } from '@/hooks/useCrmTracking'
 
 interface Props {
   price?: string
@@ -12,15 +13,18 @@ interface Props {
   ctaText?: string
   ctaUrl?: string
   ctaButtonLabel?: string
+  slug?: string
 }
 
-function BuyButton({ href, label }: { href: string; label?: string }) {
+function BuyButton({ href, label, slug }: { href: string; label?: string; slug?: string }) {
   const { rippleHandlers, ripple } = useOriginRipple()
+  const { track } = useCrmTracking()
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={() => { if (slug) track(`click_buy_course/${slug}`) }}
       className="relative overflow-hidden w-full block text-center bg-gold text-night font-bold px-10 py-4 rounded-full text-lg shadow-lg shadow-gold/20"
       {...rippleHandlers}
     >
@@ -44,7 +48,7 @@ function ContactButton() {
   )
 }
 
-export default function CoursePricingSection({ price, location, cancellationPolicy, ctaText, ctaUrl, ctaButtonLabel }: Props) {
+export default function CoursePricingSection({ price, location, cancellationPolicy, ctaText, ctaUrl, ctaButtonLabel, slug }: Props) {
   if (!price && !location && !ctaText) return null
 
   const details = [
@@ -99,7 +103,7 @@ export default function CoursePricingSection({ price, location, cancellationPoli
 
           {/* כפתור */}
           <div className="pt-2">
-            {ctaUrl ? <BuyButton href={ctaUrl} label={ctaButtonLabel} /> : <ContactButton />}
+            {ctaUrl ? <BuyButton href={ctaUrl} label={ctaButtonLabel} slug={slug} /> : <ContactButton />}
           </div>
         </m.div>
       </div>

@@ -14,7 +14,6 @@
     "prod-website__old": "cmd.exe /c start http://tal-roman-website.s3-website-eu-west-1.amazonaws.com/"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.1037.0",
     "@next/third-parties": "^16.2.4",
     "@portabletext/react": "^6.0.3",
     "@sanity/client": "^7.21.0",

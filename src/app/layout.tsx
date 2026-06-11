@@ -29,9 +29,16 @@ const ebGaramond = EB_Garamond({
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await fetchSiteSettings().catch(() => null)
   return {
+    metadataBase: new URL('https://www.talroman.com'),
     title: { default: settings?.seoTitle ?? 'טל רומן — חינוך מיני ואינטימיות', template: '%s | טל רומן' },
     description: settings?.seoDescription ?? 'קורסים, סדנאות וליווי אישי בנושא מיניות ואינטימיות לזוגות ויחידים.',
-    openGraph: { locale: 'he_IL', type: 'website' },
+    openGraph: {
+      locale: 'he_IL',
+      type: 'website',
+      siteName: 'טל רומן',
+      images: [{ url: '/og-image.jpg', width: 1200, height: 630 }],
+    },
+    twitter: { card: 'summary_large_image', images: ['/og-image.jpg'] },
   }
 }
 

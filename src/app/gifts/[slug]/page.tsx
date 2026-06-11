@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const gift = await fetchGiftBySlug(decodeURIComponent(slug)).catch(() => null)
   if (!gift) return { title: 'מתנה לא נמצאה' }
   const imageUrl = getImageUrl(gift.image ?? null, 'detail')
-  const canonicalUrl = `https://talroman.com/gifts/${slug}`
+  const canonicalUrl = `https://www.talroman.com/gifts/${slug}`
   const title = gift.heroHeadline ?? gift.title
   const description = gift.secondaryText ?? gift.subtitle
   return {
@@ -67,8 +67,8 @@ export default async function GiftPage({ params }: Props) {
   return (
     <div>
       <BreadcrumbJsonLd items={[
-        { name: 'דף הבית', url: 'https://talroman.com' },
-        { name: gift.title, url: `https://talroman.com/gifts/${slug}` },
+        { name: 'דף הבית', url: 'https://www.talroman.com' },
+        { name: gift.title, url: `https://www.talroman.com/gifts/${slug}` },
       ]} />
       <GiftPageContent gift={gift} slug={slug} />
 
