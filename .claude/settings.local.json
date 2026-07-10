@@ -77,11 +77,10 @@
       "Bash(xargs sed -i 's|https://talroman\\\\.com|https://www.talroman.com|g')",
       "Bash(npm uninstall *)",
       "Bash(pkill -f \"next start\")",
-      "Bash(npx eslint *)"
+      "Bash(npx eslint *)",
+      "Bash(git add:*)",
+      "Bash(git rebase:*)"
     ]
-  },
-  "skillOverrides": {
-    "tal": "user-invocable-only"
   },
   "hooks": {
     "PostToolUse": [
@@ -95,5 +94,8 @@
         ]
       }
     ]
+  },
+  "skillOverrides": {
+    "tal": "user-invocable-only"
   }
 }

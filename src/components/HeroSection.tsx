@@ -7,8 +7,6 @@ import { getImageUrl } from '@/lib/image-utils'
 import CTAButton from '@/components/ui/CTAButton'
 import SectionBackground from '@/components/ui/SectionBackground'
 import RevealText from '@/components/ui/RevealText'
-import MagneticButton from '@/components/ui/MagneticButton'
-import SvgReveal from '@/components/SvgReveal'
 
 // ─────────────────────────────────────────────
 //  HERO CONFIG  ← שנה כאן את המראה של הבאנר
