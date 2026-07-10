@@ -52,3 +52,6 @@ next-env.d.ts
 src/scripts/seed-course-lists.mjs
 /*.md
 /*.csv
+.claude\settings.local.json
+
+DESIGN_PLAN.md

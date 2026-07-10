@@ -3,8 +3,6 @@ import { fetchCourses, fetchBlogPosts, fetchGifts } from '@/lib/queries'
 
 export const dynamic = 'force-static'
 
-export const dynamic = 'force-static'
-
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.talroman.com'
 

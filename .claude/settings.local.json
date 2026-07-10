@@ -79,7 +79,8 @@
       "Bash(pkill -f \"next start\")",
       "Bash(npx eslint *)",
       "Bash(git add:*)",
-      "Bash(git rebase:*)"
+      "Bash(git rebase:*)",
+      "Bash(git push:*)"
     ]
   },
   "hooks": {
