@@ -80,7 +80,10 @@
       "Bash(npx eslint *)",
       "Bash(git add:*)",
       "Bash(git rebase:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(dir:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd //c \"taskkill /PID 52524 /F\")"
     ]
   },
   "hooks": {
