@@ -67,6 +67,7 @@ export default function QuizPage() {
   const [showLgbtqModal, setShowLgbtqModal] = useState(false)
   const [hideLgbtqOption, setHideLgbtqOption] = useState(false)
   const [email, setEmail] = useState('')
+  const [consent, setConsent] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Get or create visitor ID (same as GiftForm)
@@ -126,7 +127,7 @@ export default function QuizPage() {
 
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!email || !email.includes('@')) return
+    if (!email || !email.includes('@') || !consent) return
 
     setIsSubmitting(true)
     const results = getResults()
@@ -264,7 +265,9 @@ export default function QuizPage() {
             <p className="text-lg text-ink leading-relaxed">
               {(results.path === 'couple'
                 ? quizContent.revealScreen.line2_couple
-                : quizContent.revealScreen.line2
+                : results.path === 'man_partner'
+                  ? quizContent.revealScreen.line2_man_partner
+                  : quizContent.revealScreen.line2
               ).replace(
                 '{personalWindow}',
                 quizContent.paths[results.path].personalWindow[results.mode]
@@ -287,9 +290,22 @@ export default function QuizPage() {
                     focus:outline-none focus:ring-2 focus:ring-brand text-lg bg-white"
                 />
 
+                <label className="flex items-start gap-3 text-right cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    className="mt-1 w-5 h-5 rounded border-sand/30 text-brand
+                      focus:ring-brand focus:ring-2 cursor-pointer"
+                  />
+                  <span className="text-sm text-ink/80 leading-relaxed">
+                    {quizContent.revealScreen.consentCheckbox}
+                  </span>
+                </label>
+
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !consent}
                   className="w-full p-4 bg-brand text-white font-bold rounded-xl
                     hover:bg-brand-dark transition-colors text-lg shadow-lg shadow-brand/30
                     disabled:opacity-60"
@@ -297,10 +313,6 @@ export default function QuizPage() {
                   {isSubmitting ? 'שולח...' : quizContent.revealScreen.submitButton}
                 </button>
               </form>
-
-              <p className="text-mist text-sm leading-relaxed mt-4">
-                {quizContent.revealScreen.consentLine}
-              </p>
             </div>
           </div>
         )}
