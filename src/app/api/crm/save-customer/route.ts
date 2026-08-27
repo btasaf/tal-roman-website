@@ -3,10 +3,12 @@ import { crmSaveCustomer, type CrmCustomerData } from '@/lib/crm-client'
 
 export async function POST(request: NextRequest) {
   try {
-    const body: CrmCustomerData & { location?: { lat: number; lng: number; accuracy?: number } } =
-      await request.json()
+    const body: CrmCustomerData & {
+      location?: { lat: number; lng: number; accuracy?: number }
+      tags?: string[]
+    } = await request.json()
 
-    const { location, ...rawCustomerData } = body
+    const { location, tags: tagsArray, ...rawCustomerData } = body
 
     const eventData = location
       ? { geo: location, source: 'website' }
@@ -24,12 +26,16 @@ export async function POST(request: NextRequest) {
       enrollToSchool: trim(rawCustomerData.enrollToSchool),
     }
 
-    const tags = [customerData.tag, location ? `geo:${location.lat},${location.lng}` : undefined]
-      .filter((t): t is string => !!t?.trim())
+    // Combine single tag, tags array, and geo tag
+    const allTags = [
+      customerData.tag,
+      ...(tagsArray || []),
+      location ? `geo:${location.lat},${location.lng}` : undefined,
+    ].filter((t): t is string => !!t?.trim())
 
     const payload: CrmCustomerData = {
       ...customerData,
-      tag: tags.length ? tags.join(',') : undefined,
+      tag: allTags.length ? allTags.join(',') : undefined,
     }
 
     void eventData
