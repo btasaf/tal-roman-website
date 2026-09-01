@@ -10,6 +10,7 @@ import {
 import type { Course } from '@/lib/types'
 import { PersonJsonLd, WebsiteJsonLd } from '@/components/JsonLd'
 import HeroSection from '@/components/HeroSection'
+import TantricPlaygroundSection from '@/components/TantricPlaygroundSection'
 import PersonalMessage from '@/components/PersonalMessage'
 import FunnelSection from '@/components/FunnelSection'
 import AboutSection from '@/components/AboutSection'
@@ -93,6 +94,8 @@ export default async function HomePage() {
         ctaText={homepage?.heroCtaText}
       />
       <BottomDivider stroke={{ ...homepage?.heroStroke, bottomColor: '#fdf6ec' }} />
+
+      <TantricPlaygroundSection />
 
       {homepage?.personalMessage && (
         <>
