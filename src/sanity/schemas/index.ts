@@ -7,12 +7,14 @@ import { freeGift } from './freeGift'
 import { siteSettings } from './siteSettings'
 import { gift } from './gift'
 import { sectionStroke } from './sectionStroke'
+import { imageLibrary } from './imageLibrary'
 
 export const schemaTypes = [
   course,
   testimonial,
   blogPost,
   mediaMention,
+  imageLibrary,
   homepageSection,
   freeGift,
   siteSettings,

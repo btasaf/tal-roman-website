@@ -4,7 +4,7 @@ import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './src/sanity/schemas'
 import { SECTION_KEYS } from './src/sanity/schemas/homepageSection'
 
-const singletonTypes = new Set(['homepageSection', 'siteSettings'])
+const singletonTypes = new Set(['homepageSection', 'siteSettings', 'imageLibrary'])
 
 const homepageSections = SECTION_KEYS.map(({ value, title }) => ({ id: value, title }))
 
@@ -52,9 +52,18 @@ export default defineConfig({
 
             S.divider(),
 
-            ...S.documentTypeListItems().filter(
-              (item) => item.getId() && !singletonTypes.has(item.getId()!)
-            ),
+            ...(() => {
+              const items = S.documentTypeListItems().filter(
+                (item) => item.getId() && !singletonTypes.has(item.getId()!)
+              )
+              const library = S.listItem()
+                .title('מאגר תמונות')
+                .id('imageLibrary')
+                .child(S.document().schemaType('imageLibrary').documentId('imageLibrary'))
+              const after = items.findIndex((item) => item.getId() === 'mediaMention')
+              items.splice(after >= 0 ? after + 1 : items.length, 0, library)
+              return items
+            })(),
           ]),
     }),
     visionTool(),
