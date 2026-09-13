@@ -3,7 +3,6 @@ import Image from 'next/image'
 import {
   fetchHomepageSection,
   fetchAllTestimonials,
-  fetchGifts,
   fetchSiteSettings,
   fetchMediaMentions,
 } from '@/lib/queries'
@@ -11,7 +10,6 @@ import type { Course } from '@/lib/types'
 import { PersonJsonLd, WebsiteJsonLd } from '@/components/JsonLd'
 import HeroSection from '@/components/HeroSection'
 import PersonalMessage from '@/components/PersonalMessage'
-import FunnelSection from '@/components/FunnelSection'
 import AboutSection from '@/components/AboutSection'
 import CourseCard from '@/components/CourseCard'
 import MediaMentionsSection from '@/components/MediaMentionsSection'
@@ -71,10 +69,9 @@ function BottomDivider({ stroke }: { stroke: any }) {
 }
 
 export default async function HomePage() {
-  const [homepage, allTestimonials, gifts, settings, mediaMentions] = await Promise.all([
+  const [homepage, allTestimonials, settings, mediaMentions] = await Promise.all([
     fetchHomepageSection().catch(() => null),
     fetchAllTestimonials().catch(() => []),
-    fetchGifts().catch(() => []),
     fetchSiteSettings().catch(() => null),
     fetchMediaMentions().catch(() => []),
   ])
@@ -101,10 +98,6 @@ export default async function HomePage() {
           <BottomDivider stroke={homepage?.personalMessageStroke} />
         </>
       )}
-
-      <TopDivider stroke={homepage?.giftsStroke} />
-      <FunnelSection gifts={gifts} />
-      <BottomDivider stroke={homepage?.giftsStroke} />
 
       <TopDivider stroke={homepage?.testimonialsStroke} />
       <RecommendersSection testimonials={allTestimonials} bgImage={homepage?.testimonialsBgImage ?? null} />
