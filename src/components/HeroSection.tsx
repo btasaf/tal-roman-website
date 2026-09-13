@@ -54,11 +54,6 @@ interface HeroSectionProps {
   ctaText?: string
 }
 
-function scrollToGifts() {
-  const el = document.getElementById('gifts')
-  if (el) el.scrollIntoView({ behavior: 'smooth' })
-}
-
 export default function HeroSection({ headline, subheadline, bodyText, heroImage, bgImage, ctaText }: HeroSectionProps) {
   const imageUrl = getImageUrl(heroImage, 'hero') ?? '/wix-assets/images/tal-photos/VV9A8369%20copy_edited.jpg'
 
@@ -143,7 +138,7 @@ export default function HeroSection({ headline, subheadline, bodyText, heroImage
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.75 }}
           >
-            <CTAButton onClick={scrollToGifts} className={`${CONFIG.buttonFont} ${CONFIG.buttonPadding} shadow-lg shadow-brand/30`}>
+            <CTAButton href="/quiz" className={`${CONFIG.buttonFont} ${CONFIG.buttonPadding} shadow-lg shadow-brand/30`}>
               {ctaText ?? 'לקבלת מתנות חינמיות'}
             </CTAButton>
           </m.div>
