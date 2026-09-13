@@ -12,7 +12,7 @@ import RevealText from '@/components/ui/RevealText'
 // ─── CONFIG ──────────────────────────────────────────────────────────────────
 
 const IMAGE = {
-  width: 400,          // px — controls how wide the oval is; height follows the image naturally
+  width: 440,          // px — controls how wide the oval is; height follows the image naturally
   // COPY ONE OF THESE EXACTLY (with the quotes):
   // '50%'   → oval
   // '0px'   → sharp square corners
@@ -77,7 +77,7 @@ export default function AboutSection({ aboutImage, aboutBio, aboutQuote, bgImage
                 src={imageUrl}
                 alt="טל רומן"
                 width={IMAGE.width}
-                height={600}
+                height={660}
                 priority
                 className="shadow-2xl w-full h-auto"
                 style={{ display: 'block', transformOrigin: IMAGE.position }}
