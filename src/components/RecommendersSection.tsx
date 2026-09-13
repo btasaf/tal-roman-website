@@ -43,7 +43,9 @@ export default function RecommendersSection({ testimonials, bgImage, dark }: { t
       <div className="relative max-w-[100vw] mx-auto">
 
         <m.div className="text-center mb-14 px-6" {...fadeInUp}>
-          <h2 className={`text-3xl md:text-4xl font-extrabold ${titleColor} mb-3`}>המלצות</h2>
+          <h2 className={`text-3xl md:text-4xl font-extrabold ${titleColor} mb-3`}>
+            כמה מילים שכתבתם לי <span className="text-brand" aria-hidden="true">♥</span>
+          </h2>
           <SectionDivider />
         </m.div>
 
