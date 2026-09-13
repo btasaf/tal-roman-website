@@ -274,6 +274,24 @@ export default function QuizPage() {
               )}
             </p>
 
+            <div className="space-y-3 text-right">
+              <p className="text-lg text-ink font-bold">
+                {(results.path === 'couple'
+                  ? quizContent.revealScreen.whyHeading_couple
+                  : quizContent.revealScreen.whyHeading
+                ).replace(
+                  '{giftTitle}',
+                  quizContent.paths[results.path].giftReason[results.mode].giftTitle
+                )}
+              </p>
+              <p className="text-lg text-ink leading-relaxed">
+                {quizContent.paths[results.path].giftReason[results.mode].why}
+              </p>
+              <p className="text-lg text-ink">
+                {quizContent.revealScreen.listenLine}
+              </p>
+            </div>
+
             <div className="pt-4">
               <p className="text-lg text-ink font-medium mb-4">
                 {quizContent.revealScreen.emailPrompt}
@@ -312,6 +330,10 @@ export default function QuizPage() {
                 >
                   {isSubmitting ? 'שולח...' : quizContent.revealScreen.submitButton}
                 </button>
+
+                <p className="text-sm text-ink/60">
+                  {quizContent.revealScreen.privacyLine}
+                </p>
               </form>
             </div>
           </div>
