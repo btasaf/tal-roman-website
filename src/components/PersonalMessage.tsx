@@ -3,6 +3,7 @@
 import { m } from 'framer-motion'
 import { PortableText, type PortableTextComponents } from '@portabletext/react'
 import { fadeInUp } from '@/lib/animations'
+import CTAButton from '@/components/ui/CTAButton'
 import BokehBackground from '@/components/ui/BokehBackground'
 import SectionBackground from '@/components/ui/SectionBackground'
 
@@ -37,6 +38,12 @@ export default function PersonalMessage({ message, bgImage }: { message: Block[]
               {message}
             </p>
           )}
+
+          <div className="flex justify-center mt-10">
+            <CTAButton href="/quiz" className="text-xl xl:text-2xl px-8 py-2 xl:px-14 shadow-lg shadow-brand/30">
+              אשמח לקבל את המתנה :)
+            </CTAButton>
+          </div>
         </m.div>
       </div>
     </section>
