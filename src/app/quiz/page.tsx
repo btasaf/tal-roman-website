@@ -332,10 +332,6 @@ export default function QuizPage() {
                   {isSubmitting ? 'שולח...' : quizContent.revealScreen.submitButton}
                 </button>
 
-                <p className="text-sm text-ink/60">
-                  {quizContent.revealScreen.privacyLine}
-                </p>
-
                 <p className="text-sm text-ink/70 leading-relaxed">
                   {quizContent.revealScreen.keepInTouch}
                 </p>
