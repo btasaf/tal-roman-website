@@ -305,7 +305,8 @@ export default function QuizPage() {
                   placeholder={quizContent.revealScreen.emailPlaceholder}
                   dir="ltr"
                   className="w-full p-4 text-right border-2 border-sand/30 rounded-xl
-                    focus:outline-none focus:ring-2 focus:ring-brand text-lg bg-white"
+                    focus:outline-none focus:ring-2 focus:ring-brand text-lg bg-white
+                    text-ink placeholder-mist"
                 />
 
                 <label className="flex items-start gap-3 text-right cursor-pointer">
