@@ -142,6 +142,8 @@ export default function QuizPage() {
           body: JSON.stringify({
             mail: email,
             tags,
+            // Which course the CRM should enrol this person in — it answers with their personal link.
+            enrollToSchool: quizContent.paths[results.path].gift[results.mode].enrollToSchool || null,
             notifyTal: true,
             visitorId: visitorIdRef.current ?? null,
           }),
