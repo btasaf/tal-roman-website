@@ -133,9 +133,10 @@ export default function QuizPage() {
     const results = getResults()
 
     if (results) {
+      let uniqueLink: string | undefined
       try {
         const tags = getTags(results.path, results.mode)
-        await fetch('/api/crm/save-customer', {
+        const res = await fetch('/api/crm/save-customer', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -145,8 +146,15 @@ export default function QuizPage() {
             visitorId: visitorIdRef.current ?? null,
           }),
         })
+        uniqueLink = (await res.json())?.uniqueLink
       } catch (e) {
         console.error(e)
+      }
+      // The CRM hands back the personal course link — send the viewer straight there.
+      // Only when it doesn't, fall back to the gift page on the site.
+      if (uniqueLink) {
+        window.location.href = uniqueLink
+        return
       }
       router.push(`/gift/${results.path}/${results.mode}`)
     }
