@@ -22,10 +22,14 @@ export default async function HtmlPage({ params }: Props) {
 
   if (!htmlContent) notFound()
 
-  // Clean full-screen render - covers root layout's Nav/Footer completely
+  // Render the uploaded file as its own document, so it looks exactly as it does
+  // when opened on its own: its html/body styling (centring, background) applies,
+  // and its CSS cannot leak onto the rest of the site.
   return (
-    <div className="fixed inset-0 z-[9999] overflow-auto bg-white" style={{ marginTop: '-80px', paddingTop: '0' }}>
-      <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-    </div>
+    <iframe
+      srcDoc={htmlContent}
+      title={page.title}
+      className="fixed inset-0 z-[9999] h-full w-full border-0 bg-white"
+    />
   )
 }
