@@ -15,7 +15,6 @@ export const htmlPage = defineType({
       name: 'urlNote',
       title: 'שימי לב',
       type: 'string',
-      description: 'הכתובת הסופית תהיה: talroman.com/p/[הסלאג שתבחרי למטה]',
       readOnly: true,
       initialValue: '👆 הכתובת הסופית תהיה: talroman.com/p/[סלאג]',
     }),

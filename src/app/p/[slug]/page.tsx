@@ -27,13 +27,18 @@ export default async function HtmlPage({ params }: Props) {
 
   if (!htmlContent) notFound()
 
+  const showHeader = page.showHeader === true
+  const showFooter = page.showFooter === true
+
+  // Render as full-screen overlay that covers root layout's Nav/Footer
+  // Then add our own Nav/Footer based on toggles
   return (
-    <>
-      {page.showHeader === true && <Nav />}
-      <main className={page.showHeader === true ? 'pt-20' : ''}>
+    <div className="fixed inset-0 z-50 bg-white overflow-auto flex flex-col -mt-20">
+      {showHeader && <Nav />}
+      <main className={`flex-1 ${showHeader ? 'pt-20' : ''}`}>
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </main>
-      {page.showFooter === true && <Footer settings={settings} />}
-    </>
+      {showFooter && <Footer settings={settings} />}
+    </div>
   )
 }
