@@ -12,6 +12,9 @@ import type { BlogPost } from '@/lib/types'
 
 interface Props { params: Promise<{ slug: string }> }
 
+// Don't generate pages for unknown slugs - return 404 immediately
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const posts: BlogPost[] = await fetchBlogPosts().catch(() => [])
   const params = posts.map((p) => ({ slug: p.slug }))

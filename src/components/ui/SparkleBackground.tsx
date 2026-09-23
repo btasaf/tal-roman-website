@@ -1,20 +1,43 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 
-const SPARKLES = Array.from({ length: 50 }, (_, i) => ({
-  id: i,
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  size: Math.random() * 4 + 2,
-  delay: Math.random() * 4,
-  duration: Math.random() * 2 + 1.5,
-}))
+interface Sparkle {
+  id: number
+  x: number
+  y: number
+  size: number
+  delay: number
+  duration: number
+}
+
+// Generate sparkles only on the client to avoid hydration mismatch
+function generateSparkles(): Sparkle[] {
+  return Array.from({ length: 50 }, (_, i) => ({
+    id: i,
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 4 + 2,
+    delay: Math.random() * 4,
+    duration: Math.random() * 2 + 1.5,
+  }))
+}
 
 export default function SparkleBackground() {
+  const [sparkles, setSparkles] = useState<Sparkle[]>([])
+
+  useEffect(() => {
+    setSparkles(generateSparkles())
+  }, [])
+
+  // Render nothing on server, sparkles appear after hydration
+  if (sparkles.length === 0) {
+    return <div className="absolute inset-0 pointer-events-none overflow-hidden" />
+  }
+
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {SPARKLES.map((s) => (
+      {sparkles.map((s) => (
         <span
           key={s.id}
           style={{

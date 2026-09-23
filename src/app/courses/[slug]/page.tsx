@@ -20,6 +20,9 @@ import CTAButton from '@/components/ui/CTAButton'
 
 interface Props { params: Promise<{ slug: string }> }
 
+// Don't generate pages for unknown slugs - return 404 immediately
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const courses: Course[] = await fetchCourses().catch(() => [])
   return courses.map((c) => ({ slug: c.slug }))

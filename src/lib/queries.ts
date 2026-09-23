@@ -1,9 +1,13 @@
 import { client } from '@/sanity/client'
 import type { Testimonial, Course, MediaMention, BlogPost, FreeGift, SiteSettings, Gift, HtmlPage } from './types'
 
-const revalidate = process.env.NODE_ENV === 'production'
-  ? { next: { revalidate: 60 } }
-  : { cache: 'no-store' as const }
+// Cache options with tags for on-demand revalidation
+// In production: cache forever until explicitly revalidated via webhook
+// In development: no caching for instant updates
+const cacheOpts = (tags: string[]) =>
+  process.env.NODE_ENV === 'production'
+    ? { cache: 'force-cache' as const, next: { tags } }
+    : { cache: 'no-store' as const }
 
 export const coursesQuery = `*[_type == "course" && active != false] | order(order asc) {
   title, "slug": slug.current, shortDescription, description,
@@ -84,51 +88,51 @@ export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function fetchHomepageSection(): Promise<any> {
-  return client.fetch(homepageSectionQuery, {}, revalidate)
+  return client.fetch(homepageSectionQuery, {}, cacheOpts(['homepage', 'homepageSection']))
 }
 
 export async function fetchCourses(): Promise<Course[]> {
-  return client.fetch(coursesQuery, {}, revalidate)
+  return client.fetch(coursesQuery, {}, cacheOpts(['courses']))
 }
 
 export async function fetchCourseBySlug(slug: string): Promise<Course | null> {
-  return client.fetch(courseBySlugQuery, { slug }, revalidate)
+  return client.fetch(courseBySlugQuery, { slug }, cacheOpts(['courses', `course:${slug}`]))
 }
 
 export async function fetchTestimonials(): Promise<Testimonial[]> {
-  return client.fetch(testimonialsQuery, {}, revalidate)
+  return client.fetch(testimonialsQuery, {}, cacheOpts(['testimonials']))
 }
 
 export async function fetchAllTestimonials(): Promise<Testimonial[]> {
-  return client.fetch(allTestimonialsQuery, {}, revalidate)
+  return client.fetch(allTestimonialsQuery, {}, cacheOpts(['testimonials']))
 }
 
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
-  return client.fetch(blogPostsQuery, {}, revalidate)
+  return client.fetch(blogPostsQuery, {}, cacheOpts(['blogPosts']))
 }
 
 export async function fetchBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  return client.fetch(blogPostBySlugQuery, { slug }, revalidate)
+  return client.fetch(blogPostBySlugQuery, { slug }, cacheOpts(['blogPosts', `blogPost:${slug}`]))
 }
 
 export async function fetchMediaMentions(): Promise<MediaMention[]> {
-  return client.fetch(mediaMentionsQuery, {}, revalidate)
+  return client.fetch(mediaMentionsQuery, {}, cacheOpts(['mediaMentions']))
 }
 
 export async function fetchFreeGifts(): Promise<FreeGift[]> {
-  return client.fetch(freeGiftsQuery, {}, revalidate)
+  return client.fetch(freeGiftsQuery, {}, cacheOpts(['freeGifts']))
 }
 
 export async function fetchSiteSettings(): Promise<SiteSettings | null> {
-  return client.fetch(siteSettingsQuery, {}, revalidate)
+  return client.fetch(siteSettingsQuery, {}, cacheOpts(['siteSettings']))
 }
 
 export async function fetchGifts(): Promise<Gift[]> {
-  return client.fetch(giftsQuery, {}, revalidate)
+  return client.fetch(giftsQuery, {}, cacheOpts(['gifts']))
 }
 
 export async function fetchGiftBySlug(slug: string): Promise<Gift | null> {
-  return client.fetch(giftBySlugQuery, { slug }, revalidate)
+  return client.fetch(giftBySlugQuery, { slug }, cacheOpts(['gifts', `gift:${slug}`]))
 }
 
 // HTML Pages
@@ -142,9 +146,9 @@ export const htmlPageBySlugQuery = `*[_type == "htmlPage" && slug.current == $sl
 }`
 
 export async function fetchHtmlPages(): Promise<{ title: string; slug: string }[]> {
-  return client.fetch(htmlPagesQuery, {}, revalidate)
+  return client.fetch(htmlPagesQuery, {}, cacheOpts(['htmlPages']))
 }
 
 export async function fetchHtmlPageBySlug(slug: string): Promise<HtmlPage | null> {
-  return client.fetch(htmlPageBySlugQuery, { slug }, revalidate)
+  return client.fetch(htmlPageBySlugQuery, { slug }, cacheOpts(['htmlPages', `htmlPage:${slug}`]))
 }

@@ -18,6 +18,9 @@ import AboutSection from '@/components/AboutSection'
 
 interface Props { params: Promise<{ slug: string }> }
 
+// Don't generate pages for unknown slugs - return 404 immediately
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   const gifts: Gift[] = await fetchGifts().catch(() => [])
   return gifts.map((g) => ({ slug: g.slug }))
