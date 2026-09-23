@@ -8,6 +8,7 @@ import { siteSettings } from './siteSettings'
 import { gift } from './gift'
 import { sectionStroke } from './sectionStroke'
 import { imageLibrary } from './imageLibrary'
+import { htmlPage } from './htmlPage'
 
 export const schemaTypes = [
   course,
@@ -20,4 +21,5 @@ export const schemaTypes = [
   siteSettings,
   gift,
   sectionStroke,
+  htmlPage,
 ]

@@ -1,5 +1,5 @@
 import { client } from '@/sanity/client'
-import type { Testimonial, Course, MediaMention, BlogPost, FreeGift, SiteSettings, Gift } from './types'
+import type { Testimonial, Course, MediaMention, BlogPost, FreeGift, SiteSettings, Gift, HtmlPage } from './types'
 
 const revalidate = process.env.NODE_ENV === 'production'
   ? { next: { revalidate: 60 } }
@@ -129,4 +129,23 @@ export async function fetchGifts(): Promise<Gift[]> {
 
 export async function fetchGiftBySlug(slug: string): Promise<Gift | null> {
   return client.fetch(giftBySlugQuery, { slug }, revalidate)
+}
+
+// HTML Pages
+export const htmlPagesQuery = `*[_type == "htmlPage"] | order(title asc) {
+  title, "slug": slug.current
+}`
+
+export const htmlPageBySlugQuery = `*[_type == "htmlPage" && slug.current == $slug][0] {
+  title, "slug": slug.current,
+  "htmlFileUrl": htmlFile.asset->url,
+  showHeader, showFooter
+}`
+
+export async function fetchHtmlPages(): Promise<{ title: string; slug: string }[]> {
+  return client.fetch(htmlPagesQuery, {}, revalidate)
+}
+
+export async function fetchHtmlPageBySlug(slug: string): Promise<HtmlPage | null> {
+  return client.fetch(htmlPageBySlugQuery, { slug }, revalidate)
 }

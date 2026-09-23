@@ -96,3 +96,11 @@ export interface SiteSettings {
   contactFormTag?: string
   contactFormStatus?: string
 }
+
+export interface HtmlPage {
+  title: string
+  slug: string
+  htmlFileUrl: string
+  showHeader: boolean
+  showFooter: boolean
+}
