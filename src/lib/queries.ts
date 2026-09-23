@@ -139,7 +139,8 @@ export const htmlPagesQuery = `*[_type == "htmlPage"] | order(title asc) {
 export const htmlPageBySlugQuery = `*[_type == "htmlPage" && slug.current == $slug][0] {
   title, "slug": slug.current,
   "htmlFileUrl": htmlFile.asset->url,
-  showHeader, showFooter
+  "showHeader": coalesce(showHeader, false),
+  "showFooter": coalesce(showFooter, false)
 }`
 
 export async function fetchHtmlPages(): Promise<{ title: string; slug: string }[]> {

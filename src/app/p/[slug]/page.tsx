@@ -29,11 +29,11 @@ export default async function HtmlPage({ params }: Props) {
 
   return (
     <>
-      {page.showHeader && <Nav />}
-      <main className={page.showHeader ? 'pt-20' : ''}>
+      {page.showHeader === true && <Nav />}
+      <main className={page.showHeader === true ? 'pt-20' : ''}>
         <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
       </main>
-      {page.showFooter && <Footer settings={settings} />}
+      {page.showFooter === true && <Footer settings={settings} />}
     </>
   )
 }
