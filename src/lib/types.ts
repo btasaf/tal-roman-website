@@ -101,6 +101,4 @@ export interface HtmlPage {
   title: string
   slug: string
   htmlFileUrl: string
-  showHeader: boolean
-  showFooter: boolean
 }

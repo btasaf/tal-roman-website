@@ -1,7 +1,5 @@
 import { notFound } from 'next/navigation'
-import { fetchHtmlPageBySlug, fetchHtmlPages, fetchSiteSettings } from '@/lib/queries'
-import Nav from '@/components/Nav'
-import Footer from '@/components/Footer'
+import { fetchHtmlPageBySlug, fetchHtmlPages } from '@/lib/queries'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -15,10 +13,7 @@ export async function generateStaticParams() {
 export default async function HtmlPage({ params }: Props) {
   const { slug } = await params
 
-  const [page, settings] = await Promise.all([
-    fetchHtmlPageBySlug(decodeURIComponent(slug)).catch(() => null),
-    fetchSiteSettings().catch(() => null),
-  ])
+  const page = await fetchHtmlPageBySlug(decodeURIComponent(slug)).catch(() => null)
 
   if (!page || !page.htmlFileUrl) notFound()
 
@@ -27,18 +22,10 @@ export default async function HtmlPage({ params }: Props) {
 
   if (!htmlContent) notFound()
 
-  const showHeader = page.showHeader === true
-  const showFooter = page.showFooter === true
-
-  // Render as full-screen overlay that covers root layout's Nav/Footer
-  // Then add our own Nav/Footer based on toggles
+  // Clean full-screen render - covers root layout's Nav/Footer completely
   return (
-    <div className="fixed inset-0 z-50 bg-white overflow-auto flex flex-col -mt-20">
-      {showHeader && <Nav />}
-      <main className={`flex-1 ${showHeader ? 'pt-20' : ''}`}>
-        <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
-      </main>
-      {showFooter && <Footer settings={settings} />}
+    <div className="fixed inset-0 z-[9999] overflow-auto bg-white" style={{ marginTop: '-80px', paddingTop: '0' }}>
+      <div dangerouslySetInnerHTML={{ __html: htmlContent }} />
     </div>
   )
 }

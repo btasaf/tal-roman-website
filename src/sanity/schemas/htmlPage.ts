@@ -34,18 +34,6 @@ export const htmlPage = defineType({
       },
       validation: r => r.required(),
     }),
-    defineField({
-      name: 'showHeader',
-      title: 'הצג Header',
-      type: 'boolean',
-      initialValue: false,
-    }),
-    defineField({
-      name: 'showFooter',
-      title: 'הצג Footer',
-      type: 'boolean',
-      initialValue: false,
-    }),
   ],
   preview: {
     select: { title: 'title', slug: 'slug.current' },
