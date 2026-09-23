@@ -23,12 +23,31 @@ const TYPE_TO_TAGS: Record<string, string[]> = {
 const HOMEPAGE_TYPES = ['course', 'testimonial', 'freeGift', 'homepageSection', 'mediaMention']
 
 // Verify Sanity webhook signature
-function isValidSignature(body: string, signature: string | null, secret: string): boolean {
-  if (!signature) return false
+// Sanity format: "t=<timestamp>,v1=<signature>" where signature is HMAC-SHA256 of "<timestamp>.<body>"
+function isValidSignature(body: string, signatureHeader: string | null, secret: string): boolean {
+  if (!signatureHeader) return false
+
+  // Parse the header: t=1234567890,v1=abc123...
+  const parts: Record<string, string> = {}
+  for (const part of signatureHeader.split(',')) {
+    const [key, value] = part.split('=')
+    if (key && value) parts[key] = value
+  }
+
+  const timestamp = parts['t']
+  const signature = parts['v1']
+
+  if (!timestamp || !signature) return false
+
+  // Compute expected signature: HMAC-SHA256 of "timestamp.body"
   const expectedSignature = crypto
     .createHmac('sha256', secret)
-    .update(body)
+    .update(`${timestamp}.${body}`)
     .digest('base64')
+    .replace(/\+/g, '-')  // base64url encoding
+    .replace(/\//g, '_')
+    .replace(/=+$/, '')   // remove padding
+
   return signature === expectedSignature
 }
 
