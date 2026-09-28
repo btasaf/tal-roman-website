@@ -149,6 +149,13 @@ export async function fetchHtmlPages(): Promise<{ title: string; slug: string }[
   return client.fetch(htmlPagesQuery, {}, cacheOpts(['htmlPages']))
 }
 
+// generateStaticParams decides which pages exist at all, and with dynamicParams = false an
+// omitted slug 404s until the next build. It runs at build time only, so it reads uncached:
+// a cached list silently drops every page added since the previous build.
+export async function fetchHtmlPagesForBuild(): Promise<{ title: string; slug: string }[]> {
+  return client.fetch(htmlPagesQuery, {}, { cache: 'no-store' })
+}
+
 export async function fetchHtmlPageBySlug(slug: string): Promise<HtmlPage | null> {
   return client.fetch(htmlPageBySlugQuery, { slug }, cacheOpts(['htmlPages', `htmlPage:${slug}`]))
 }

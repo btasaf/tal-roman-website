@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { fetchHtmlPageBySlug, fetchHtmlPages } from '@/lib/queries'
+import { fetchHtmlPageBySlug, fetchHtmlPagesForBuild } from '@/lib/queries'
 
 interface Props {
   params: Promise<{ slug: string }>
@@ -9,7 +9,7 @@ interface Props {
 export const dynamicParams = false
 
 export async function generateStaticParams() {
-  const pages = await fetchHtmlPages().catch(() => [])
+  const pages = await fetchHtmlPagesForBuild().catch(() => [])
   return pages.map((p) => ({ slug: p.slug }))
 }
 
@@ -20,12 +20,12 @@ export default async function HtmlPage({ params }: Props) {
 
   if (!page || !page.htmlFileUrl) notFound()
 
-  // Render the uploaded file in an iframe that loads directly from Sanity's CDN.
-  // This avoids embedding the entire HTML content (potentially megabytes) into
-  // the Next.js page, reducing ISR write size dramatically.
+  // Served through our own domain rather than Sanity's CDN, whose CSP strips the file's
+  // inline styles and scripts (see ./file/route.ts). The content still never enters this
+  // page's HTML, so the ISR write stays small.
   return (
     <iframe
-      src={page.htmlFileUrl}
+      src={`/p/${encodeURIComponent(slug)}/file`}
       title={page.title}
       className="fixed inset-0 z-[9999] h-full w-full border-0 bg-white"
     />
