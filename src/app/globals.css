@@ -28,6 +28,20 @@
   --color-sand: #d4b896;
   --color-sienna: #b07830;
   --color-mist: #6b6b6b;
+
+  /* Presale page palette */
+  --color-presale-bg: #f7efe5;
+  --color-presale-card: #fffaf6;
+  --color-presale-teal: #0f6b62;
+  --color-presale-teal-dark: #186158;
+  --color-presale-red: #e31c30;
+  --color-presale-red-dark: #c91f34;
+  --color-presale-red-cta: #e4253c;
+  --color-presale-maroon: #8c2e28;
+  --color-presale-pink: #f6cfd4;
+  --color-presale-gray: #6a6a6a;
+  --color-presale-gray-light: #9aa3ab;
+  --color-presale-bubble: #f0f0f0;
 }
 
 body {

@@ -9,6 +9,7 @@ import { gift } from './gift'
 import { sectionStroke } from './sectionStroke'
 import { imageLibrary } from './imageLibrary'
 import { htmlPage } from './htmlPage'
+import { presalePage } from './presalePage'
 
 export const schemaTypes = [
   course,
@@ -22,4 +23,5 @@ export const schemaTypes = [
   gift,
   sectionStroke,
   htmlPage,
+  presalePage,
 ]

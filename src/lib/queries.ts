@@ -1,5 +1,5 @@
 import { client } from '@/sanity/client'
-import type { Testimonial, Course, MediaMention, BlogPost, FreeGift, SiteSettings, Gift, HtmlPage } from './types'
+import type { Testimonial, Course, MediaMention, BlogPost, FreeGift, SiteSettings, Gift, HtmlPage, PresalePage } from './types'
 
 // Cache options with tags for on-demand revalidation
 // In production: cache forever until explicitly revalidated via webhook
@@ -158,4 +158,27 @@ export async function fetchHtmlPagesForBuild(): Promise<{ title: string; slug: s
 
 export async function fetchHtmlPageBySlug(slug: string): Promise<HtmlPage | null> {
   return client.fetch(htmlPageBySlugQuery, { slug }, cacheOpts(['htmlPages', `htmlPage:${slug}`]))
+}
+
+// Presale Pages
+export const presalePagesQuery = `*[_type == "presalePage"] | order(title asc) {
+  title, "slug": slug.current
+}`
+
+export const presalePageBySlugQuery = `*[_type == "presalePage" && slug.current == $slug][0] {
+  title, "slug": slug.current, backgroundImage,
+  introTitle, introSubtitle,
+  bodyLines,
+  courseEyebrow, courseTitle, courseTitleHighlight, courseSpecialText,
+  ctaButtonText, ctaButtonLink, priceNew, priceOld, deviceImage,
+  trustBadges[] { icon, text },
+  benefits[] { icon, title, description }
+}`
+
+export async function fetchPresalePages(): Promise<{ title: string; slug: string }[]> {
+  return client.fetch(presalePagesQuery, {}, cacheOpts(['presalePages']))
+}
+
+export async function fetchPresalePageBySlug(slug: string): Promise<PresalePage | null> {
+  return client.fetch(presalePageBySlugQuery, { slug }, cacheOpts(['presalePages', `presalePage:${slug}`]))
 }

@@ -102,3 +102,23 @@ export interface HtmlPage {
   slug: string
   htmlFileUrl: string
 }
+
+export interface PresalePage {
+  title: string
+  slug: string
+  backgroundImage?: object | null
+  introTitle?: string
+  introSubtitle?: string
+  bodyLines?: string[]
+  courseEyebrow?: string
+  courseTitle?: string
+  courseTitleHighlight?: string
+  courseSpecialText?: string
+  ctaButtonText?: string
+  ctaButtonLink?: string
+  priceNew?: number
+  priceOld?: number
+  deviceImage?: object | null
+  trustBadges?: { icon: string; text: string }[]
+  benefits?: { icon: string; title: string; description: string }[]
+}

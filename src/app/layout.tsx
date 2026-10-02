@@ -10,6 +10,7 @@ import ScrollProgressBar from '@/components/ui/ScrollProgressBar'
 import GrainOverlay from '@/components/ui/GrainOverlay'
 import MagicalRibbon from '@/components/ui/MagicalRibbon'
 import PageViewTracker from '@/components/PageViewTracker'
+import AgentationWrapper from '@/components/AgentationWrapper'
 import './globals.css'
 
 const heebo = Heebo({
@@ -57,6 +58,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <main className="flex-1 pt-20">{children}</main>
           <Footer settings={settings} />
           <WhatsAppFAB />
+          <AgentationWrapper />
         </MotionProvider>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />

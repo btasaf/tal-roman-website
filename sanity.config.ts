@@ -2,11 +2,8 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './src/sanity/schemas'
-import { SECTION_KEYS } from './src/sanity/schemas/homepageSection'
 
 const singletonTypes = new Set(['homepageSection', 'siteSettings', 'imageLibrary'])
-
-const homepageSections = SECTION_KEYS.map(({ value, title }) => ({ id: value, title }))
 
 export default defineConfig({
   name: 'tal-roman-studio',
@@ -20,30 +17,14 @@ export default defineConfig({
           .id('root')
           .title('תוכן האתר')
           .items([
-            // Homepage → sub-list with one item per section (tab)
+            // Homepage → opens directly to document with tabs
             S.listItem()
               .title('דף הבית')
               .id('homepage')
               .child(
-                S.list()
-                  .id('homepageSections')
-                  .title('סקשנים בדף הבית')
-                  .items(
-                    homepageSections.map(({ id, title }) =>
-                      S.listItem()
-                        .id(`homepageSection-${id}`)
-                        .title(title)
-                        .child(
-                          S.document()
-                            .schemaType('homepageSection')
-                            .documentId('homepageSection')
-                            .title(title)
-                            .views([
-                              S.view.form().id('form').title(title),
-                            ])
-                        )
-                    )
-                  )
+                S.document()
+                  .schemaType('homepageSection')
+                  .documentId('homepageSection')
               ),
 
             S.listItem().title('הגדרות אתר').id('siteSettings').child(
