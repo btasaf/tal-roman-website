@@ -58,3 +58,6 @@ DESIGN_PLAN.md
 nul
 # local media (source reel lives on Vimeo)
 /*.mp4
+
+# per-machine agent status log
+/.claude/status/

@@ -42,5 +42,18 @@ Launch with the Agent tool, `subagent_type: "<name>"`, `run_in_background: true`
 ## Order of work
 build → `visual-qa` in background → fix → short summary to the user. Nothing is reported "done" before it's verified.
 
-## Status
-Keep track of: running agents (what each is doing), finished (one-line result), waiting for the user (decisions, content). When the user asks "status", answer from that, grouped exactly so.
+## Proactively suggest the right agent
+Don't wait to be asked — after these moments, suggest (one line, with the command) the agent that fits. Suggest, don't launch, unless the user already said to.
+| Moment | Suggest |
+|---|---|
+| Built or restyled a page/section, changed layout or animation | `/subtask-visual-qa` on the changed pages |
+| Touched forms, buttons/CTAs, links, quiz, tracking code | `/subtask-tracking-auditor` |
+| Added a form, a new data field, analytics/cookies, or changed legal/consent text | `/subtask-legal-reviewer` |
+| New page or section that needs text, or copy feels off | `/subtask-copy-writer` |
+| User wants to change texts/prices/testimonials/links in Sanity | `/subtask-content-editor` |
+| User asks for a new page / landing / presale | `/subtask-page-builder` (then visual-qa after) |
+| Before any deploy | `v2-launch-checklist` (while open) + `/subtask-tracking-auditor` + `/subtask-visual-qa` |
+| Several independent tasks pending | run them as parallel agents (2–3 at a time) |
+
+## Status log
+Keep `.claude/status/agents.md` (gitignored, per machine) up to date with three sections — **Running** (time, agent, task, files it owns), **Finished** (time, agent, one-line result; keep the last ~10), **Waiting for you** (decisions/content the user owes). Update it when launching an agent, when one finishes, and when the user answers a pending item. When the user asks "status" (or `/subtask-status`), answer from it, grouped exactly so. Team commands: `/subtask-team` lists all roles.

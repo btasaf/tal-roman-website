@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/mcp-check.mjs",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
