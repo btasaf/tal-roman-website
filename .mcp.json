@@ -20,6 +20,14 @@
     "Sanity": {
       "type": "http",
       "url": "https://mcp.sanity.io"
+    },
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "chrome-devtools-mcp@latest"
+      ]
     }
   }
 }
