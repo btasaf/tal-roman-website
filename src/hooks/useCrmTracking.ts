@@ -47,6 +47,8 @@ export function useCrmTracking() {
 
     const res = await fetch('/api/crm/track', {
       method: 'POST',
+      // keepalive: the event still arrives when the click navigates away (outbound links, redirects)
+      keepalive: true,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         visitorId,

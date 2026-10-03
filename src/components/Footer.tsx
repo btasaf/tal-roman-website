@@ -29,7 +29,7 @@ export default function Footer({ settings }: FooterProps) {
           </div>
           <div>
             <h4 className="text-white/80 font-semibold mb-4 text-sm uppercase tracking-widest">ניווט</h4>
-            <nav className="flex flex-col gap-2.5 text-sm text-white/50">
+            <nav className="grid grid-cols-2 gap-x-6 gap-y-3 md:flex md:flex-col md:gap-2.5 text-sm text-white/50">
               {NAV_LINKS.filter(l => l.href !== '/').map((l) => (
                 <Link key={l.href} href={l.href} className="hover:text-gold transition-colors">
                   {l.label}

@@ -1,0 +1,276 @@
+/* Reading typography for v2 article bodies (Word HTML and Portable Text render to the same elements).
+   Hebrew: generous line height, upright emphasis (no italics), near-zero tracking, logical (RTL-safe) spacing. */
+
+.prose {
+  --ink: #2d1a0e;
+  --ink-soft: #3d2814;
+  --text: #48443f;
+  --muted: #5e5955;
+  --rose: #c97870;
+  --rose-dark: #94483f; /* deeper than the brand rose so body-size text keeps 5.8:1 on cream */
+  --gold: #e6c060;
+
+  font-size: 1.125rem;
+  line-height: 1.85;
+  color: var(--text);
+  overflow-wrap: break-word;
+  font-kerning: normal;
+}
+
+@media (min-width: 768px) {
+  .prose {
+    font-size: 1.2rem;
+    line-height: 1.9;
+  }
+}
+
+/* ── Paragraphs ───────────────────────────────────────── */
+.prose :global(p) {
+  margin: 0 0 1.15em;
+}
+
+/* Opening paragraph of the article reads a little larger */
+.lede > :global(p:first-child) {
+  font-size: 1.08em;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+
+@media (min-width: 768px) {
+  .lede > :global(p:first-child) {
+    font-size: 1.16em;
+  }
+}
+
+/* A line that is all emphasis in the source: a quoted sentence or a note to the reader */
+.prose :global(p[data-voice]) {
+  color: var(--rose-dark);
+  font-weight: 500;
+  border-inline-start: 2px solid rgba(201, 120, 112, 0.45);
+  padding-inline-start: 1.1em;
+}
+.prose :global(p[data-voice] + p[data-voice]) {
+  margin-top: -0.4em;
+}
+
+/* ── Headings ─────────────────────────────────────────── */
+.prose :global(h2) {
+  margin: 2.6em 0 0.75em;
+  font-size: 1.6rem;
+  line-height: 1.22;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-wrap: balance;
+  scroll-margin-top: 6rem;
+}
+.prose :global(h2)::before {
+  content: '';
+  display: block;
+  width: 2.25rem;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--rose);
+  margin-bottom: 0.8em;
+}
+@media (min-width: 768px) {
+  .prose :global(h2) {
+    font-size: 2.05rem;
+  }
+}
+
+.prose :global(h3) {
+  margin: 2em 0 0.5em;
+  font-size: 1.22rem;
+  line-height: 1.4;
+  font-weight: 800;
+  color: var(--ink-soft);
+  text-wrap: balance;
+  scroll-margin-top: 6rem;
+}
+@media (min-width: 768px) {
+  .prose :global(h3) {
+    font-size: 1.32rem;
+  }
+}
+.prose :global(h2 + h3) {
+  margin-top: 0.9em;
+}
+
+.prose :global(h4),
+.prose :global(h5),
+.prose :global(h6) {
+  margin: 1.7em 0 0.4em;
+  font-size: 1.05em;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.prose > :global(:first-child) {
+  margin-top: 0;
+}
+
+/* ── Inline ───────────────────────────────────────────── */
+.prose :global(strong),
+.prose :global(b) {
+  font-weight: 700;
+  color: var(--ink);
+}
+.prose :global(h2 strong),
+.prose :global(h3 strong) {
+  font-weight: inherit;
+}
+.prose :global(em),
+.prose :global(i) {
+  font-style: normal;
+  font-weight: 500;
+  color: var(--rose-dark);
+}
+.prose :global(a) {
+  color: var(--rose-dark);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(201, 120, 112, 0.45);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.28em;
+  overflow-wrap: anywhere;
+  transition: text-decoration-color 0.2s, color 0.2s;
+}
+.prose :global(a:hover) {
+  color: var(--ink);
+  text-decoration-color: var(--rose-dark);
+}
+.prose :global(a:focus-visible) {
+  outline: 2px solid var(--rose);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+.prose :global(code) {
+  font-size: 0.88em;
+  padding: 0.1em 0.35em;
+  border-radius: 6px;
+  background: rgba(201, 120, 112, 0.1);
+  unicode-bidi: isolate;
+}
+
+/* ── Lists ────────────────────────────────────────────── */
+.prose :global(ul),
+.prose :global(ol) {
+  margin: 0 0 1.3em;
+  padding-inline-start: 1.35em;
+}
+.prose :global(ul) {
+  list-style: disc;
+}
+.prose :global(ol) {
+  list-style: decimal;
+}
+.prose :global(li) {
+  margin: 0.4em 0;
+  padding-inline-start: 0.25em;
+}
+.prose :global(li)::marker {
+  color: var(--rose);
+  font-weight: 700;
+}
+.prose :global(li > ul),
+.prose :global(li > ol) {
+  margin: 0.4em 0 0;
+}
+
+/* ── Quotes ───────────────────────────────────────────── */
+.prose :global(blockquote) {
+  margin: 2.2em 0;
+  padding-block: 0.15em;
+  padding-inline: 1.3em 0;
+  border-inline-start: 3px solid var(--gold);
+  font-family: var(--font-frank), 'Frank Ruhl Libre', serif;
+  font-size: 1.4em;
+  line-height: 1.55;
+  font-weight: 500;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.prose :global(blockquote p) {
+  margin: 0 0 0.6em;
+}
+.prose :global(blockquote p:last-child) {
+  margin-bottom: 0;
+}
+
+/* ── Media ────────────────────────────────────────────── */
+.prose :global(img) {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 2em auto;
+  border-radius: 20px;
+  box-shadow: 0 24px 50px -28px rgba(61, 40, 20, 0.45);
+}
+.prose :global(figure) {
+  margin: 2.2em 0;
+}
+.prose :global(figure img) {
+  margin: 0 auto;
+}
+.prose :global(figcaption) {
+  margin-top: 0.8em;
+  font-size: 0.85em;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: center;
+}
+.prose :global(iframe),
+.prose :global(video) {
+  display: block;
+  max-width: 100%;
+  margin: 2em auto;
+  border-radius: 16px;
+}
+
+/* ── Tables (scroll inside their box on narrow screens) ── */
+.prose :global([data-table]) {
+  margin: 2em 0;
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(201, 120, 112, 0.22);
+  background: rgba(255, 255, 255, 0.35);
+}
+.prose :global(table) {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92em;
+  line-height: 1.6;
+}
+.prose :global(th),
+.prose :global(td) {
+  padding: 0.7em 1em;
+  text-align: start;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(201, 120, 112, 0.18);
+}
+.prose :global(th) {
+  font-weight: 700;
+  color: var(--ink);
+  background: rgba(230, 192, 96, 0.16);
+}
+.prose :global(tr:last-child td) {
+  border-bottom: 0;
+}
+.prose :global(td p),
+.prose :global(th p) {
+  margin: 0;
+}
+
+/* ── Divider ──────────────────────────────────────────── */
+.prose :global(hr) {
+  border: 0;
+  margin: 3em 0;
+  text-align: center;
+  height: auto;
+}
+.prose :global(hr)::before {
+  content: '• • •';
+  color: var(--rose);
+  letter-spacing: 0.6em;
+}

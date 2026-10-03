@@ -3,57 +3,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import quizContent from '@/lib/quiz-content.json'
+import {
+  getEnrollToSchool,
+  getOrCreateVisitorId,
+  getQuizResults,
+  getQuizTags,
+  getRevealCopy,
+} from '@/lib/quiz-logic'
 
 type Step = 1 | 2 | 3 | 4
-type Mode = 'explore' | 'repair'
-type Path = 'woman_self' | 'woman_partner' | 'man_self' | 'man_partner' | 'couple'
-
-// Build tags for each path and mode combination
-const getTags = (path: Path, mode: Mode): string[] => {
-  const tags: string[] = ['קיבל מתנה']
-
-  // Add gender/type tag
-  if (path === 'woman_self' || path === 'woman_partner') {
-    tags.push('אישה')
-  } else if (path === 'man_self' || path === 'man_partner') {
-    tags.push('גבר')
-  } else if (path === 'couple') {
-    tags.push('זוג')
-  }
-
-  // Add "alone" tag for self paths
-  if (path === 'woman_self' || path === 'man_self') {
-    tags.push('לבד')
-  }
-
-  // Add mode tag
-  if (mode === 'explore') {
-    tags.push('העמקה')
-  } else {
-    tags.push('שיקום')
-  }
-
-  // Add specific audience tag
-  const specificTags: Record<string, string> = {
-    'woman_self_explore': 'מייל מתנה- אישה לעצמה העמקה',
-    'woman_self_repair': 'מייל מתנה- אישה לעצמה שיקום',
-    'woman_partner_explore': 'מייל מתנה- אישה בזוגיות העמקה',
-    'woman_partner_repair': 'מייל מתנה- אישה בזוגיות שיקום',
-    'man_self_explore': 'מייל מתנה- גבר לעצמו העמקה',
-    'man_self_repair': 'מייל מתנה- גבר לעצמו שיקום',
-    'man_partner_explore': 'מייל מתנה- גבר בזוגיות העמקה',
-    'man_partner_repair': 'מייל מתנה- גבר בזוגיות שיקום',
-    'couple_explore': 'מייל מתנה- זוג העמקה',
-    'couple_repair': 'מייל מתנה- זוג שיקום',
-  }
-
-  const key = `${path}_${mode}`
-  if (specificTags[key]) {
-    tags.push(specificTags[key])
-  }
-
-  return tags
-}
 
 export default function QuizPage() {
   const router = useRouter()
@@ -72,24 +30,13 @@ export default function QuizPage() {
 
   // Get or create visitor ID (same as GiftForm)
   useEffect(() => {
-    const KEY = 'crm_visitor_id'
-    let id = localStorage.getItem(KEY)
-    if (!id) {
-      id = crypto.randomUUID()
-      localStorage.setItem(KEY, id)
-    }
-    visitorIdRef.current = id
+    visitorIdRef.current = getOrCreateVisitorId()
   }, [])
 
   const questions = quizContent.quiz.questions
 
   // Calculate results
-  const getResults = (): { path: Path; mode: Mode } | null => {
-    if (!q1 || !q2 || !q3) return null
-    const mode: Mode = q2 === 'good' ? 'explore' : 'repair'
-    const path: Path = q3 === 'couple' ? 'couple' : `${q3}_${q1}` as Path
-    return { path, mode }
-  }
+  const getResults = () => getQuizResults(q1, q2, q3)
 
   const handleQ1Answer = (value: string) => {
     setQ1(value)
@@ -135,7 +82,7 @@ export default function QuizPage() {
     if (results) {
       let uniqueLink: string | undefined
       try {
-        const tags = getTags(results.path, results.mode)
+        const tags = getQuizTags(results.path, results.mode)
         const res = await fetch('/api/crm/save-customer', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -143,7 +90,7 @@ export default function QuizPage() {
             mail: email,
             tags,
             // Which course the CRM should enrol this person in — it answers with their personal link.
-            enrollToSchool: quizContent.paths[results.path].gift[results.mode].enrollToSchool || null,
+            enrollToSchool: getEnrollToSchool(results),
             notifyTal: true,
             visitorId: visitorIdRef.current ?? null,
           }),
@@ -164,6 +111,7 @@ export default function QuizPage() {
   }
 
   const results = getResults()
+  const reveal = results ? getRevealCopy(results) : null
 
   // Get filtered options for Q3
   const q3Options = questions[2].options.filter(
@@ -266,36 +214,22 @@ export default function QuizPage() {
         )}
 
         {/* Email screen (step 4) */}
-        {step === 4 && results && (
+        {step === 4 && reveal && (
           <div className="text-center space-y-6">
             <p className="text-xl text-ink font-medium">
-              {quizContent.revealScreen.line1}
+              {reveal.line1}
             </p>
 
             <p className="text-lg text-ink leading-relaxed">
-              {(results.path === 'couple'
-                ? quizContent.revealScreen.line2_couple
-                : results.path === 'man_partner'
-                  ? quizContent.revealScreen.line2_man_partner
-                  : quizContent.revealScreen.line2
-              ).replace(
-                '{personalWindow}',
-                quizContent.paths[results.path].personalWindow[results.mode]
-              )}
+              {reveal.line2}
             </p>
 
             <div className="space-y-3 text-right">
               <p className="text-lg text-ink font-bold">
-                {(results.path === 'couple'
-                  ? quizContent.revealScreen.whyHeading_couple
-                  : quizContent.revealScreen.whyHeading
-                ).replace(
-                  '{giftTitle}',
-                  quizContent.paths[results.path].giftReason[results.mode].giftTitle
-                )}
+                {reveal.whyHeading}
               </p>
               <p className="text-lg text-ink leading-relaxed">
-                {quizContent.paths[results.path].giftReason[results.mode].why}
+                {reveal.why}
               </p>
               <p className="text-lg text-ink">
                 {quizContent.revealScreen.listenLine}

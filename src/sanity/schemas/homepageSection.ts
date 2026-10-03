@@ -83,6 +83,16 @@ export const homepageSection = defineType({
       group: 'courses',
     }),
 
+    // ── Media section background video ───────────────────────────────────
+    defineField({
+      name: 'mediaBackgroundVideo',
+      title: 'סרטון רקע לאזור "בתקשורת"',
+      description: 'קישור לסרטון בוימאו (למשל https://vimeo.com/123456789). מוצג ברקע, מושתק ובלולאה. ריק = רקע בלי סרטון.',
+      type: 'url',
+      group: 'media',
+      validation: (r) => r.uri({ scheme: ['https'] }),
+    }),
+
     // ── Scroll gallery (legacy) ───────────────────────────────────────────
     defineField({
       name: 'scrollGalleryItems',

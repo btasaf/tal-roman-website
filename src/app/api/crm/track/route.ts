@@ -14,6 +14,8 @@ export interface TrackPayload {
     country?: string
   }
   extra?: Record<string, unknown>
+  /** What useCrmTracking().track(name, data) sends */
+  eventData?: Record<string, unknown>
 }
 
 export async function POST(request: NextRequest) {
@@ -27,7 +29,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const eventData: Record<string, unknown> = { ...body.extra }
+    // track(name, data) posts `eventData`; it used to be dropped here, so CRM rows had no payload
+    const eventData: Record<string, unknown> = { ...body.eventData, ...body.extra }
     if (body.location) {
       eventData.location = body.location
     }

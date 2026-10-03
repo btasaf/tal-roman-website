@@ -11,6 +11,13 @@ export interface CrmCustomerData {
   enrollToSchool?: string
   visitorId?: string
   notifyTal?: boolean
+  freeText?: string
+  /** Optional marketing consent box (true/false). The CRM stores it with a timestamp. */
+  emailConsent?: boolean
+  /** Where the consent box was shown, e.g. 'quiz' (CRM default: 'website') */
+  consentSource?: string
+  /** Exact consent wording shown to the visitor */
+  consentText?: string
 }
 
 export interface CrmTrackEventData {

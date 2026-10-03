@@ -9,7 +9,9 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-heebo: var(--font-heebo);
-  --font-garamond: var(--font-garamond);
+  /* Serif: EB Garamond for Latin, Frank Ruhl Libre for Hebrew glyphs (EB Garamond has none) */
+  --font-garamond: var(--font-eb-garamond), var(--font-frank), 'Frank Ruhl Libre', serif;
+  --font-frank: var(--font-frank);
   --font-sans: var(--font-heebo);
 
   /* Brand palette */
@@ -52,6 +54,17 @@ body {
 
 h1, h2, h3, h4 {
   text-wrap: balance;
+}
+
+/* Hebrew typography */
+html {
+  /* Hebrew has no true italic: never let the browser fake a slanted Hebrew face */
+  font-synthesis-style: none;
+  font-kerning: normal;
+}
+p, li, blockquote {
+  /* Avoid a single word stranded on the last line */
+  text-wrap: pretty;
 }
 
 .text-gold-gradient {
@@ -110,3 +123,38 @@ html {
   padding-right: 1rem;
   padding-left: 0;
 }
+
+/* v2 testimonials marquee: transform-only loop (compositor), pauses on hover/focus */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(50%); }
+}
+.marquee-track {
+  animation: marquee-x var(--marquee-duration, 80s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+}
+/* Pause only while the pointer is over an actual card (not the gaps), or keyboard focus is inside */
+.marquee:has([data-card]:hover) .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee { overflow-x: auto; }
+  .marquee-track { animation: none; }
+}
+.marquee[data-paused] .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Touch: testimonial rows can be swiped to move faster (native horizontal scroll on top of the loop) */
+@media (pointer: coarse) {
+  .marquee[data-swipe] {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .marquee[data-swipe]::-webkit-scrollbar { display: none; }
+}
+
+.no-scrollbar { scrollbar-width: none; }

@@ -91,10 +91,18 @@ export interface SiteSettings {
   phone?: string
   whatsapp?: string
   instagram?: string
+  facebook?: string
+  tiktok?: string
+  youtube?: string
   seoTitle?: string
   seoDescription?: string
   contactFormTag?: string
   contactFormStatus?: string
+  yearsExperience?: number
+  communityMembers?: number
+  tiktokFollowers?: number
+  facebookFollowers?: number
+  instagramFollowers?: number
 }
 
 export interface HtmlPage {

@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
-import { Heebo, EB_Garamond } from 'next/font/google'
+import { Heebo, EB_Garamond, Frank_Ruhl_Libre } from 'next/font/google'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { MotionProvider } from '@/components/MotionProvider'
 import { fetchSiteSettings } from '@/lib/queries'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
+import SiteFooterGate from '@/components/SiteFooterGate'
 import WhatsAppFAB from '@/components/ui/WhatsAppFAB'
 import ScrollProgressBar from '@/components/ui/ScrollProgressBar'
 import GrainOverlay from '@/components/ui/GrainOverlay'
@@ -15,15 +16,24 @@ import './globals.css'
 
 const heebo = Heebo({
   subsets: ['hebrew', 'latin'],
-  weight: ['300', '400', '500', '700', '800'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-heebo',
+  display: 'swap',
+})
+
+// True Hebrew serif for display text (variable font, 300-900)
+const frankRuhl = Frank_Ruhl_Libre({
+  subsets: ['hebrew', 'latin'],
+  variable: '--font-frank',
   display: 'swap',
 })
 
 const ebGaramond = EB_Garamond({
   subsets: ['latin'],
   weight: ['400', '700'],
-  variable: '--font-garamond',
+  variable: '--font-eb-garamond',
+  // No generated Times-based fallback: it contains Hebrew glyphs and would win over Frank Ruhl Libre for Hebrew text
+  adjustFontFallback: false,
   display: 'swap',
 })
 
@@ -47,7 +57,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const settings = await fetchSiteSettings().catch(() => null)
 
   return (
-    <html lang="he" dir="rtl" className={`${heebo.variable} ${ebGaramond.variable} h-full antialiased`}>
+    <html lang="he" dir="rtl" className={`${heebo.variable} ${ebGaramond.variable} ${frankRuhl.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[#0d0804] font-heebo">
         <MotionProvider>
           <PageViewTracker />
@@ -56,7 +66,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           {/* <MagicalRibbon /> */}
           <Nav />
           <main className="flex-1 pt-20">{children}</main>
-          <Footer settings={settings} />
+          <SiteFooterGate>
+            <Footer settings={settings} />
+          </SiteFooterGate>
           <WhatsAppFAB />
           <AgentationWrapper />
         </MotionProvider>

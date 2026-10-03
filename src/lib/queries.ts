@@ -32,6 +32,12 @@ export const allTestimonialsQuery = `*[_type == "testimonial" && active != false
   name, courseTitle, body, image
 }`
 
+// Only testimonials about private one-on-one coaching. courseTitle is the schema's only context field;
+// every coaching testimonial in the dataset uses "ליווי אישי" ("ייעוץ אישי" covers the other name for it).
+export const coachingTestimonialsQuery = `*[_type == "testimonial" && active != false && courseTitle in ["ליווי אישי", "ייעוץ אישי"]] | order(sort asc, _createdAt desc) {
+  name, courseTitle, body, image
+}`
+
 export const blogPostsQuery = `*[_type == "blogPost" && active != false] | order(publishedAt desc) {
   title, "slug": slug.current, publishedAt, excerpt, thumbnail
 }`
@@ -62,12 +68,13 @@ export const homepageSectionQuery = `*[_type == "homepageSection"][0] {
   featuredPromoStroke,
   coursesHeadline, coursesBgImage,
   coursesStroke,
-  "featuredCourses": featuredCourses[]->{ title, "slug": slug.current, shortDescription, thumbnail, price, purchaseUrl, type, active },
+  "featuredCourses": featuredCourses[]->{ title, "slug": slug.current, shortDescription, thumbnail, price, purchaseUrl, type, active, location, whoIsItFor },
   testimonialsBgImage,
   testimonialsStroke,
   contactBgImage,
   contactStroke,
-  scrollGalleryItems[] { image, headline, body }
+  scrollGalleryItems[] { image, headline, body },
+  mediaBackgroundVideo
 }`
 
 export const giftsQuery = `*[_type == "gift" && active != false] | order(title asc) {
@@ -82,8 +89,9 @@ export const giftBySlugQuery = `*[_type == "gift" && slug.current == $slug][0] {
 }`
 
 export const siteSettingsQuery = `*[_type == "siteSettings"][0] {
-  phone, whatsapp, instagram, seoTitle, seoDescription,
-  contactFormTag, contactFormStatus
+  phone, whatsapp, instagram, facebook, tiktok, youtube, seoTitle, seoDescription,
+  contactFormTag, contactFormStatus,
+  yearsExperience, communityMembers, tiktokFollowers, facebookFollowers, instagramFollowers
 }`
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -105,6 +113,10 @@ export async function fetchTestimonials(): Promise<Testimonial[]> {
 
 export async function fetchAllTestimonials(): Promise<Testimonial[]> {
   return client.fetch(allTestimonialsQuery, {}, cacheOpts(['testimonials']))
+}
+
+export async function fetchCoachingTestimonials(): Promise<Testimonial[]> {
+  return client.fetch(coachingTestimonialsQuery, {}, cacheOpts(['testimonials']))
 }
 
 export async function fetchBlogPosts(): Promise<BlogPost[]> {

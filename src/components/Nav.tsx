@@ -27,6 +27,11 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Hide Nav on v2 route - it has its own minimal header (after all hooks, so hook order never changes)
+  if (pathname?.startsWith('/v2')) {
+    return null
+  }
+
   function isActive(href: string) {
     if (href === '/') return pathname === '/'
     return pathname.startsWith(href)
@@ -45,7 +50,7 @@ export default function Nav() {
         <div className="flex items-center justify-start">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-lg xl:text-2xl font-extrabold text-ink tracking-wide">טל רומן</span>
-            <Image src="/logo.png" alt="טל רומן" width={36} height={36} className="rounded-full xl:w-10 xl:h-10" priority />
+            <Image src="/logo.svg" alt="טל רומן" width={39} height={36} className="h-9 w-auto xl:h-10" priority />
           </Link>
         </div>
 
@@ -90,7 +95,7 @@ export default function Nav() {
 
         <Link href="/" className="flex items-center gap-2.5">
           <span className="text-2xl font-extrabold text-gold tracking-wide">טל רומן</span>
-          <Image src="/logo.png" alt="טל רומן" width={38} height={38} className="rounded-full" priority />
+          <Image src="/logo.svg" alt="טל רומן" width={42} height={38} className="h-[38px] w-auto" priority />
         </Link>
       </div>
 
