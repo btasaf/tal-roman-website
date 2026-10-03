@@ -1,6 +1,6 @@
 ---
 name: tal-welcome
-description: One-time welcome guide (in Hebrew) for Tal, explaining the new v2 site and the Claude Code tools added to this repo — motion, Sanity, browser notes with /listen, /subtask and more. Use at the start of a conversation in this repo when it is not yet known whether the user is Asaf or Tal, or when Tal asks "what's new", "how do I…", "מה חדש", "איך עובדים עם…". Temporary: remove once Tal has gone through it.
+description: One-time welcome guide (in Hebrew) for Tal, explaining the new v2 site and the Claude Code tools added to this repo — motion, Sanity, browser notes with /listen, /subtask, creating her own skills and more. Use at the start of a conversation in this repo when it is not yet known whether the user is Asaf or Tal, or when Tal asks "what's new", "how do I…", "מה חדש", "איך עובדים עם…". Temporary: remove once Tal has gone through it.
 ---
 
 # Welcome guide for Tal (temporary)
@@ -13,7 +13,16 @@ If your memory doesn't already say who the user is, ask once, in Hebrew:
 - **Asaf** → save a memory that the user on this machine is Asaf, and continue normally (don't show the guide).
 - **Tal** → save a memory that the user on this machine is Tal, then show the guide below **in Hebrew, exactly in this friendly tone**, one section at a time if she prefers. Answer her questions as she goes.
 
-After Tal has read it, ask if she wants to keep the guide for later. If not, delete `.claude/skills/tal-welcome/`, commit ("Remove Tal welcome guide") and tell her it's gone.
+After Tal has read it, ask her (in Hebrew) what to do with the guide — never delete it without her answer:
+
+> מה לעשות עם המדריך הזה? 
+> 1. **להזכיר לי שוב בפעם הבאה** (או בעוד כמה ימים) 
+> 2. **להשאיר אותו** — אפשר לבקש אותו מתי שרוצים ("תראי לי שוב את המדריך") 
+> 3. **למחוק** — כבר לא צריך
+
+- **Remind later** → save a memory "Tal wants the welcome guide again" with the date and when (next conversation / in N days). At that time, offer it again briefly ("רוצה שנעבור שוב על המדריך?") and ask the same question again.
+- **Keep** → leave it; show it whenever she asks.
+- **Delete** → delete `.claude/skills/tal-welcome/` and the `tal-welcome` line in `.claude/CLAUDE.md` stays harmless (or remove it), ask before committing ("Remove Tal welcome guide"), and tell her it's gone.
 
 ## Step 2 — the guide (show to Tal)
 
@@ -72,7 +81,28 @@ After Tal has read it, ask if she wants to keep the guide for later. If not, del
 - **שינויים בקוד:** אני עובדת על הענף `test/motion`. לפני שאני עושה commit או push, אני אשאל אותך.
 - **מפתחות וסיסמאות:** לעולם לא בצ'אט ולא בגיט — רק בקובץ `.env.local`.
 
-## 8. מה מחכה לאישור שלך ✅
+## 8. את יכולה לבנות לעצמך כלים משלך — skills 🛠️
+**skill** הוא בעצם "דף הוראות" ששמור אצלי, ואני משתמשת בו לבד בכל פעם שהוא רלוונטי. ככה לא צריך להסביר לי את אותו הדבר שוב ושוב. (המדריך הזה, למשל, הוא skill!)
+
+**איך יוצרים?** פשוט אומרים לי, במילים שלך:
+- "תיצרי לי skill שכל פעם שאני מעלה מאמר חדש, תבדקי שיש לו תמונה, תקציר ותגיות"
+- "תיצרי לי skill לסגנון הכתיבה שלי — חם, אישי, בגוף ראשון, פונה לכולם"
+- "תיצרי לי skill שמזכיר לי לבדוק את הטפסים לפני כל השקה"
+
+אני אכתוב אותו, אראה לך, ואשמור. אפשר גם לבקש לשנות או למחוק skill בכל זמן.
+
+**מתי זה שווה?**
+- כשאת מוצאת את עצמך **מסבירה לי את אותו הדבר יותר מפעם אחת**.
+- **תהליך שחוזר על עצמו**: העלאת מאמר, עדכון מחירים, השקת קורס חדש, פריסייל חדש.
+- **העדפות קבועות**: סגנון כתיבה, מונחים שאת אוהבת/לא אוהבת, איך לפנות לקהל.
+- **תזכורת זמנית** — כמו רשימת ההשקה, שנמחקת לבד כשמסיימים.
+
+**איפה הוא נשמר?**
+- **רק אצלך** (במחשב שלך) — להעדפות אישיות.
+- **בפרויקט** (בתיקייה `.claude/skills`, ועולה לגיט) — כשרוצים שגם לאסף ול־Claude שלו יהיה אותו כלי.
+אם לא תגידי, אשאל אותך.
+
+## 9. מה מחכה לאישור שלך ✅
 - לעבור על כל הדפים ב־`/v2` ולתת הערות (בעזרת הסרגל ו־`/listen`!).
 - דפי המשפט (פרטיות, נגישות, תנאי שימוש): למלא את השדות המסומנים בזהב, ועדיף שעורכת דין תעבור עליהם.
 - שאלות פתוחות: "שניים לטנטרה" — 14 או 18 פרקים? תמונות חלופיות לשתי התמונות הבוטות באזור "בתקשורת" ולתמונת המכשיר בעמוד הפריסייל.
