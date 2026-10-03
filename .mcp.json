@@ -16,6 +16,10 @@
         "agentation-mcp",
         "server"
       ]
+    },
+    "Sanity": {
+      "type": "http",
+      "url": "https://mcp.sanity.io"
     }
   }
 }
