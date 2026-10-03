@@ -7,6 +7,15 @@
     "motion-plus": {
       "type": "http",
       "url": "https://mcp.motion.dev/plus"
+    },
+    "agentation": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "agentation-mcp",
+        "server"
+      ]
     }
   }
 }
