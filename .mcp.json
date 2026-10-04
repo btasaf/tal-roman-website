@@ -28,6 +28,13 @@
         "-y",
         "chrome-devtools-mcp@latest"
       ]
+    },
+    "talcrm": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        ".claude/mcp/talcrm-mcp.mjs"
+      ]
     }
   }
 }
