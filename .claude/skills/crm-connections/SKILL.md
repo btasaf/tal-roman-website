@@ -22,7 +22,7 @@ talroman.com (Next.js on Vercel, repo tal-roman-website)
   browser ──► /api/crm/save-customer, /api/crm/track, /api/crm/track/:id   (Next.js server routes)
                  │ server-to-server fetch, no auth, CRM_BASE_URL
                  ▼
-CRM  https://crm.talroman.com   (EC2 Ubuntu, eu-north-1, PM2 process "index", Node on port 5000)
+CRM  http://crm.talroman.com   (EC2 Ubuntu, eu-north-1, PM2 process "index", Node on port 5000)
   ├─ PostgreSQL tals_crm (same host, localhost:5432) ── pg-boss queue (schema PGBOSS_SCHEMA)
   ├─ Email: scheduler (every N min) → pg-boss "email-send" → worker → Amazon SES (eu-north-1)
   │        ↖ SES → SNS → POST /api/email/sns-webhook (bounces/complaints)
@@ -60,7 +60,7 @@ Telegram bot (separate PM2 process "talcrm-bot", openclaw + OpenAI gpt-4o-mini)
 | Deploy | `npm run deploy` = build the client locally → rsync `client/build/` to the server → SSH: `git pull` (from GitHub `btasaf/redhead-crm`, whatever is on the pushed branch) + `npm install` + `pm2 restart index`. `deploy-server-only` skips the client. `update` is the on-server variant. **All need explicit approval.** A restart also runs `sync({alter:true})`. |
 | Env | Production `.env` lives on the server. Locally it's mirrored in `.env.prod` (gitignored). `npm run push-env` **overwrites** the server `.env` with `.env.prod` (it backs up to `.env.bak`), so it needs approval. |
 | Logs | `npm run logs` / `logs:sys` / `logs:ai` (SSH, read-only, still ask first). |
-| Test safely | `GET https://crm.talroman.com/api/con_test` → `{"res":"hello"}`. `GET /api/wix/test` shows the integration is alive. Both are public and read-only. |
+| Test safely | `GET http://crm.talroman.com/api/con_test` → `{"res":"hello"}`. `GET /api/wix/test` shows the integration is alive. Both are public and read-only. |
 | If down | Website leads and tracking fail (500 on the website route). Cardcom webhooks fail (Cardcom may retry, depending on its settings, *unconfirmed*). SNS bounce notifications get missed. Emails and WhatsApp stop. |
 
 ### 3. Amazon SES email, bounces, complaints, unsubscribe
@@ -69,8 +69,8 @@ Telegram bot (separate PM2 process "talcrm-bot", openclaw + OpenAI gpt-4o-mini)
 | For | All outgoing email: sequences, manual sends, the "new lead" notification to Tal, admin alerts |
 | Config | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_REGION` (eu-north-1), `SES_FROM_EMAIL`, `SES_FROM_NAME` (`service.emailProviderSES.js`) |
 | Local vs prod | **When `NODE_ENV` ≠ `production`, `sendEmail` returns a fake success and sends nothing.** Real sends happen in production only. |
-| Bounces/complaints | SES → SNS topics → `POST /api/email/sns-webhook` (production URL `https://crm.talroman.com/api/email/sns-webhook`). The endpoint auto-confirms the subscription and **does not verify SNS signatures**. Hard bounce → `emailSubscribed=false`, `unsubscribe_reason='hard_bounce: …'`. Repeated soft bounces → `soft_bounce_max_retries_exceeded`. Complaint → `spam_complaint`. Records go to `email_bounces`. Setup: `claudeDocs/EMAIL_BOUNCE_SETUP.md`. Whether the SNS subscription is active can only be confirmed in the AWS console. |
-| Unsubscribe | Each email gets a footer link "להסרה מרשימת התפוצה" = `UNSUBSCRIBE_URL?token=<JWT signed with JWT_SECRET>` (production `https://crm.talroman.com/unsubscribe`). `GET /unsubscribe` shows the page and `POST /unsubscribe` sets `emailSubscribed=false`, reason `user_request`. **Changing `JWT_SECRET` breaks every link already sent.** |
+| Bounces/complaints | SES → SNS topics → `POST /api/email/sns-webhook` (production URL `http://crm.talroman.com/api/email/sns-webhook`). The endpoint auto-confirms the subscription and **does not verify SNS signatures**. Hard bounce → `emailSubscribed=false`, `unsubscribe_reason='hard_bounce: …'`. Repeated soft bounces → `soft_bounce_max_retries_exceeded`. Complaint → `spam_complaint`. Records go to `email_bounces`. Setup: `claudeDocs/EMAIL_BOUNCE_SETUP.md`. Whether the SNS subscription is active can only be confirmed in the AWS console. |
+| Unsubscribe | Each email gets a footer link "להסרה מרשימת התפוצה" = `UNSUBSCRIBE_URL?token=<JWT signed with JWT_SECRET>` (production `http://crm.talroman.com/unsubscribe`). `GET /unsubscribe` shows the page and `POST /unsubscribe` sets `emailSubscribed=false`, reason `user_request`. **Changing `JWT_SECRET` breaks every link already sent.** |
 | Open tracking | 1×1 pixel `APP_BASE_URL/track/open/:token.png` → `email_open_tracking` |
 | Sent copy | After a real send, `service.zohoImap` appends the message to the Zoho "Sent" folder (`ZOHO_IMAP_USER`, `ZOHO_IMAP_PASSWORD`, host `imappro.zoho.com`). If it isn't configured it's skipped with a warning. |
 | Test safely | Locally, everything is stubbed, so check logs and `email_send_logs`. In production, `POST /api/admin/alerts/test` sends one email to the admin addresses (still ask first). Never "test" by sending to customers. |
@@ -115,7 +115,7 @@ Telegram bot (separate PM2 process "talcrm-bot", openclaw + OpenAI gpt-4o-mini)
 | | |
 |---|---|
 | For | A paid order creates or updates the customer, adds a tag (which can trigger a sequence), raises the status, and optionally records a tracking event |
-| Endpoint | `POST /api/webhook/cardcom` (production `https://crm.talroman.com/api/webhook/cardcom`, set in Cardcom's dashboard, *confirm there*). **No signature or secret check.** Only `responsecode === '0'` is processed. |
+| Endpoint | `POST /api/webhook/cardcom` (production `http://crm.talroman.com/api/webhook/cardcom`, set in Cardcom's dashboard, *confirm there*). **No signature or secret check.** Only `responsecode === '0'` is processed. |
 | Mapping | Table `cardcom_configs` (managed in the CRM UI, `/api/cardcom/configs`): `numberId` = Cardcom `Custom19` → `tagId`, `statusId` (raised only if higher), `trackingEventType`, `isActive`. If nothing matches, the row with `numberId='default'` applies. Customer is matched by phone or email. Docs: `claudeDocs/CARDCOM_INTEGRATION.md`. |
 | Env | None (no Cardcom API calls out) |
 | Test safely | Locally: `curl -X POST http://localhost:5000/api/webhook/cardcom -H "Content-Type: application/json" -d '{"responsecode":"0","Custom19":"<numberId>","UserEmail":"<your test email>","CardOwnerName":"Test"}'`. Never against production. |
@@ -150,7 +150,7 @@ The browser never calls the CRM directly. The website's Next.js server routes ca
 | `POST /api/crm/track/:eventId` | `PUT ${CRM_BASE_URL}/wix/track/:eventId` | `PUT /api/wix/track/:eventId` (time on page, scroll depth) |
 | — | `GET ${CRM_BASE_URL}/wix/test` | health check |
 
-**Env on the website side:** `CRM_BASE_URL`, read in `src/lib/crm-client.ts` (default `http://localhost:5000`). The client appends `/wix/...` while the CRM routes are `/api/wix/...`, so **`CRM_BASE_URL` must end in `/api`**: production `https://crm.talroman.com/api` (set in Vercel, *confirm there*), local `http://localhost:5000/api`. Without `/api`, every form post gets a CRM 404 (the session-start check warns about this).
+**Env on the website side:** `CRM_BASE_URL`, read in `src/lib/crm-client.ts` (default `http://localhost:5000`). The client appends `/wix/...` while the CRM routes are `/api/wix/...`, so **`CRM_BASE_URL` must end in `/api`**: production `http://crm.talroman.com/api` (set in Vercel, *confirm there*), local `http://localhost:5000/api`. Without `/api`, every form post gets a CRM 404 (the session-start check warns about this).
 
 ### `POST /api/wix/customer` fields
 | Field | Type / allowed values | Behaviour |
@@ -186,8 +186,8 @@ CRM side (Asaf's machine):
 ## Health checks (all read-only)
 | Check | Local | Production (public GET, fine to run when asked) |
 |---|---|---|
-| Server up | `curl http://localhost:5000/api/con_test` | `curl https://crm.talroman.com/api/con_test` |
-| Website integration route | `curl http://localhost:5000/api/wix/test` | `curl https://crm.talroman.com/api/wix/test` |
+| Server up | `curl http://localhost:5000/api/con_test` | `curl http://crm.talroman.com/api/con_test` |
+| Website integration route | `curl http://localhost:5000/api/wix/test` | `curl http://crm.talroman.com/api/wix/test` |
 | Email health / queue | `/api/email/health`, `/api/email/pgboss/status`, `/api/email/queue/stats` | same paths |
 | WhatsApp | CRM UI → WhatsApp screen (`/api/whatsapp/status`, login) | same |
 | AI | `/api/ai-insert/claude/status` (login) | same |

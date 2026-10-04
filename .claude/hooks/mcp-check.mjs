@@ -30,7 +30,7 @@ async function crmChecks() {
   if (!base) notes.push('CRM_BASE_URL is not set in .env.local, so forms use the code default http://localhost:5000, which is missing /api and gets a CRM 404. Set CRM_BASE_URL=http://localhost:5000/api.')
   else if (!/\/api$/.test(base)) notes.push(`CRM_BASE_URL in .env.local is "${base}". It must end with /api (e.g. http://localhost:5000/api), or every website form gets a CRM 404.`)
   const [prod, prodHttp, local] = await Promise.all([ping('https://crm.talroman.com/api/con_test'), ping('http://crm.talroman.com/api/con_test'), ping('http://localhost:5000/api/con_test')])
-  if (prod !== 'up' && prodHttp === 'up') notes.push(`Production CRM answers on http:// but NOT on https:// (${prod}). The emails' unsubscribe links and open-tracking pixel use https://crm.talroman.com, so they are likely broken (legal risk: the unsubscribe link must work). Tell the user (Asaf) first thing: HTTPS/certificate/nginx on the CRM server needs fixing. See the crm-connections skill.`)
+  if (prod !== 'up' && prodHttp === 'up') notes.push(`Production CRM runs on http:// only (https is off, which is Asaf's choice and OK). Mention it only if emails' unsubscribe links, open tracking or bounces seem broken: those must use http:// URLs (production UNSUBSCRIBE_URL, APP_BASE_URL, SNS endpoint). See crm-connections. Otherwise no need to mention it.`)
   else if (prod !== 'up') notes.push(`Production CRM (crm.talroman.com) is not responding (https: ${prod}, http: ${prodHttp}), so website leads are failing right now. Tell the user first thing (CRM is Asaf's); see the crm-connections skill.`)
   return { notes, summary: `production up, local ${local === 'up' ? 'running' : 'not running (fine unless testing forms locally)'}` }
 }

@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url'
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
 const CRM_REPO = process.env.TALCRM_REPO || 'C:\\projects\\talCRM'
 const TARGETS = {
-  production: process.env.TALCRM_PROD_API || 'https://crm.talroman.com/api',
+  production: process.env.TALCRM_PROD_API || 'http://crm.talroman.com/api', // CRM serves plain http (no https)
   local: process.env.TALCRM_LOCAL_API || 'http://localhost:5000/api',
 }
 
@@ -75,7 +75,7 @@ const tools = {
         const [server, wix, email] = await Promise.all([get(base, '/con_test'), get(base, '/wix/test'), get(base, '/email/health')])
         if (t === 'production' && !server.ok) {
           const plain = await get(base.replace(/^https:/, 'http:'), '/con_test')
-          if (plain.ok) out.productionHttpsWarning = 'Production answers on http:// but not https:// — email unsubscribe links and the open pixel use https://crm.talroman.com, so they are likely broken. HTTPS on the CRM server needs fixing (Asaf).'
+          if (plain.ok) out.productionNote = 'Production runs on http:// only (https off by choice). Production UNSUBSCRIBE_URL, APP_BASE_URL and the SNS endpoint must therefore be http:// URLs.'
         }
         out[t] = {
           server: server.ok ? `up (${server.ms}ms)` : `DOWN: ${server.error || server.status}`,
