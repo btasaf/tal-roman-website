@@ -46,6 +46,14 @@ const nextConfig: NextConfig = {
       { source: '/generate-page/:path*', destination: '/', permanent: true },
     ]
   },
+  async rewrites() {
+    return [
+      // Static campaign landing page (public/body-map), outside the site layout
+      { source: '/body-map', destination: '/body-map/index.html' },
+      { source: '/body-map/thank-you', destination: '/body-map/thank-you.html' },
+      { source: '/privacy', destination: '/privacy.html' },
+    ]
+  },
   images: {
     remotePatterns: [
       {
